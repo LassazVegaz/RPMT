@@ -11,7 +11,7 @@
 
 - [Lasindu](https://wireframepro.mockflow.com/view/MUYCsQXX9nb)
 - [Raveena](add_you_link_here)
-- [Chathura](add_you_link_here)
+- [Chathura](https://wireframepro.mockflow.com/view/MK74VDkXAnb)
 - [Oshadhi](add_you_link_here)
 
 
