@@ -1,5 +1,11 @@
+import { Typography, Container } from "@mui/material";
+
 function App() {
-	return <div>Hello World</div>;
+	return (
+		<Container maxWidth="xl">
+			<Typography variant="h1">Hello World</Typography>
+		</Container>
+	);
 }
 
 export default App;
