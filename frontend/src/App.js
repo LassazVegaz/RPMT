@@ -1,10 +1,18 @@
-import { Typography, Container } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Footer } from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
 
 function App() {
 	return (
-		<Container maxWidth="xl">
-			<Typography variant="h1">Hello World</Typography>
-		</Container>
+		<>
+			<Header />
+
+			<Typography mt={30} mb={33} variant="h1">
+				Large content
+			</Typography>
+
+			<Footer />
+		</>
 	);
 }
 
