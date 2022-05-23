@@ -63,10 +63,15 @@ const TopNav = () => {
 
 export const Header = () => {
 	return (
-		<AppBar>
-			<TopNav />
+		<>
+			<AppBar>
+				<TopNav />
 
-			<BottomNav />
-		</AppBar>
+				<BottomNav />
+			</AppBar>
+
+			<Toolbar />
+			<Toolbar />
+		</>
 	);
 };
