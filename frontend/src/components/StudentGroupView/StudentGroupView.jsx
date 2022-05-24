@@ -1,5 +1,4 @@
 import {
-	styled,
 	Paper,
 	Table,
 	TableBody,
@@ -7,15 +6,8 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-	tableCellClasses,
 } from "@mui/material";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-	[`&.${tableCellClasses.head}`]: {
-		backgroundColor: theme.palette.primary.light,
-		color: theme.palette.primary.contrastText,
-	},
-}));
+import { StyledTableCell } from "../StyledTableCell/StyledTableCell";
 
 const StudentRow = () => {
 	const values = ["IT101", "Oshadhi", "oshadhi@oshadhi.com", "Leader"];
