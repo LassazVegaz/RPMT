@@ -1,13 +1,13 @@
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
-import { SignInPage } from "./pages/SignInPage/SignInPage";
+import { SignupPage } from "./pages/SignupPage/SignupPage";
 
 function App() {
 	return (
 		<>
 			<Header />
 
-			<SignInPage />
+			<SignupPage />
 
 			<Footer />
 		</>
