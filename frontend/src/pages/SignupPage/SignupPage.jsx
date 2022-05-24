@@ -10,7 +10,20 @@ import {
 	ToggleButton,
 	ToggleButtonGroup,
 	Typography,
+	styled,
 } from "@mui/material";
+
+const UnderlinedText = styled(Typography)(({ theme }) => ({
+	"&:after": {
+		content: '""',
+		display: "block",
+		width: "40%",
+		margin: "auto",
+		marginTop: theme.spacing(1),
+		height: 2,
+		background: "linear-gradient(180deg, #055a0e, #00bcd4)",
+	},
+}));
 
 export const SignupPage = () => {
 	return (
@@ -38,9 +51,9 @@ export const SignupPage = () => {
 					}}
 				/>
 
-				<Typography variant="h5" mb={8} textAlign="center">
+				<UnderlinedText variant="h5" mb={8} textAlign="center">
 					Mr. John Doe
-				</Typography>
+				</UnderlinedText>
 
 				<Box
 					sx={{
