@@ -1,13 +1,13 @@
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
-import { SubmissionViewPage } from "./pages/SubmissionViewPage/SubmissionViewPage";
+import { ChatPage } from "./pages/ChatPage/ChatPage";
 
 function App() {
 	return (
 		<>
 			<Header />
 
-			<SubmissionViewPage />
+			<ChatPage />
 
 			<Footer />
 		</>
