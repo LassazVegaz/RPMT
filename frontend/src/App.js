@@ -5,7 +5,9 @@ import { Home } from "./pages/StudentHomePage/StudentHomePage";
 import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
 import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
 import { ViewSupervisorFeedbackPage } from "./pages/ViewSupervisorFeedbackPage/ViewSupervisorFeedbackPage";
-import { Requests } from "./pages/Requests/Requests";
+import { Requests } from "./pages/RequestsPage/RequestsPage";
+import { SubmitDocumentsPage } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
+import { DownloadTemplatePage } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
 function App() {
   return (
     <>
@@ -14,8 +16,10 @@ function App() {
       <Home />
       <CreateGroups />
       <Registertopic />
-      <ViewSupervisorFeedbackPage />
+      <ViewSupervisorFeedbackPage isCoSupervisor={true} />
       <Requests />
+      <SubmitDocumentsPage />
+      <DownloadTemplatePage />
       <Footer />
     </>
   );

@@ -1,56 +1,97 @@
 import React from "react";
 import {
-  Button,
   Container,
   Paper,
   Typography,
-  Box,
   TextField,
-} from "@mui/material";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
+  TableHead,
 	TableRow,
+	Table,
+	TableContainer,
+	TableCell,
+	TableBody,
+  InputBase,
 } from "@mui/material";
-// import { StyledTableCell } from "../StyledTableCell/StyledTableCell";
-import SearchIcon from '@mui/icons-material/Search';
+
+import { StyledTableCell } from "../../components/StyledTableCell/StyledTableCell";
 
 
-export const ViewSupervisorFeedbackPage = () => {
 
-    const values = [];
+const SchemaRow = () => {
+	const values = ["AF_01", "Testing" ,"MR Perea","Approved"];
 
-  return (
-        
-    <Container>
-
-        <TableRow hover>
+	return (
+		<TableRow hover>
 			{values.map((value, index) => (
-				<TableCell align="center" key={index}>
+				<TableCell key={index} align="center">
 					{value}
 				</TableCell>
 			))}
-		</TableRow>
-
-        <Box sx={{
-             my: 10,
-             maxwidth:50,
-         }} >
-          
-          <Typography variant="h4" mb={5} fontFamily={"areal"}>
-			 View Supervisor Feedback
-			</Typography>
-
-          <TextField textAlign="left" placeholder="Search" > Search <SearchIcon /></TextField> 
-
-        </Box>
-         
-
 			
+		</TableRow>
+	);
+};
 
-    </Container>
+
+
+ export const ViewSupervisorFeedbackPage = ({isCoSupervisor=false}) => {
+   const headers = ["GroupID", "Topic", "Supervisor" , "Feedback"];
+   if (isCoSupervisor)
+    headers[2] = "Co-Supervisor"
+  return (
+    <Container
+      maxWidth="lg"
+      sx={{
+        my: 10,
+      }}
+    >
+      <Typography variant="h4" mb={10} textAlign="center" fontFamily={"areal"}>
+        View Supervisor Feedback ..
+      </Typography>
+
+  <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 , mb: 5}}
+    >
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search "
+        inputProps={{ 'aria-label': 'search google maps' }}
+
+      />
+    </Paper>
+      
+
+      <TableContainer component={Paper}>
+			<Table>
+				<TableHead>
+					<TableRow
+						sx={{
+							backgroundColor: "palette.common.black",
+						}}
+					>
+						{headers.map((header, index) => (
+							<StyledTableCell
+							align="center"
+								key={index}
+							
+							>
+								{header}
+							</StyledTableCell>
+						))}
+					</TableRow>
+				</TableHead>
+
+				<TableBody>
+					<SchemaRow />
+					<SchemaRow />
+					<SchemaRow />
+				</TableBody>
+			</Table>
+		</TableContainer>
+
+      </Container>
   )
 }
+
+
