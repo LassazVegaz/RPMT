@@ -16,7 +16,7 @@ export const CreateGroups = () => {
         my: 10,
       }}
     >
-      <Typography variant="h4" mb={10} textAlign="center">
+      <Typography variant="h4" mb={10} textAlign="center" fontFamily={"areal"}>
         Create Student Groups ..
       </Typography>
 

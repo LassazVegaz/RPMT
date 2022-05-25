@@ -5,6 +5,7 @@ import { Home } from "./pages/StudentHomePage/StudentHomePage";
 import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
 import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
 import { ViewSupervisorFeedbackPage } from "./pages/ViewSupervisorFeedbackPage/ViewSupervisorFeedbackPage";
+import { Requests } from "./pages/Requests/Requests";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
       <CreateGroups />
       <Registertopic />
       <ViewSupervisorFeedbackPage />
+      <Requests />
       <Footer />
     </>
   );

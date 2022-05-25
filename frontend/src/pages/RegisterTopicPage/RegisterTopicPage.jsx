@@ -20,7 +20,7 @@ export const Registertopic = () => {
         my: 10,
       }}
     >
-      <Typography variant="h4" mb={10} textAlign="center">
+      <Typography variant="h4" mb={10} textAlign="center" fontFamily={"areal"}>
         Register Your Topic ..
       </Typography>
 
