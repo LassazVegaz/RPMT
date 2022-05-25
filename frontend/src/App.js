@@ -1,9 +1,9 @@
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
 
-import { Home } from "./pages/Student/Home";
-import { CreateGroups } from "./pages/Student/CreateGroups";
-import { Registertopic } from "./pages/Student/Registertopic";
+import { Home } from "./pages/StudentHomePage/StudentHomePage";
+import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
+import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
 
 function App() {
   return (
