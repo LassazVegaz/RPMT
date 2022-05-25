@@ -38,9 +38,13 @@ export const CreateGroups = () => {
             rowGap: 4,
           }}
         >
+            <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
+            Group Name :
+          </Typography>
+
           <TextField label="Group Name" />
 
-          <Typography variant="h7" textAlign="left">
+          <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
             Group Members :
           </Typography>
 

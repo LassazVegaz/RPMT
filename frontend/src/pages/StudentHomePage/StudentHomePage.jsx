@@ -106,10 +106,15 @@ const ImageMarked = styled("span")(({ theme }) => ({
 export const Home = () => {
   return (
     <Box
-      sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%" }}
+      sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%", mt: 10}}
     >
-      <Container>
-        {/* <Box style={{ marginTop: "00px" }}> */}
+      <Container sx={{
+        display: "flex",
+        flexWrap: "inherit",
+        rowGap: 5,
+        columnGap: 5,
+      }}>
+       
         {images.map(
           (
             image //1 st raw
@@ -159,7 +164,7 @@ export const Home = () => {
             </ImageButton>
           )
         )}
-        {/* </Box> */}
+        
       </Container>
     </Box>
   );
