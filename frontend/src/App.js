@@ -1,6 +1,5 @@
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
-import { SignInPage } from "./pages/SignInPage/SignInPage";
 
 import { Home } from "./pages/Student/Home";
 import { CreateGroups } from "./pages/Student/CreateGroups";
