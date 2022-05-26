@@ -10,6 +10,8 @@ import {
     Avatar,
     Box,
 	TableRow,
+    ToggleButtonGroup,
+    ToggleButton,
     IconButton,
 } from "@mui/material";
 import { StyledTableCell } from "../../components/StyledTableCell/StyledTableCell";
@@ -49,6 +51,13 @@ export const ViewProfilesPage = () => {
     <Container maxWidth="lg"     sx={{
         my: 10,
       }}>
+          				<ToggleButtonGroup exclusive fullWidth sx={{mb:5}}>
+						<ToggleButton>Co-Supervisors</ToggleButton>
+						<ToggleButton>Supervisors</ToggleButton>
+						<ToggleButton>Panel Members</ToggleButton>
+                        <ToggleButton>Students</ToggleButton>
+					    </ToggleButtonGroup>
+            
           <TableContainer component={Paper}>
 			<Table>
 				<TableHead>
