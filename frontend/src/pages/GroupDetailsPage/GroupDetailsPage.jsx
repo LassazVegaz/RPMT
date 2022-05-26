@@ -1,9 +1,15 @@
 import React from 'react';
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
-import { Container, Typography, Paper, Box } from "@mui/material";
+import { 
+    Container,
+    Typography,
+    Paper,
+    Box,
+ } from "@mui/material";
 
 
 export const GroupDetailsPage = () => {
+    const tableHeaders = ["ID", "Name", "Email", "Membership"];
   return (
     <Container maxWidth="lg">
         			<Typography
@@ -45,10 +51,52 @@ export const GroupDetailsPage = () => {
 					>
 						Research Field :
 					</Typography>
+                    <StudentGroupView 	sx={{
+                        mt: 5,
+                        mb: 5
+					}}/>
+                    <Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Supervisor :
+					</Typography>
+					<Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Co-Supervisor :
+					</Typography><Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Panel Member 1 :
+					</Typography>
+					<Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Panel Member 2 :
+					</Typography><Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Panel Member 3:
+					</Typography>
+					<Typography
+						variant="h6"
+						textAlign="left"
+						fontFamily={"areal"}
+					>
+						Panel Member 4 :
+					</Typography>
                     </Box>
                     </Paper>
-        <StudentGroupView/>
-
     </Container>
   )
 }
