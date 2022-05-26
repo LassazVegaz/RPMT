@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const AddPanelMemberPage = () => {
+export const AddPanelMemberPage = () => {
   return (
     <Container
     maxWidth="lg"
@@ -152,4 +152,3 @@ const AddPanelMemberPage = () => {
   )
 }
 
-export default AddPanelMemberPage

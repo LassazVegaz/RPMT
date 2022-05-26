@@ -1,8 +1,8 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
-import { Container } from "@mui/system";
+
 
 const images = [
   {
@@ -98,7 +98,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
   transition: theme.transitions.create("opacity"),
 }));
 
-const AdminHomePage = () => {
+export const AdminHomePage = () => {
   return (
     <Box
     sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%", mt: 10}}
@@ -165,4 +165,3 @@ const AdminHomePage = () => {
   )
 }
 
-export default AdminHomePage
