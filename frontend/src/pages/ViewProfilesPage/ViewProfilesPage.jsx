@@ -3,12 +3,12 @@ import {
 	Paper,
 	Table,
 	TableBody,
-	TableCell,
 	TableContainer,
 	TableHead,
 	TableRow,
 } from "@mui/material";
-import { StyledTableCell } from "../StyledTableCell/StyledTableCell";
+import { StyledTableCell } from "../../components/StyledTableCell/StyledTableCell";
+
 
 export const ViewProfilesPage = () => {
     const tableHeaders = ["Picture","ID", "Name", "Email", "Related Field", "Update"];
