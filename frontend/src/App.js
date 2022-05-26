@@ -14,6 +14,8 @@ import {CreateMarkingScheme} from "./pages/CreateMarkingScheme/CreateMarkingSche
 import {ViewProfilesPage} from "./pages/ViewProfilesPage/ViewProfilesPage";
 import { UploadDocumentPage } from "./pages/UploadDocumentPage/UploadDocumentPage";
 import { AllocatePanelMembersPage } from "./pages/AllocatePnaleMembersPage/AllocatePanelMembersPage";
+import { ViewAddedPanelMembers } from "./pages/ViewAddedPanelMembers/ViewAddedPanelMembers";
+import { GroupDetailsPage } from "./pages/GroupDetailsPage/GroupDetailsPage";
 function App() {
   return (
     <>
@@ -32,6 +34,8 @@ function App() {
       <ViewProfilesPage/>
       <UploadDocumentPage/>
       <AllocatePanelMembersPage/>
+      <ViewAddedPanelMembers/>
+      <GroupDetailsPage/>
       <Footer />
     </>
   );

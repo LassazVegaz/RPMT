@@ -7,8 +7,6 @@ import {
     TableCell,
 	TableContainer,
 	TableHead,
-    Avatar,
-    Box,
 	TableRow,
     ToggleButtonGroup,
     ToggleButton,
@@ -16,7 +14,7 @@ import {
 } from "@mui/material";
 import { StyledTableCell } from "../../components/StyledTableCell/StyledTableCell";
 
-const panelRow = () => {
+const PanelRow = () => {
 const values = [ "G001"];
 return (
     <TableRow hover >
@@ -40,6 +38,11 @@ export const AllocatePanelMembersPage = () => {
     <Container maxWidth="lg"     sx={{
         my: 10,
       }}>
+                    	<ToggleButtonGroup exclusive fullWidth sx={{mb:5}}>
+						<ToggleButton>Students Groups</ToggleButton>
+						<ToggleButton>Panel Members Assigned Groups</ToggleButton>
+					    </ToggleButtonGroup>
+            
           <TableContainer component={Paper}>
 			<Table>
 				<TableHead>
@@ -55,7 +58,10 @@ export const AllocatePanelMembersPage = () => {
 						))}
 					</TableRow>
 				</TableHead>
-				<TableBody>            
+				<TableBody>  
+                    <PanelRow/>
+                    <PanelRow/>
+                    <PanelRow/>         
 				</TableBody>
 			</Table>
 		</TableContainer>
