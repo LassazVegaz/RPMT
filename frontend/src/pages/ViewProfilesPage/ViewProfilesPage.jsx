@@ -1,4 +1,4 @@
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
 import {
     Container,
 	Paper,
@@ -33,10 +33,10 @@ const ProfileRow = () => {
 			))}
             <TableCell align="center">
                 <IconButton>
-                    <Edit/>
+                    <EditIcon/>
                 </IconButton>
                 <IconButton>
-                   <Delete/>
+                   <DeleteIcon/>
                 </IconButton>   
             </TableCell>
 		</TableRow>
