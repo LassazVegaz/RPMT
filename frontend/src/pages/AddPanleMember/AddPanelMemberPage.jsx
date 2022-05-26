@@ -10,7 +10,7 @@ import {
 	Select,
 } from "@mui/material";
 
-const AddPanelMemberPage = () => {
+export const AddPanelMemberPage = () => {
 	return (
 		<Container
 			maxWidth="lg"
@@ -185,4 +185,5 @@ const AddPanelMemberPage = () => {
 	);
 };
 
-export default AddPanelMemberPage;
+
+

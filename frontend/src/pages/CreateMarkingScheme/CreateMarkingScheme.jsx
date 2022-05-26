@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 
-const CreateMarkingScheme = () => {
+export const CreateMarkingScheme = () => {
   return (
     <Container
       maxWidth="lg"
@@ -137,4 +137,3 @@ const CreateMarkingScheme = () => {
   )
 }
 
-export default CreateMarkingScheme
