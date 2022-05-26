@@ -16,6 +16,7 @@ import { UploadDocumentPage } from "./pages/UploadDocumentPage/UploadDocumentPag
 import { AllocatePanelMembersPage } from "./pages/AllocatePnaleMembersPage/AllocatePanelMembersPage";
 import { ViewAddedPanelMembers } from "./pages/ViewAddedPanelMembers/ViewAddedPanelMembers";
 import { GroupDetailsPage } from "./pages/GroupDetailsPage/GroupDetailsPage";
+import { CreateSubmissionTypePage } from "./pages/CreateSubmissionTypePage/CreateSubmissionTypePage";
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
       <AllocatePanelMembersPage/>
       <ViewAddedPanelMembers/>
       <GroupDetailsPage/>
+      <CreateSubmissionTypePage/>
       <Footer />
     </>
   );
