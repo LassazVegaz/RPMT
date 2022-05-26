@@ -8,6 +8,9 @@ import { ViewSupervisorFeedbackPage } from "./pages/ViewSupervisorFeedbackPage/V
 import { Requests } from "./pages/RequestsPage/RequestsPage";
 import { SubmitDocumentsPage } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
 import { DownloadTemplatePage } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
+import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
+import AddPanelMemberPage from "./pages/AddPanleMember/AddPanelMemberPage";
+import CreateMarkingScheme from "./pages/CreateMarkingScheme/CreateMarkingScheme";
 function App() {
   return (
     <>
@@ -20,6 +23,9 @@ function App() {
       <Requests />
       <SubmitDocumentsPage />
       <DownloadTemplatePage />
+      <AdminHomePage/>
+      <AddPanelMemberPage/>
+      <CreateMarkingScheme/>
       <Footer />
     </>
   );
