@@ -13,6 +13,7 @@ import {AddPanelMemberPage} from "./pages/AddPanleMember/AddPanelMemberPage";
 import {CreateMarkingScheme} from "./pages/CreateMarkingScheme/CreateMarkingScheme";
 import {ViewProfilesPage} from "./pages/ViewProfilesPage/ViewProfilesPage";
 import { UploadDocumentPage } from "./pages/UploadDocumentPage/UploadDocumentPage";
+import { AllocatePanelMembersPage } from "./pages/AllocatePnaleMembersPage/AllocatePanelMembersPage";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
       <CreateMarkingScheme/>
       <ViewProfilesPage/>
       <UploadDocumentPage/>
+      <AllocatePanelMembersPage/>
       <Footer />
     </>
   );
