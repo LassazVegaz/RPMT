@@ -12,6 +12,7 @@ import { AdminHomePage } from "./pages/AdminHomePage/AdminHomePage";
 import {AddPanelMemberPage} from "./pages/AddPanleMember/AddPanelMemberPage";
 import {CreateMarkingScheme} from "./pages/CreateMarkingScheme/CreateMarkingScheme";
 import {ViewProfilesPage} from "./pages/ViewProfilesPage/ViewProfilesPage";
+import { UploadDocumentPage } from "./pages/UploadDocumentPage/UploadDocumentPage";
 function App() {
   return (
     <>
@@ -28,6 +29,7 @@ function App() {
       <AddPanelMemberPage/>
       <CreateMarkingScheme/>
       <ViewProfilesPage/>
+      <UploadDocumentPage/>
       <Footer />
     </>
   );
