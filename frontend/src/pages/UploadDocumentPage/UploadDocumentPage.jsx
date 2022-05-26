@@ -1,10 +1,11 @@
 import React from "react";
-import { Button, Container, Typography, Box, IconButton } from "@mui/material";
+import { Button, Container, Typography, Box } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Close as CloseIcon, Upload as UploadIcon } from "@mui/icons-material";
+import { FileUpload } from "../../components/FileUpload/FileUpload";
+
 
 export const UploadDocumentPage = () => {
   return (
@@ -32,27 +33,7 @@ export const UploadDocumentPage = () => {
             <MenuItem value={40}>image</MenuItem>
           </Select>
         </FormControl>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          mt={5}
-          flexDirection="column"
-        >
-          <Box         
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          >
-            <Typography variant="body1"> Sample.pdf</Typography>
-            <IconButton>
-                <CloseIcon/>
-            </IconButton>
-          </Box>
-          <IconButton>
-            <UploadIcon/>
-          </IconButton>
-        </Box>
+        <FileUpload/>
         <Box
           sx={{
             my: 4,

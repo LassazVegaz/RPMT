@@ -1,3 +1,4 @@
+import { Add } from "@mui/icons-material";
 import {
     Container,
 	Paper,
@@ -14,6 +15,24 @@ import {
     IconButton,
 } from "@mui/material";
 import { StyledTableCell } from "../../components/StyledTableCell/StyledTableCell";
+
+const panelRow = () => {
+const values = [ "G001"];
+return (
+    <TableRow hover >
+        {values.map((value, index) => (
+            <TableCell align="center" key={index}>
+                {value}
+            </TableCell>
+        ))}
+        <TableCell align="center">
+            <IconButton>
+                <Add/>
+            </IconButton>  
+        </TableCell>
+    </TableRow>
+);
+};
 
 export const AllocatePanelMembersPage = () => {
     const tableHeaders = ["GID", "Add Panel Members"];
