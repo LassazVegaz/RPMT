@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
+import bodyParser from "body-parser";
+import { markingSchemasRouter } from "./routers/marking-schemas.router";
 import { dbService } from "./services/db.service";
 
 dotenv.config();
@@ -11,13 +13,13 @@ const main = async () => {
 
 	// add middlewares
 	app.use(morgan("dev"));
+	app.use(bodyParser.json());
 
 	// connect to DB
 	await dbService.connect();
 
-	app.get("/", (_req, res) => {
-		res.send("Hello World!");
-	});
+	// add routers
+	app.use("/marking_schemas", markingSchemasRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);

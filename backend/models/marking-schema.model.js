@@ -4,7 +4,7 @@ const _schema = mongoose.Schema({
 	type: { type: String, required: true },
 	areas: [
 		{
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "MarkingSchemaArea",
 		},
 	],
