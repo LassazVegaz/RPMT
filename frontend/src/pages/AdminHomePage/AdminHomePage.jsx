@@ -94,82 +94,70 @@ const ImageMarked = styled("span")(({ theme }) => ({
 	transition: theme.transitions.create("opacity"),
 }));
 
-const AdminHomePage = () => {
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexWrap: "wrap",
-				minWidth: 300,
-				width: "100%",
-				mt: 10,
-			}}
-		>
-			<Container
-				sx={{
-					display: "flex",
-					flexWrap: "inherit",
-					rowGap: 5,
-					columnGap: 5,
-				}}
-			>
-				{images.map(
-					(
-						image //1 st raw
-					) => (
-						<ImageButton
-							focusRipple
-							key={image.title}
-							style={{
-								width: image.width,
-							}}
-						>
-							<ImageSrc
-								style={{ backgroundImage: `url(${image.url})` }}
-							/>
-							<ImageBackdrop className="MuiImageBackdrop-root" />{" "}
-							<br />
-							<Image>
-								<Typography
-									component="span"
-									variant="subtitle1"
-									color="inherit"
-									sx={{
-										//button styles
-										position: "relative",
-										p: 4,
-										pt: 2,
-										pb: (theme) =>
-											`calc(${theme.spacing(1)} + 6px)`,
-									}}
-								>
-									{image.title}
-									<ImageMarked className="MuiImageMarked-root" />
-								</Typography>
-							</Image>
-							<Image>
-								<Typography
-									component="span"
-									variant="subtitle1"
-									color="inherit"
-									sx={{
-										position: "relative",
-										p: 4,
-										pt: 2,
-										pb: (theme) =>
-											`calc(${theme.spacing(1)} + 6px)`,
-									}}
-								>
-									{image.title}
-									<ImageMarked className="MuiImageMarked-root" />
-								</Typography>
-							</Image>
-						</ImageButton>
-					)
-				)}
-			</Container>
-		</Box>
-	);
-};
+export const AdminHomePage = () => {
+  return (
+    <Box
+    sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%", mt: 10}}
+  >
+    <Container sx={{
+      display: "flex",
+      flexWrap: "inherit",
+      rowGap: 5,
+      columnGap: 5,
+    }}>
+     
+      {images.map(
+        (
+          image //1 st raw
+        ) => (
+          <ImageButton
+            focusRipple
+            key={image.title}
+            style={{
+              width: image.width,
+            }}
+          >
+            <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+            <ImageBackdrop className="MuiImageBackdrop-root" /> <br />
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  //button styles
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                {image.title}
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                {image.title}
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
+          </ImageButton>
+        )
+      )}
+      
+    </Container>
+  </Box>
+  )
+}
 
-export default AdminHomePage;
