@@ -8,6 +8,9 @@
 	"author": "Lasindu, Raveena, Chathura, Oshadhi",
 	"license": "UNLICENSED",
 	"private": true,
+	"scripts": {
+		"start": "nodemon index.js --experimental-specifier-resolution=node"
+	},
 	"dependencies": {
 		"body-parser": "^1.20.0",
 		"cors": "^2.8.5",

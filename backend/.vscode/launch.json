@@ -13,6 +13,7 @@
 			"restart": true,
 			"runtimeExecutable": "nodemon",
 			"skipFiles": ["<node_internals>/**"],
+			"runtimeArgs": ["--experimental-specifier-resolution=node"],
 			"type": "node"
 		}
 	]
