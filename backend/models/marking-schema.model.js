@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const _schema = mongoose.Schema({
-	type: String,
+	type: { type: String, required: true },
 	areas: [
 		{
 			type: mongoose.Types.ObjectId,
