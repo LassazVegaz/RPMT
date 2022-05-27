@@ -1,9 +1,15 @@
 import React from "react";
-import { Button, Container, Typography, Box } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import { 
+  Button, 
+  Container, 
+  Typography, 
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select 
+} from "@mui/material";
+
 import { FileUpload } from "../../components/FileUpload/FileUpload";
 
 
