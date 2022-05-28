@@ -7,10 +7,11 @@ import {
   Box,
   TextField,
 } from "@mui/material";
+import { FileUpload } from "../../components/FileUpload/FileUpload";
 
- export const SubmitDocumentsPage = () => {
+export const SubmitDocumentsPage = () => {
   return (
-     <Container
+    <Container
       maxWidth="lg"
       sx={{
         my: 10,
@@ -21,14 +22,13 @@ import {
       </Typography>
 
       <Paper
-         elevation={8}
+        elevation={8}
         sx={{
           py: 3,
           mx: 20,
         }}
       >
-
-      <Box
+        <Box
           component="form"
           sx={{
             display: "flex",
@@ -36,23 +36,22 @@ import {
             mx: 4,
             rowGap: 4,
           }}
-        ><br/>
+        >
+          <br />
 
-            <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-              Group Name :
-             </Typography>
+          <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
+            Group Name :
+          </Typography>
 
-              <TextField></TextField>
+          <TextField></TextField>
 
+          <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
+            Submit the document :
+          </Typography>
 
-            <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-             Submit the document  :
-             </Typography>
+          <FileUpload />
 
-              <TextField cornerRadius="3" placeholder="Max Size 40Mb . Submit Zip file or the Paste Google drive link"></TextField>
-
-
-           <Box
+          <Box
             sx={{
               my: 4,
               px: 30,
@@ -63,10 +62,8 @@ import {
           >
             <Button variant="contained">Submit</Button>
           </Box>
-
-        
-      </Box>
+        </Box>
       </Paper>
     </Container>
-  )
-}
+  );
+};
