@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 
 const _schema = mongoose.Schema({
 	_id: false,
-	user: {
-		type: mongoose.Schema.Types.ObjectId,
+	userId: {
+		type: Number,
 		required: true,
 		unique: true,
-		ref: "User",
 	},
 	firstName: {
 		type: String,
@@ -29,6 +28,11 @@ const _schema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+});
+
+_schema.virtual("user", {
+	ref: "User",
+	localField: userId,
 });
 
 export const StaffMember = mongoose.model("StaffMember", _schema);
