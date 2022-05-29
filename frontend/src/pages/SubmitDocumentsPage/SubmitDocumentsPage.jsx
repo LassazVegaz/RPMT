@@ -40,7 +40,7 @@ export const SubmitDocumentsPage = () => {
           <br />
 
           <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-            Group Name :
+            Submission Type :
           </Typography>
 
           <TextField></TextField>
