@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const _schema = mongoose.Schema({
-	type: { type: String, required: true, unique: true },
+	name: { type: String, required: true, unique: true },
 });
 
-_schema.virtual("markingSchemaArea", {
+_schema.virtual("markingSchemaAreas", {
 	ref: "MarkingSchemaArea",
 	localField: "_id",
 });
