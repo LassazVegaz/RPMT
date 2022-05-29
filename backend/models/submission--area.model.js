@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const _schema = mongoose.Schema({
+	_id: false,
 	submissionId: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
@@ -10,6 +11,8 @@ const _schema = mongoose.Schema({
 		required: true,
 	},
 });
+
+_schema.index({ submissionId: 1, areaId: 1 }, { unique: true });
 
 _schema.virtual("submission", {
 	ref: "Submission",
