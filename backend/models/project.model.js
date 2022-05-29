@@ -37,4 +37,11 @@ _schema.virtual("group", {
 	localField: "_id",
 });
 
+_schema.virtual("submissions", [
+	{
+		ref: "Submission",
+		localField: "_id",
+	},
+]);
+
 export const Project = mongoose.model("Project", _schema);
