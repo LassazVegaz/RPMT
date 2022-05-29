@@ -32,4 +32,9 @@ _schema.virtual("researchField", {
 	localField: "researchFieldId",
 });
 
+_schema.virtual("group", {
+	ref: "Group",
+	localField: "_id",
+});
+
 export const Project = mongoose.model("Project", _schema);
