@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const _schema = mongoose.Schema({
 	_id: false,
 	userId: {
-		type: Number,
+		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 		unique: true,
 	},
