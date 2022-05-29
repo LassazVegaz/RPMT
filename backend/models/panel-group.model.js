@@ -16,7 +16,7 @@ _schema.virtual("staffMember", {
 	localField: "staffMemberId",
 });
 
-_schema.virtual("Group", {
+_schema.virtual("group", {
 	ref: "Group",
 	localField: "GroupID",
 });
