@@ -11,8 +11,7 @@ const createMarkingSchema = async (markingSchema) => {
 	if (areas) {
 		for (const area of areas) {
 			area.markingSchemaId = _newEntry.id;
-			const _area = await createMarkingSchemaArea(area);
-			_newEntry.areas.push(_area);
+			await createMarkingSchemaArea(area);
 		}
 	}
 	return _newEntry;
