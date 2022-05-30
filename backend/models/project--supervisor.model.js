@@ -10,6 +10,11 @@ const _schema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
+		pending: {
+			type: Boolean,
+			default: false,
+			required: true,
+		},
 	},
 	{
 		toJSON: {

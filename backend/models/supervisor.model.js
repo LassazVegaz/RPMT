@@ -7,7 +7,7 @@ const _schema = mongoose.Schema(
 			required: true,
 			unique: true,
 		},
-		researchFieldId: [
+		researchFields: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,
@@ -24,6 +24,13 @@ const _schema = mongoose.Schema(
 _schema.virtual("staffMember", {
 	ref: "StaffMember",
 	localField: "staffMemberId",
+	foreignField: "_id",
+	justOne: true,
+});
+
+_schema.virtual("researchFields", {
+	ref: "ResearchField",
+	localField: "researchFields",
 	foreignField: "_id",
 });
 

@@ -45,13 +45,14 @@ _schema.virtual("group", {
 	ref: "Group",
 	localField: "_id",
 	foreignField: "projectId",
+	foreignField: "_id",
+	justOne: true,
 });
 
-_schema.virtual("submissions", [
-	{
-		ref: "Submission",
-		localField: "_id",
-	},
-]);
+_schema.virtual("submissions", {
+	ref: "Submission",
+	localField: "_id",
+	foreignField: "projectId",
+});
 
 export const Project = mongoose.model("Project", _schema);
