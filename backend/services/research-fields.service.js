@@ -2,8 +2,7 @@ import { ResearchField } from "../models/research-field.model";
 import { supervisorsService } from "./supervisors.service";
 
 const getResearchFields = async () => {
-	const researchFields = await ResearchField.find();
-	return researchFields.toJSON();
+	return ResearchField.find();
 };
 
 const getSupervisorsOfResearchField = async (researchFieldId) => {
