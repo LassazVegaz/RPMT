@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import { markingSchemasRouter } from "./routers/marking-schemas.router";
 import { dbService } from "./services/db.service";
 import { supervisorsRouter } from "./routers/supervisors.router";
+import { researchFieldsRouter } from "./routers/research-fields.router";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ const main = async () => {
 	// add routers
 	app.use("/marking_schemas", markingSchemasRouter);
 	app.use("/supervisors", supervisorsRouter);
+	app.use("/research_fields", researchFieldsRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);
