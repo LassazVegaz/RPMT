@@ -56,7 +56,19 @@ _router.get("/", async (req, res) => {
 // delete a supervisor
 _router.delete("/:id", async (req, res) => {
 	try {
+		const supervisor = await supervisorsService.getSupervisor(
+			req.params.id
+		);
 		await supervisorsService.deleteSupervisor(req.params.id);
+
+		const staffMember = await staffMembersService.getStaffMember(
+			supervisor.staffMemberId
+		);
+		await staffMembersService.deleteStaffMember(staffMember.id);
+
+		const user = await usersService.getUser(staffMember.userId);
+		await usersService.deleteUser(user.id);
+
 		res.json({ message: "Supervisor deleted successfully" });
 	} catch (error) {
 		res.status(500).json({ message: error.message, error });
