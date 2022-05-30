@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 
 const _schema = mongoose.Schema({
-	_id: false,
 	name: {
 		type: String,
 		unique: true,
 		required: true,
 	},
+});
+
+_schema.virtual("users", {
+	ref: "User",
+	localField: "name",
+	foreignField: "role",
 });
 
 export const Role = mongoose.model("Role", _schema);

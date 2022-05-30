@@ -24,11 +24,15 @@ const _schema = mongoose.Schema({
 _schema.virtual("project", {
 	ref: "Project",
 	localField: "projectId",
+	foreignField: "_id",
+	justOne: true,
 });
 
 _schema.virtual("markingSchema", {
 	ref: "MarkingSchema",
 	localField: "markingSchemaId",
+	foreignField: "_id",
+	justOne: true,
 });
 
 export const Submission = mongoose.model("Submission", _schema);

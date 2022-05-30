@@ -30,11 +30,14 @@ const _schema = mongoose.Schema({
 _schema.virtual("researchField", {
 	ref: "ResearchField",
 	localField: "researchFieldId",
+	foreignField: "_id",
+	justOne: true,
 });
 
 _schema.virtual("group", {
 	ref: "Group",
 	localField: "_id",
+	foreignField: "projectId",
 });
 
 _schema.virtual("submissions", [

@@ -7,6 +7,12 @@ const _schema = mongoose.Schema(
 			required: true,
 			unique: true,
 		},
+		researchFieldId: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+			},
+		],
 	},
 	{
 		toJSON: {
@@ -19,7 +25,6 @@ _schema.virtual("staffMember", {
 	ref: "StaffMember",
 	localField: "staffMemberId",
 	foreignField: "_id",
-	justOne: true,
 });
 
 export const Supervisor = mongoose.model("Supervisor", _schema);
