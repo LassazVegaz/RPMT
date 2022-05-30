@@ -45,7 +45,6 @@ _schema.virtual("group", {
 	ref: "Group",
 	localField: "_id",
 	foreignField: "projectId",
-	foreignField: "_id",
 	justOne: true,
 });
 
