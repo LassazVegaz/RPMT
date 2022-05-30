@@ -7,7 +7,7 @@ const _schema = mongoose.Schema(
 			required: true,
 			unique: true,
 		},
-		researchFields: [
+		researchFieldIds: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,

@@ -23,9 +23,9 @@ const createSupervisor = async (staffMember) => {
 };
 
 const getSupervisor = async (id) => {
-	const supervisor = await Supervisor.findById(id).populate(
-		superVisorsPopulateQueries
-	);
+	const supervisor = await Supervisor.findById(id)
+		.populate(superVisorsPopulateQueries[0])
+		.populate(superVisorsPopulateQueries[1]);
 	return supervisor?.toJSON();
 };
 
@@ -43,9 +43,10 @@ const getAllSupervisors = async ({
 			"staffMember.user.role": "co-supervisor",
 		};
 
-	const supervisors = await Supervisor.populate(
-		superVisorsPopulateQueries
-	).find(where);
+	const supervisors = await Supervisor.find()
+		.populate(superVisorsPopulateQueries[0])
+		.populate(superVisorsPopulateQueries[1])
+		.find(where);
 	return supervisors.map((supervisor) => supervisor.toJSON());
 };
 
@@ -54,7 +55,7 @@ const assignSupervisorToResearchField = async (
 	researchFieldId
 ) => {
 	const supervisor = await Supervisor.findById(supervisorId);
-	supervisor.researchFields.push(researchFieldId);
+	supervisor.researchFieldIds.push(researchFieldId);
 	await supervisor.save();
 
 	return getSupervisor(supervisorId);
@@ -65,8 +66,8 @@ const removeSupervisorFromResearchField = async (
 	researchFieldId
 ) => {
 	const supervisor = await Supervisor.findById(supervisorId);
-	supervisor.researchFields = supervisor.researchFields.filter(
-		(researchField) => researchField !== researchFieldId
+	supervisor.researchFieldIds = supervisor.researchFieldIds.filter(
+		(_researchFieldId) => _researchFieldId !== researchFieldId
 	);
 	await supervisor.save();
 
