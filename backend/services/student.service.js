@@ -17,8 +17,7 @@ const createStudent = async (user, student) => {
 };
 
 const getStudents = async () => {
-	const Students = await Student.find().populate("user");
-	return Students.toJSON();
+	return Student.find().populate("user").exec();
 };
 
 const getStudent = async (id) => {

@@ -41,14 +41,14 @@ const _schema = mongoose.Schema(
 
 _schema.virtual("user", {
 	ref: "User",
-	localField: userId,
+	localField: "userId",
 	foreignField: "_id",
 	justOne: true,
 });
 
 _schema.virtual("group", {
 	ref: "Group",
-	localField: groupId,
+	localField: "groupId",
 	foreignField: "_id",
 	justOne: true,
 });
