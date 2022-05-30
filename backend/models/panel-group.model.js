@@ -1,15 +1,22 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	groupId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
+const _schema = mongoose.Schema(
+	{
+		groupId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
+		staffMemberId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
-	staffMemberId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.index({ groupId: 1, staffMemberId: 1 }, { unique: true });
 

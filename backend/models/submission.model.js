@@ -1,25 +1,32 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	type: {
-		type: String,
-		enum: ["presentation", "thesis", "topic-document"],
-		required: true,
+const _schema = mongoose.Schema(
+	{
+		type: {
+			type: String,
+			enum: ["presentation", "thesis", "topic-document"],
+			required: true,
+		},
+		document: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		projectId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
+		markingSchemaId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
-	document: {
-		type: String,
-		required: true,
-		unique: true,
-	},
-	projectId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-	},
-	markingSchemaId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.virtual("project", {
 	ref: "Project",

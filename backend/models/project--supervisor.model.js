@@ -1,15 +1,22 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	projectId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
+const _schema = mongoose.Schema(
+	{
+		projectId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
+		supervisorId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
-	supervisorId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.index({ projectId: 1, supervisorId: 1 }, { unique: true });
 

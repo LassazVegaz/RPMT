@@ -1,15 +1,22 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
+const _schema = mongoose.Schema(
+	{
+		name: {
+			type: String,
+			required: true,
+		},
+		projectId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
-	projectId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.virtual("students", {
 	ref: "Student",

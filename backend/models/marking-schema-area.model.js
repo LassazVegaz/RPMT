@@ -1,13 +1,20 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	name: { type: String, required: true },
-	allocatedMarks: { type: Number, required: true },
-	markingSchemaId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
+const _schema = mongoose.Schema(
+	{
+		name: { type: String, required: true },
+		allocatedMarks: { type: Number, required: true },
+		markingSchemaId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.virtual("markingSchema", {
 	ref: "MarkingSchema",
