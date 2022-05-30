@@ -16,7 +16,7 @@ _router.get("/", async (req, res) => {
 
 // GET /supervisors/:id
 // get supervisors of research field
-_router.get("/supervisors/:id", async (req, res) => {
+_router.get("/:id/supervisors", async (req, res) => {
 	try {
 		const { id } = req.params;
 		const supervisors =

@@ -30,7 +30,7 @@ _schema.virtual("staffMember", {
 
 _schema.virtual("researchFields", {
 	ref: "ResearchField",
-	localField: "researchFields",
+	localField: "researchFieldIds",
 	foreignField: "_id",
 });
 

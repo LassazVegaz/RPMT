@@ -6,15 +6,17 @@ const getResearchFields = async () => {
 };
 
 const getSupervisorsOfResearchField = async (researchFieldId) => {
-	const supervisorIds = await ResearchField.findById(researchFieldId)
-		.populate("supervisors")
-		.select("supervisors.id");
+	const reasearchField = await ResearchField.findById(
+		researchFieldId
+	).populate("supervisors");
 
 	const supervisors = [];
-	for (const id of supervisorIds) {
-		const supervisor = await supervisorsService.getSupervisor(id);
+	for (const _sup of reasearchField.supervisors) {
+		const supervisor = await supervisorsService.getSupervisor(_sup.id);
 		supervisors.push(supervisor);
 	}
+
+	return supervisors;
 };
 
 export const researchFieldsService = {
