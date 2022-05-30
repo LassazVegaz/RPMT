@@ -60,6 +60,19 @@ const assignSupervisorToResearchField = async (
 	return getSupervisor(supervisorId);
 };
 
+const removeSupervisorFromResearchField = async (
+	supervisorId,
+	researchFieldId
+) => {
+	const supervisor = await Supervisor.findById(supervisorId);
+	supervisor.researchFields = supervisor.researchFields.filter(
+		(researchField) => researchField !== researchFieldId
+	);
+	await supervisor.save();
+
+	return getSupervisor(supervisorId);
+};
+
 const getSupervisorProjects = async (supervisorId, pending) => {
 	const projects = ProjectSupervisor.find({
 		supervisorId,
@@ -71,10 +84,16 @@ const getSupervisorProjects = async (supervisorId, pending) => {
 	return projects.map((project) => project.toJSON());
 };
 
+const deleteSupervisor = async (id) => {
+	await Supervisor.findByIdAndDelete(id);
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	getSupervisor,
 	getAllSupervisors,
 	assignSupervisorToResearchField,
 	getSupervisorProjects,
+	deleteSupervisor,
+	removeSupervisorFromResearchField,
 };
