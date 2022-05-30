@@ -20,4 +20,5 @@ const createCoSupervisor = async (staffMember) => {
 
 export const supervisorsService = {
 	createSupervisor,
+	createCoSupervisor,
 };
