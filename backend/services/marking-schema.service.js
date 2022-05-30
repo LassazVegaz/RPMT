@@ -6,16 +6,15 @@ const createMarkingSchema = async (markingSchema) => {
 	delete markingSchema.areas;
 
 	const _newEntry = new MarkingSchema(markingSchema);
+	await _newEntry.save();
 
 	if (areas) {
 		for (const area of areas) {
+			area.markingSchemaId = _newEntry.id;
 			const _area = await createMarkingSchemaArea(area);
 			_newEntry.areas.push(_area);
 		}
 	}
-
-	await _newEntry.save();
-
 	return _newEntry;
 };
 
@@ -27,6 +26,21 @@ const createMarkingSchemaArea = async (area) => {
 	return _newEntry;
 };
 
+const getMarkingSchemas = async () => {
+	const schemas = await MarkingSchema.find().populate("markingSchemaAreas");
+	return schemas.toJSON();
+	
+}
+
+const getMarkingSchema = async (id) => {
+	const schema = await MarkingSchema.findById(id).populate("markingSchemaAreas");
+	return schema.toJSON();
+}
+
+
+
 export const markingSchemaServices = {
 	createMarkingSchema,
+	getMarkingSchemas,
+	getMarkingSchema
 };
