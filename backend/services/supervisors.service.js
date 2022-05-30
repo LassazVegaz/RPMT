@@ -3,21 +3,34 @@ import { Supervisor } from "../models/supervisor.model";
 const createSupervisor = async (staffMember) => {
 	const supervisor = new Supervisor({
 		staffMemberId: staffMember.id,
-		type: "supervisor",
 	});
 	await supervisor.save();
-	return supervisor.toJSON();
+
+	return getSupervisor(supervisor.id);
 };
 
-const createCoSupervisor = async (staffMember) => {
-	const supervisor = new Supervisor({
-		staffMemberId: staffMember.id,
-		type: "co-supervisor",
+const getSupervisor = async (id) => {
+	const supervisor = await Supervisor.findById(id).populate({
+		path: "staffMember",
+		populate: {
+			path: "user",
+		},
 	});
-	await supervisor.save();
-	return supervisor.toJSON();
+	return supervisor?.toJSON();
+};
+
+const getAllSupervisors = async () => {
+	const supervisors = await Supervisor.find().populate({
+		path: "staffMember",
+		populate: {
+			path: "user",
+		},
+	});
+	return supervisors.map((supervisor) => supervisor.toJSON());
 };
 
 export const supervisorsService = {
 	createSupervisor,
+	getSupervisor,
+	getAllSupervisors,
 };

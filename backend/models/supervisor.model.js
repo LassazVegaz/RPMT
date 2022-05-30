@@ -1,23 +1,25 @@
 import mongoose from "mongoose";
 
-const _schema = mongoose.Schema({
-	_id: false,
-	staffMemberId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-		unique: true,
+const _schema = mongoose.Schema(
+	{
+		staffMemberId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+			unique: true,
+		},
 	},
-	type: {
-		type: String,
-		required: true,
-		enum: ["supervisor", "co-supervisor"],
-	},
-});
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 _schema.virtual("staffMember", {
 	ref: "StaffMember",
 	localField: "staffMemberId",
-	foreignField: "userId",
+	foreignField: "_id",
+	justOne: true,
 });
 
 export const Supervisor = mongoose.model("Supervisor", _schema);
