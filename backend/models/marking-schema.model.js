@@ -4,11 +4,18 @@ const _schema = mongoose.Schema({
 	name: { type: String, required: true, unique: true },
 });
 
-_schema.virtual("markingSchemaAreas", [
+_schema.virtual(
+	"markingSchemaAreas",
 	{
 		ref: "MarkingSchemaArea",
 		localField: "_id",
+		foreignField: "markingSchemaId",
 	},
-]);
+	{
+		toJSON: {
+			virtuals: true,
+		},
+	}
+);
 
 export const MarkingSchema = mongoose.model("MarkingSchema", _schema);
