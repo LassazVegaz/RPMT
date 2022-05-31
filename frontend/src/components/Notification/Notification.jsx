@@ -1,9 +1,28 @@
 import { Alert } from "@mui/material";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { notificationActions } from "../../redux/slices/notification.slice";
 
 export const Notification = () => {
-	return (
+	const notification = useSelector((state) => state.notification);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		let timeout = null;
+		if (notification.message) {
+			timeout = setTimeout(() => {
+				dispatch(notificationActions.hideNotification());
+			}, 3000);
+		}
+
+		return () => {
+			if (timeout) clearTimeout(timeout);
+		};
+	});
+
+	return notification.message && notification.type ? (
 		<Alert
-			severity="error"
+			severity={notification.type}
 			onClose={() => {}}
 			sx={{
 				position: "fixed",
@@ -12,7 +31,7 @@ export const Notification = () => {
 				zIndex: "1101",
 			}}
 		>
-			Process failed
+			{notification.message}
 		</Alert>
-	);
+	) : null;
 };
