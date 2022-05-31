@@ -54,10 +54,18 @@ const deleteStudent = async (id) => {
 	await student.findByIdAndDelete(id);
 };
 
+const assignGroup = async (studentId, groupId) => {
+	await Student.findByIdAndUpdate(studentId, {
+		groupId,
+	});
+	return getStudent(studentId);
+};
+
 export const studentService = {
 	createStudent,
 	getStudents,
 	getStudent,
 	deleteStudent,
 	updateStudent,
+	assignGroup,
 };
