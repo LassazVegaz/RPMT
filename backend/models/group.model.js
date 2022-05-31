@@ -20,7 +20,7 @@ const _schema = mongoose.Schema(
 
 _schema.virtual("students", {
 	ref: "Student",
-	localField: _id,
+	localField: "_id",
 	foreignField: "groupId",
 });
 
@@ -31,4 +31,4 @@ _schema.virtual("project", {
 	justOne: true,
 });
 
-export const Supervisor = mongoose.model("Group", _schema);
+export const Group = mongoose.model("Group", _schema);

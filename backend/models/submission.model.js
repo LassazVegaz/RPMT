@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const _schema = mongoose.Schema(
 	{
-		type: {
-			type: String,
-			enum: ["presentation", "thesis", "topic-document"],
-			required: true,
-		},
 		document: {
 			type: String,
 			required: true,
@@ -16,7 +11,7 @@ const _schema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
-		markingSchemaId: {
+		submissionTypeId: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
@@ -35,9 +30,9 @@ _schema.virtual("project", {
 	justOne: true,
 });
 
-_schema.virtual("markingSchema", {
-	ref: "MarkingSchema",
-	localField: "markingSchemaId",
+_schema.virtual("submissionType", {
+	ref: "SubmissionType",
+	localField: "submissionTypeId",
 	foreignField: "_id",
 	justOne: true,
 });

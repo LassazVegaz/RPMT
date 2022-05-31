@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const _schema = mongoose.Schema(
 	{
-		topicFeedback: Boolean,
 		status: {
 			type: String,
 			enum: [
