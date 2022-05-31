@@ -7,8 +7,15 @@ import {
 	ToggleButton,
 	ToggleButtonGroup,
 } from "@mui/material";
+import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { GENDERS } from "../../constants/genders.constants";
+import { USER_ROLES } from "../../constants/user-roles.constants";
 
-export const SignupFormFields = () => {
+export const SignupFormFields = ({ form }) => {
+	const handleToggleButtonChange = (name) => (_, value) => {
+		if (value) form.setFieldValue(name, value);
+	};
+
 	return (
 		<Box
 			sx={{
@@ -24,35 +31,73 @@ export const SignupFormFields = () => {
 					justifyContent: "space-between",
 				}}
 			>
-				<TextField
+				<FormikMUITextField
 					label="First Name"
-					sx={{
-						minWidth: 300,
-					}}
+					name="firstName"
+					form={form}
 				/>
-				<TextField
+				<FormikMUITextField
 					label="Last Name"
-					sx={{
-						minWidth: 300,
-					}}
+					name="lastName"
+					form={form}
 				/>
 			</Box>
 
-			<TextField label="Email" />
-			<TextField label="Phone" />
+			<FormikMUITextField
+				label="Email"
+				name="email"
+				form={form}
+				type="email"
+			/>
+			<FormikMUITextField
+				label="Phone"
+				name="phone"
+				form={form}
+				type="tel"
+			/>
 
-			<ToggleButtonGroup exclusive fullWidth>
-				<ToggleButton>Male</ToggleButton>
-				<ToggleButton>Female</ToggleButton>
+			<ToggleButtonGroup
+				value={form.values.gender}
+				exclusive
+				fullWidth
+				onChange={handleToggleButtonChange("gender")}
+			>
+				<ToggleButton name="gender" value={GENDERS.MALE}>
+					Male
+				</ToggleButton>
+				<ToggleButton name="gender" value={GENDERS.FEMALE}>
+					Female
+				</ToggleButton>
 			</ToggleButtonGroup>
 
-			<TextField label="Password" />
-			<TextField label="Confirm Password" />
+			<FormikMUITextField
+				label="Password"
+				name="password"
+				form={form}
+				type="password"
+			/>
+			<FormikMUITextField
+				label="Confirm Password"
+				name="confirmPassword"
+				form={form}
+				type="password"
+			/>
 
-			<ToggleButtonGroup exclusive fullWidth>
-				<ToggleButton>Co-Supervisor</ToggleButton>
-				<ToggleButton>Supervisor</ToggleButton>
-				<ToggleButton>Panel Member</ToggleButton>
+			<ToggleButtonGroup
+				value={form.values.role}
+				exclusive
+				fullWidth
+				onChange={handleToggleButtonChange("role")}
+			>
+				<ToggleButton name="role" value={USER_ROLES.CO_SUPERVISOR}>
+					Co-Supervisor
+				</ToggleButton>
+				<ToggleButton name="role" value={USER_ROLES.SUPERVISOR}>
+					Supervisor
+				</ToggleButton>
+				<ToggleButton name="role" value={USER_ROLES.PANEL_MEMBER}>
+					Panel Member
+				</ToggleButton>
 			</ToggleButtonGroup>
 
 			<TextField label="Research Area" />
@@ -70,7 +115,9 @@ export const SignupFormFields = () => {
 					rowGap: 2,
 				}}
 			>
-				<Button variant="contained">Sign Up</Button>
+				<Button variant="contained" type="submit">
+					Sign Up
+				</Button>
 				<Button variant="outlined" color="secondary">
 					Sign In
 				</Button>

@@ -78,7 +78,7 @@ export const SignupPage = () => {
 					Mr. John Doe
 				</UnderlinedText>
 
-				<SignupFormFields />
+				<SignupFormFields form={form} />
 			</Paper>
 		</Container>
 	);
