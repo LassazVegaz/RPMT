@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
+import { PageLoader } from "./components/PageLoader/PageLoader";
 import { SignupPage } from "./pages/SignupPage/SignupPage";
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
 			</Routes>
 
 			<Footer />
+
+			<PageLoader />
 		</>
 	);
 }
