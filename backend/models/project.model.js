@@ -26,10 +26,18 @@ const _schema = mongoose.Schema(
 			required: true,
 		},
 		supervisorId: {
-			type: mongoose.Schema.Types.ObjectId,
+			id: mongoose.Schema.Types.ObjectId,
+			status: {
+				type: String,
+				enum: ["pending", "accepted", "rejected"],
+			},
 		},
 		coSupervisorId: {
-			type: mongoose.Schema.Types.ObjectId,
+			id: mongoose.Schema.Types.ObjectId,
+			status: {
+				type: String,
+				enum: ["pending", "accepted", "rejected"],
+			},
 		},
 	},
 	{
@@ -57,20 +65,6 @@ _schema.virtual("submissions", {
 	ref: "Submission",
 	localField: "_id",
 	foreignField: "projectId",
-});
-
-_schema.virtual("supervisor", {
-	ref: "Supervisor",
-	localField: "supervisorId",
-	foreignField: "_id",
-	justOne: true,
-});
-
-_schema.virtual("coSupervisor", {
-	ref: "Supervisor",
-	localField: "coSupervisorId",
-	foreignField: "_id",
-	justOne: true,
 });
 
 export const Project = mongoose.model("Project", _schema);
