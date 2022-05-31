@@ -15,6 +15,19 @@ const _schema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
+		marks: [
+			{
+				area: {
+					type: mongoose.Schema.Types.ObjectId,
+					required: true,
+					ref: "MarkingSchemaArea",
+				},
+				givenMarks: {
+					type: Number,
+					required: true,
+				},
+			},
+		],
 	},
 	{
 		toJSON: {
