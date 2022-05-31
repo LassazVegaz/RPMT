@@ -107,6 +107,18 @@ const getProjects = async (supervisorId, status = "all") => {
 	} else return _getProjects(supervisorId, status);
 };
 
+const acceptProject = async (projectId) => {
+	const project = await Project.findById(projectId);
+	project.supervisorId.status = SUPERVISOR_STATUS.accepted;
+	await project.save();
+};
+
+const rejectProject = async (projectId) => {
+	const project = await Project.findById(projectId);
+	(project.supervisorId.status = SUPERVISOR_STATUS.rejected),
+		await project.save();
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	getSupervisor,
@@ -115,4 +127,6 @@ export const supervisorsService = {
 	deleteSupervisor,
 	removeSupervisorFromResearchField,
 	getProjects,
+	acceptProject,
+	rejectProject,
 };

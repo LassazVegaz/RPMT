@@ -136,4 +136,26 @@ _router.get("/:id/projects", async (req, res) => {
 	}
 });
 
+// POST /:id/projects/:projectId/accept
+// accept a project
+_router.post("/:id/projects/:projectId/accept", async (req, res) => {
+	try {
+		await supervisorsService.acceptProject(req.params.projectId);
+		res.status(200).send();
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
+// POST /:id/projects/:projectId/reject
+// reject a project
+_router.post("/:id/projects/:projectId/reject", async (req, res) => {
+	try {
+		await supervisorsService.rejectProject(req.params.projectId);
+		res.status(200).send();
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
 export const supervisorsRouter = _router;
