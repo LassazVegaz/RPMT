@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 import { theme } from "./theme";
-import { store } from "./redux/state";
+import { store } from "./redux/store";
 import App from "./App";
 
 import "./index.scss";
