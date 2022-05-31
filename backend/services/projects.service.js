@@ -35,10 +35,12 @@ const assignSupervisors = async ({
 }) => {
 	const project = await Project.findById(projectId);
 
-	if (supervisorId || supervisorId === null)
-		project.supervisorId = supervisorId;
-	if (coSupervisorId || coSupervisorId === null)
-		project.coSupervisorId = coSupervisorId;
+	if (supervisorId || supervisorId === null) {
+		project.supervisorId = { id: supervisorId, status: "pending" };
+	}
+	if (coSupervisorId || coSupervisorId === null) {
+		project.coSupervisorId = { id: coSupervisorId, status: "pending" };
+	}
 
 	await project.save();
 
@@ -50,15 +52,19 @@ const getSupervisors = async (projectId) => {
 
 	const res = { supervisor: null, coSupervisor: null };
 
-	if (project?.supervisorId)
+	if (project?.supervisorId) {
 		res.supervisor = await supervisorsService.getSupervisor(
 			project.supervisorId
 		);
+		res.supervisor.status = project.supervisorId.status;
+	}
 
-	if (project?.coSupervisorId)
+	if (project?.coSupervisorId) {
 		res.coSupervisor = await supervisorsService.getSupervisor(
 			project.coSupervisorId
 		);
+		res.coSupervisor.status = project.coSupervisorId.status;
+	}
 
 	return res;
 };
