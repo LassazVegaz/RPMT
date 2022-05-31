@@ -81,16 +81,12 @@ const _getProjects = async (supervisorId, status) => {
 	return Project.find({
 		$or: [
 			{
-				supervisorId: {
-					id: supervisorId,
-					status,
-				},
+				"supervisorId.id": supervisorId,
+				"supervisorId.status": status,
 			},
 			{
-				coSupervisorId: {
-					id: supervisorId,
-					status,
-				},
+				"coSupervisorId.id": supervisorId,
+				"coSupervisorId.status": status,
 			},
 		],
 	});
