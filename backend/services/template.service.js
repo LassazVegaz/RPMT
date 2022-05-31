@@ -6,6 +6,18 @@ const createTemplate = async (template) => {
     return _template.toJSON();
 };
 
+const getAllTemplates = async() => {
+    const templates = await Template.find();
+    return templates;
+}
+
+const getTemplate = async (id) => {
+    const template = await Template.findById(id);
+    return template;
+}
+
 export const templateService = {
-    createTemplate
+    createTemplate,
+    getAllTemplates,
+    getTemplate
 };
