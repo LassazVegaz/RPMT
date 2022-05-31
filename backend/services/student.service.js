@@ -1,71 +1,71 @@
 import { Student } from "../models/student.model";
 
 const createStudent = async (user, student) => {
-	student = {
-		userId: user.id,
-		firstName: student.firstName,
-		lastName: student.lastName,
-		gender: student.gender,
-		phone: student.phone,
-		photo: student.photo,
-	};
+  student = {
+    userId: user.id,
+    firstName: student.firstName,
+    lastName: student.lastName,
+    gender: student.gender,
+    phone: student.phone,
+    photo: student.photo,
+  };
 
-	const _student = new Student(student);
-	await _student.save();
+  const _student = new Student(student);
+  await _student.save();
 
-	return getStudent(_student.id);
+  return getStudent(_student.id);
 };
 
 const getStudents = async () => {
-	return Student.find().populate("user").exec();
+  return Student.find().populate("user").exec();
 };
 
 const getStudent = async (id) => {
-	const Students = await Student.findById(id).populate("user");
-	return Students.toJSON();
+  const Students = await Student.findById(id).populate("user");
+  return Students.toJSON();
 };
 
 const updateStudent = async (id, data) => {
-	data = {
-		firstName: data.firstName,
-		lastName: data.lastName,
-		gender: data.gender,
-		phone: data.phone,
-		photo: data.photo,
-	};
+  data = {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    gender: data.gender,
+    phone: data.phone,
+    photo: data.photo,
+  };
 
-	const student = await Student.findById(id);
-	if (!Boolean(student)) throw new Error(`Student with id ${id} not found`);
+  const student = await Student.findById(id);
+  if (!Boolean(student)) throw new Error(`Student with id ${id} not found`);
 
-	await student.findOneAndUpdate(
-		{
-			id,
-		},
-		data
-	);
+  await Student.findOneAndUpdate(
+    {
+      id,
+    },
+    data
+  );
 
-	return getStudent(id);
+  return getStudent(id);
 };
 
 const deleteStudent = async (id) => {
-	const student = await Student.findById(id);
-	if (!Boolean(student)) throw new Error(`Student with id ${id} not found`);
+  const student = await Student.findById(id);
+  if (!Boolean(student)) throw new Error(`Student with id ${id} not found`);
 
-	await student.findByIdAndDelete(id);
+  await Student.findByIdAndDelete(id);
 };
 
 const assignGroup = async (studentId, groupId) => {
-	await Student.findByIdAndUpdate(studentId, {
-		groupId,
-	});
-	return getStudent(studentId);
+  await Student.findByIdAndUpdate(studentId, {
+    groupId,
+  });
+  return getStudent(studentId);
 };
 
 export const studentService = {
-	createStudent,
-	getStudents,
-	getStudent,
-	deleteStudent,
-	updateStudent,
-	assignGroup,
+  createStudent,
+  getStudents,
+  getStudent,
+  deleteStudent,
+  updateStudent,
+  assignGroup,
 };
