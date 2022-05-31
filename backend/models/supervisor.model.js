@@ -34,4 +34,16 @@ _schema.virtual("researchFields", {
 	foreignField: "_id",
 });
 
+_schema.virtual("supervisingProjects", {
+	ref: "Project",
+	localField: "_id",
+	foreignField: "supervisorId",
+});
+
+_schema.virtual("coSupervisingProjects", {
+	ref: "Project",
+	localField: "_id",
+	foreignField: "coSupervisorId",
+});
+
 export const Supervisor = mongoose.model("Supervisor", _schema);

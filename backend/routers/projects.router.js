@@ -25,4 +25,40 @@ _router.get("/", async (req, res) => {
 	}
 });
 
+// GET /:id
+// get one project
+_router.get("/:id", async (req, res) => {
+	try {
+		const project = await projectsService.getProject(req.params.id);
+		res.send(project);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+// GET /:id/supervisors
+_router.get("/:id/supervisors", async (req, res) => {
+	try {
+		const supervisors = await projectsService.getSupervisors(req.params.id);
+		res.send(supervisors);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+// PATCH /:id/supervisors
+// assign supervisors
+_router.patch("/:id/supervisors", async (req, res) => {
+	try {
+		const project = await projectsService.assignSupervisors({
+			projectId: req.params.id,
+			supervisorId: req.body.supervisorId,
+			coSupervisorId: req.body.coSupervisorId,
+		});
+		res.send(project);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 export const projectsRouter = _router;

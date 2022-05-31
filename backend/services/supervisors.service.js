@@ -1,4 +1,3 @@
-import { ProjectSupervisor } from "../models/project--supervisor.model";
 import { Supervisor } from "../models/supervisor.model";
 
 const superVisorsPopulateQueries = [
@@ -8,9 +7,9 @@ const superVisorsPopulateQueries = [
 			path: "user",
 		},
 	},
-	{
-		path: "researchFields",
-	},
+	"researchFields",
+	"supervisingProjects",
+	"coSupervisingProjects",
 ];
 
 const createSupervisor = async (staffMember) => {
@@ -25,7 +24,9 @@ const createSupervisor = async (staffMember) => {
 const getSupervisor = async (id) => {
 	const supervisor = await Supervisor.findById(id)
 		.populate(superVisorsPopulateQueries[0])
-		.populate(superVisorsPopulateQueries[1]);
+		.populate(superVisorsPopulateQueries[1])
+		.populate(superVisorsPopulateQueries[2])
+		.populate(superVisorsPopulateQueries[3]);
 	return supervisor?.toJSON();
 };
 
@@ -46,6 +47,8 @@ const getAllSupervisors = async ({
 	const supervisors = await Supervisor.find()
 		.populate(superVisorsPopulateQueries[0])
 		.populate(superVisorsPopulateQueries[1])
+		.populate(superVisorsPopulateQueries[2])
+		.populate(superVisorsPopulateQueries[3])
 		.find(where);
 	return supervisors.map((supervisor) => supervisor.toJSON());
 };
@@ -74,17 +77,6 @@ const removeSupervisorFromResearchField = async (
 	return getSupervisor(supervisorId);
 };
 
-const getSupervisorProjects = async (supervisorId, pending) => {
-	const projects = ProjectSupervisor.find({
-		supervisorId,
-		pending: Boolean(pending),
-	})
-		.populate("project")
-		.select("project");
-
-	return projects.map((project) => project.toJSON());
-};
-
 const deleteSupervisor = async (id) => {
 	await Supervisor.findByIdAndDelete(id);
 };
@@ -94,7 +86,6 @@ export const supervisorsService = {
 	getSupervisor,
 	getAllSupervisors,
 	assignSupervisorToResearchField,
-	getSupervisorProjects,
 	deleteSupervisor,
 	removeSupervisorFromResearchField,
 };

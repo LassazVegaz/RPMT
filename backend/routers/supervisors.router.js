@@ -105,20 +105,6 @@ _router.delete("/:id/research-fields/:researchFieldId", async (req, res) => {
 	}
 });
 
-// GET /:id/projects
-// get a supervisor's projects
-_router.get("/:id/projects", async (req, res) => {
-	try {
-		const projects = await supervisorsService.getSupervisorProjects(
-			req.params.id,
-			req.query.pending
-		);
-		res.json(projects);
-	} catch (error) {
-		res.status(500).json({ message: error.message, error });
-	}
-});
-
 // PUT /:id
 // update a supervisor
 _router.put("/:id", async (req, res) => {
