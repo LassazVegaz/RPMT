@@ -10,6 +10,7 @@ import { studentsRouter } from "./routers/students.router";
 import { projectsRouter } from "./routers/projects.router";
 import { groupsRouter } from "./routers/groups.router";
 import { submissionsRouter } from "./routers/submission.router";
+import { templatesRouter } from "./routers/template.router";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ const main = async () => {
 	app.use("/projects", projectsRouter);
 	app.use("/groups", groupsRouter);
 	app.use("/submissions", submissionsRouter);
+	app.use("/templates", templatesRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);
