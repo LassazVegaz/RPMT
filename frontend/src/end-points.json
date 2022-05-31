@@ -1,0 +1,5 @@
+{
+	"supervisors": {
+		"common": "supervisors"
+	}
+}

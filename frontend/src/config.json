@@ -1,0 +1,4 @@
+{
+	"production": false,
+	"apiURL": "localhost:4000"
+}
