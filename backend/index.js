@@ -7,6 +7,9 @@ import { dbService } from "./services/db.service";
 import { supervisorsRouter } from "./routers/supervisors.router";
 import { researchFieldsRouter } from "./routers/research-fields.router";
 import { studentsRouter } from "./routers/students.router";
+import { projectsRouter } from "./routers/projects.router";
+import { groupsRouter } from "./routers/groups.router";
+import { submissionsRouter } from "./routers/submission.router";
 
 dotenv.config();
 
@@ -26,6 +29,9 @@ const main = async () => {
 	app.use("/supervisors", supervisorsRouter);
 	app.use("/research_fields", researchFieldsRouter);
 	app.use("/students", studentsRouter);
+	app.use("/projects", projectsRouter);
+	app.use("/groups", groupsRouter);
+	app.use("/submissions", submissionsRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);
