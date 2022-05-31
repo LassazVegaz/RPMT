@@ -1,17 +1,32 @@
-import {
-	Button,
-	Avatar,
-	Box,
-	Checkbox,
-	Container,
-	FormControlLabel,
-	Paper,
-	TextField,
-	ToggleButton,
-	ToggleButtonGroup,
-	Typography,
-	styled,
-} from "@mui/material";
+import { Avatar, Container, Paper, Typography, styled } from "@mui/material";
+import { SignupFormFields } from "./SignupFormFields";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+	firstName: Yup.string().required("First name is required"),
+	lastName: Yup.string().required("Last name is required"),
+	email: Yup.string().email("Email is invalid").required("Email is required"),
+	password: Yup.string()
+		.min(8, "Password must be at least 8 characters")
+		.required("Password is required"),
+	confirmPassword: Yup.string().oneOf(
+		[Yup.ref("password"), null],
+		"Passwords must match"
+	),
+	phone: Yup.string().required("Phone is required"),
+});
+
+const initialValues = {
+	firstName: "",
+	lastName: "",
+	email: "",
+	password: "",
+	confirmPassword: "",
+	phone: "",
+	gender: "male",
+	role: "co-supervisor",
+};
 
 const UnderlinedText = styled(Typography)(({ theme }) => ({
 	"&:after": {
@@ -26,6 +41,12 @@ const UnderlinedText = styled(Typography)(({ theme }) => ({
 }));
 
 export const SignupPage = () => {
+	const form = useFormik({
+		initialValues,
+		validationSchema,
+		onSubmit: () => {},
+	});
+
 	return (
 		<Container
 			maxWidth="lg"
@@ -35,6 +56,8 @@ export const SignupPage = () => {
 		>
 			<Paper
 				elevation={8}
+				component="form"
+				onSubmit={form.handleSubmit}
 				sx={{
 					py: 3,
 					mx: 20,
@@ -55,72 +78,7 @@ export const SignupPage = () => {
 					Mr. John Doe
 				</UnderlinedText>
 
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						rowGap: 4,
-						px: 4,
-					}}
-				>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-						}}
-					>
-						<TextField
-							label="First Name"
-							sx={{
-								minWidth: 300,
-							}}
-						/>
-						<TextField
-							label="Last Name"
-							sx={{
-								minWidth: 300,
-							}}
-						/>
-					</Box>
-
-					<TextField label="Email" />
-					<TextField label="Phone" />
-
-					<ToggleButtonGroup exclusive fullWidth>
-						<ToggleButton>Male</ToggleButton>
-						<ToggleButton>Female</ToggleButton>
-					</ToggleButtonGroup>
-
-					<TextField label="Password" />
-					<TextField label="Confirm Password" />
-
-					<ToggleButtonGroup exclusive fullWidth>
-						<ToggleButton>Co-Supervisor</ToggleButton>
-						<ToggleButton>Supervisor</ToggleButton>
-						<ToggleButton>Panel Member</ToggleButton>
-					</ToggleButtonGroup>
-
-					<TextField label="Research Area" />
-
-					<FormControlLabel
-						label="I agree to the given terms and conditions"
-						control={<Checkbox />}
-					/>
-
-					<Box
-						sx={{
-							mt: 5,
-							display: "flex",
-							flexDirection: "column",
-							rowGap: 2,
-						}}
-					>
-						<Button variant="contained">Sign Up</Button>
-						<Button variant="outlined" color="secondary">
-							Sign In
-						</Button>
-					</Box>
-				</Box>
+				<SignupFormFields />
 			</Paper>
 		</Container>
 	);
