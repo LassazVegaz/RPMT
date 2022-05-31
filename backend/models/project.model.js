@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
 
 const _schema = mongoose.Schema(
 	{
@@ -29,14 +30,22 @@ const _schema = mongoose.Schema(
 			id: mongoose.Schema.Types.ObjectId,
 			status: {
 				type: String,
-				enum: ["pending", "accepted", "rejected"],
+				enum: [
+					SUPERVISOR_STATUS.pending,
+					SUPERVISOR_STATUS.accepted,
+					SUPERVISOR_STATUS.rejected,
+				],
 			},
 		},
 		coSupervisorId: {
 			id: mongoose.Schema.Types.ObjectId,
 			status: {
 				type: String,
-				enum: ["pending", "accepted", "rejected"],
+				enum: [
+					SUPERVISOR_STATUS.pending,
+					SUPERVISOR_STATUS.accepted,
+					SUPERVISOR_STATUS.rejected,
+				],
 			},
 		},
 	},

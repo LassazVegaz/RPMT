@@ -122,4 +122,18 @@ _router.put("/:id", async (req, res) => {
 	}
 });
 
+// GET /:id/projects
+// get all projects supervised by a supervisor
+_router.get("/:id/projects", async (req, res) => {
+	try {
+		const projects = await supervisorsService.getProjects(
+			req.params.id,
+			req.query.status
+		);
+		res.json(projects);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
 export const supervisorsRouter = _router;

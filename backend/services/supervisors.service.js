@@ -1,3 +1,5 @@
+import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
+import { Project } from "../models/project.model";
 import { Supervisor } from "../models/supervisor.model";
 
 const superVisorsPopulateQueries = [
@@ -8,8 +10,6 @@ const superVisorsPopulateQueries = [
 		},
 	},
 	"researchFields",
-	"supervisingProjects",
-	"coSupervisingProjects",
 ];
 
 const createSupervisor = async (staffMember) => {
@@ -24,9 +24,7 @@ const createSupervisor = async (staffMember) => {
 const getSupervisor = async (id) => {
 	const supervisor = await Supervisor.findById(id)
 		.populate(superVisorsPopulateQueries[0])
-		.populate(superVisorsPopulateQueries[1])
-		.populate(superVisorsPopulateQueries[2])
-		.populate(superVisorsPopulateQueries[3]);
+		.populate(superVisorsPopulateQueries[1]);
 	return supervisor?.toJSON();
 };
 
@@ -47,8 +45,6 @@ const getAllSupervisors = async ({
 	const supervisors = await Supervisor.find()
 		.populate(superVisorsPopulateQueries[0])
 		.populate(superVisorsPopulateQueries[1])
-		.populate(superVisorsPopulateQueries[2])
-		.populate(superVisorsPopulateQueries[3])
 		.find(where);
 	return supervisors.map((supervisor) => supervisor.toJSON());
 };
@@ -81,6 +77,40 @@ const deleteSupervisor = async (id) => {
 	await Supervisor.findByIdAndDelete(id);
 };
 
+const _getProjects = async (supervisorId, status) => {
+	return Project.find({
+		$or: [
+			{
+				supervisorId: {
+					id: supervisorId,
+					status,
+				},
+			},
+			{
+				coSupervisorId: {
+					id: supervisorId,
+					status,
+				},
+			},
+		],
+	});
+};
+
+const getProjects = async (supervisorId, status = "all") => {
+	if (!Boolean(status) || status === "all") {
+		return {
+			accepted: await _getProjects(
+				supervisorId,
+				SUPERVISOR_STATUS.accepted
+			),
+			pending: await _getProjects(
+				supervisorId,
+				SUPERVISOR_STATUS.pending
+			),
+		};
+	} else return _getProjects(supervisorId, status);
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	getSupervisor,
@@ -88,4 +118,5 @@ export const supervisorsService = {
 	assignSupervisorToResearchField,
 	deleteSupervisor,
 	removeSupervisorFromResearchField,
+	getProjects,
 };
