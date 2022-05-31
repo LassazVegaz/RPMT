@@ -1,7 +1,8 @@
 import { Box, CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export const PageLoader = () => {
-	const loading = true;
+	const loading = useSelector((s) => s.pageLoader.isLoading);
 
 	return loading ? (
 		<Box
