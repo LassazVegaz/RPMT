@@ -20,7 +20,7 @@ export const useApi = () => {
 	const callApi = async (
 		fn,
 		{
-			handleError = true,
+			throwError = true,
 			showSuccessMessage = true,
 			showErrorMessage = true,
 		}
@@ -34,7 +34,7 @@ export const useApi = () => {
 		} catch (error) {
 			stopLoading();
 			if (showErrorMessage) showNotification("Failed", "error");
-			if (!handleError) throw error;
+			if (throwError) throw error;
 		}
 	};
 
