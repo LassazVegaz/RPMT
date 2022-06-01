@@ -1,6 +1,5 @@
 import {
 	Box,
-	TextField,
 	FormControlLabel,
 	Button,
 	Checkbox,
@@ -8,6 +7,7 @@ import {
 	ToggleButtonGroup,
 } from "@mui/material";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { ResearchFieldsSelector } from "../../components/ResearchFieldsSelector/ResearchFieldsSelector";
 import { GENDERS } from "../../constants/genders.constants";
 import { USER_ROLES } from "../../constants/user-roles.constants";
 
@@ -100,7 +100,7 @@ export const SignupFormFields = ({ form }) => {
 				</ToggleButton>
 			</ToggleButtonGroup>
 
-			<TextField label="Research Area" />
+			<ResearchFieldsSelector />
 
 			<FormControlLabel
 				label="I agree to the given terms and conditions"
