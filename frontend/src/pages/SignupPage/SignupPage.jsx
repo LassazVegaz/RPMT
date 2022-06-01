@@ -6,7 +6,7 @@ import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import { GENDERS } from "../../constants/genders.constants";
-import { useApi } from "../../hooks/api.hook";
+import { useSupervisors } from "../../hooks/supervisor.hook";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -64,12 +64,18 @@ const buildDisplayName = (gender, firstName, lastName) => {
 export const SignupPage = () => {
 	const [avatar, setAvatar] = useState(null);
 	const [displayName, setDisplayName] = useState("");
-	const { startLoading, stopLoading } = useApi();
+	const { createSupervisor } = useSupervisors();
 
 	const form = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: console.log,
+		onSubmit: async (values) => {
+			if (
+				values.role === USER_ROLES.SUPERVISOR ||
+				values.role === USER_ROLES.CO_SUPERVISOR
+			)
+				await createSupervisor(values);
+		},
 	});
 
 	useEffect(() => {
@@ -87,12 +93,15 @@ export const SignupPage = () => {
 	const handlePhotoChange = (event) => {
 		if (event.target.files.length > 0) {
 			const reader = new FileReader();
+			const fileExtension = event.target.files[0].name.split(".").pop();
+
 			reader.onload = (e) => {
-				form.setFieldValue("photo", e.target.result);
-				stopLoading();
+				form.setFieldValue("photo", {
+					data: e.target.result,
+					fileExtension,
+				});
 			};
-			reader.readAsArrayBuffer(event.target.files[0]);
-			startLoading();
+			reader.readAsDataURL(event.target.files[0]);
 
 			setAvatar(URL.createObjectURL(event.target.files[0]));
 		}
