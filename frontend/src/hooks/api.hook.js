@@ -23,10 +23,10 @@ export const useApi = () => {
 			throwError = true,
 			showSuccessMessage = true,
 			showErrorMessage = true,
-		}
+		} = {}
 	) => {
-		startLoading();
 		try {
+			startLoading();
 			const response = await fn();
 			stopLoading();
 			if (showSuccessMessage) showNotification("Successful", "info");

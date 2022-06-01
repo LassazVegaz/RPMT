@@ -6,6 +6,11 @@ const createAxiosApp = () => {
 		baseURL: config.apiURL,
 	});
 
+	_axios.interceptors.response.use(null, (error) => {
+		console.error(error);
+		throw error;
+	});
+
 	return _axios;
 };
 

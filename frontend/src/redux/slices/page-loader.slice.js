@@ -8,8 +8,12 @@ export const pageLoaderSlice = createSlice({
 	name: "pageLoader",
 	initialState,
 	reducers: {
-		startLoading: (state) => (state.isLoading = true),
-		stopLoading: (state) => (state.isLoading = false),
+		startLoading: (state) => {
+			state.isLoading = true;
+		},
+		stopLoading: (state) => {
+			state.isLoading = false;
+		},
 	},
 });
 
