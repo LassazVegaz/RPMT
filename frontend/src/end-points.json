@@ -8,5 +8,8 @@
 	"users": {
 		"common": "users",
 		"emailAvailable": "users/email_available"
+	},
+	"students": {
+		"common": "students"
 	}
 }
