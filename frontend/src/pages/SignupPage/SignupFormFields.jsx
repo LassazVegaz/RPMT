@@ -16,6 +16,10 @@ export const SignupFormFields = ({ form }) => {
 		if (value) form.setFieldValue(name, value);
 	};
 
+	const displayFieldsSelector =
+		form.values.role === USER_ROLES.CO_SUPERVISOR ||
+		form.values.role === USER_ROLES.SUPERVISOR;
+
 	return (
 		<Box
 			sx={{
@@ -98,19 +102,24 @@ export const SignupFormFields = ({ form }) => {
 				<ToggleButton name="role" value={USER_ROLES.PANEL_MEMBER}>
 					Panel Member
 				</ToggleButton>
+				<ToggleButton name="role" value={USER_ROLES.STUDENT}>
+					Student
+				</ToggleButton>
 			</ToggleButtonGroup>
 
-			<ResearchFieldsSelector
-				selectedFieldIds={form.values.researchFieldIds}
-				setSelectedFieldIds={(values) =>
-					form.setFieldValue("researchFieldIds", values)
-				}
-				error={
-					Boolean(form.errors.researchFieldIds) &&
-					Boolean(form.touched.researchFieldIds)
-				}
-				errorMessage={form.errors.researchFieldIds}
-			/>
+			{displayFieldsSelector && (
+				<ResearchFieldsSelector
+					selectedFieldIds={form.values.researchFieldIds}
+					setSelectedFieldIds={(values) =>
+						form.setFieldValue("researchFieldIds", values)
+					}
+					error={
+						Boolean(form.errors.researchFieldIds) &&
+						Boolean(form.touched.researchFieldIds)
+					}
+					errorMessage={form.errors.researchFieldIds}
+				/>
+			)}
 
 			<FormControlLabel
 				value={form.values.agree}
