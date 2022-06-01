@@ -3,6 +3,7 @@ import { SignupFormFields } from "./SignupFormFields";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { USER_ROLES } from "../../constants/user-roles.constants";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -36,6 +37,7 @@ const initialValues = {
 	role: "co-supervisor",
 	researchFieldIds: [],
 	agree: false,
+	photo: "",
 };
 
 const UnderlinedText = styled(Typography)(({ theme }) => ({
@@ -51,11 +53,21 @@ const UnderlinedText = styled(Typography)(({ theme }) => ({
 }));
 
 export const SignupPage = () => {
+	const [avatar, setAvatar] = useState(null);
 	const form = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit: console.log,
 	});
+
+	const avatarSide = 180;
+
+	const handlePhotoChange = (event) => {
+		if (event.target.files.length > 0) {
+			form.setFieldValue("photo", event.target.files[0]);
+			setAvatar(URL.createObjectURL(event.target.files[0]));
+		}
+	};
 
 	return (
 		<Container
@@ -75,14 +87,28 @@ export const SignupPage = () => {
 					flexDirection: "column",
 				}}
 			>
-				<Avatar
-					sx={{
-						width: 100,
-						height: 100,
-						mb: 3,
-						mx: "auto",
-					}}
+				<input
+					accept="image/*"
+					id="profile-picture-uploader"
+					multiple
+					type="file"
+					hidden
+					onChange={handlePhotoChange}
+					name="photo"
 				/>
+				<label htmlFor="profile-picture-uploader">
+					<Avatar
+						sizes=""
+						sx={{
+							width: avatarSide,
+							height: avatarSide,
+							mb: 3,
+							mx: "auto",
+							cursor: "pointer",
+						}}
+						src={avatar}
+					/>
+				</label>
 
 				<UnderlinedText variant="h5" mb={8} textAlign="center">
 					Mr. John Doe
