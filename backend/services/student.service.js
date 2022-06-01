@@ -76,7 +76,7 @@ const getStudentByUserId = async (userId) => {
 	const student = await Student.findOne({
 		userId,
 	}).populate("user", "_id email role");
-	return student;
+	return student?.toJSON();
 };
 
 export const studentService = {

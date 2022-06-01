@@ -54,20 +54,27 @@ const verifyToken = async (token) => {
 	const user = await User.findById(decoded.sub).select("-password");
 	if (!user) return false;
 
+	let _user;
 	switch (user.role) {
 		case USER_ROLES.ADMIN:
-			return user;
+			_user = user;
+			break;
 
 		case USER_ROLES.CO_SUPERVISOR:
 		case USER_ROLES.SUPERVISOR:
-			return supervisorsService.getSupervisorByUserId(user.id);
+			_user = await supervisorsService.getSupervisorByUserId(user.id);
+			break;
 
 		case USER_ROLES.STUDENT:
-			return studentService.getStudentByUserId(user.id);
+			_user = await studentService.getStudentByUserId(user.id);
+			break;
 
 		case USER_ROLES.PANEL_MEMBER:
-			return staffMembersService.getStaffMemberByUserId(user.id);
+			_user = await staffMembersService.getStaffMemberByUserId(user.id);
+			break;
 	}
+
+	return { ..._user, role: user.role };
 };
 
 export const usersService = {
