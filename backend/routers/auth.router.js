@@ -1,5 +1,6 @@
 import express from "express";
 import { usersService } from "../services/users.service";
+import { auth } from "../middleware/auth.middleware";
 
 const _router = express.Router();
 
@@ -14,6 +15,12 @@ _router.post("/login", async (req, res) => {
 		const token = await usersService.generateToken(email);
 		res.status(200).send(token);
 	}
+});
+
+// GET: /
+// get logged in user
+_router.get("/", auth(), async (req, res) => {
+	res.send(req.user);
 });
 
 export const authRouter = _router;
