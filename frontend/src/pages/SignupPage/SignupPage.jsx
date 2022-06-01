@@ -6,7 +6,6 @@ import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import { GENDERS } from "../../constants/genders.constants";
-import { useSupervisors } from "../../hooks/supervisor.hook";
 import { useUsers } from "../../hooks/users.hook";
 import { useApi } from "../../hooks/api.hook";
 import { useNavigate } from "react-router-dom";
@@ -67,8 +66,7 @@ const buildDisplayName = (gender, firstName, lastName) => {
 export const SignupPage = () => {
 	const [avatar, setAvatar] = useState(null);
 	const [displayName, setDisplayName] = useState("");
-	const { createSupervisor } = useSupervisors();
-	const { isEmailAvailable } = useUsers();
+	const { isEmailAvailable, createAccount } = useUsers();
 	const { showNotification } = useApi();
 	const navigate = useNavigate();
 
@@ -81,18 +79,10 @@ export const SignupPage = () => {
 				return;
 			}
 
-			if (
-				values.role === USER_ROLES.SUPERVISOR ||
-				values.role === USER_ROLES.CO_SUPERVISOR
-			) {
-				const created = await createSupervisor(values);
-				if (created) {
-					showNotification(
-						"Account was created successfully",
-						"info"
-					);
-					navigate("/login");
-				}
+			const created = await createAccount(values);
+			if (created) {
+				showNotification("Account was created successfully", "info");
+				navigate("/login");
 			}
 		},
 	});
