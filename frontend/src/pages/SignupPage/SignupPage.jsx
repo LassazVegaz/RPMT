@@ -9,6 +9,7 @@ import { GENDERS } from "../../constants/genders.constants";
 import { useSupervisors } from "../../hooks/supervisor.hook";
 import { useUsers } from "../../hooks/users.hook";
 import { useApi } from "../../hooks/api.hook";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -69,6 +70,7 @@ export const SignupPage = () => {
 	const { createSupervisor } = useSupervisors();
 	const { isEmailAvailable } = useUsers();
 	const { showNotification } = useApi();
+	const navigate = useNavigate();
 
 	const form = useFormik({
 		initialValues,
@@ -82,8 +84,16 @@ export const SignupPage = () => {
 			if (
 				values.role === USER_ROLES.SUPERVISOR ||
 				values.role === USER_ROLES.CO_SUPERVISOR
-			)
-				await createSupervisor(values);
+			) {
+				const created = await createSupervisor(values);
+				if (created) {
+					showNotification(
+						"Account was created successfully",
+						"info"
+					);
+					navigate("/login");
+				}
+			}
 		},
 	});
 
