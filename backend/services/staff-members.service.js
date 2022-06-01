@@ -1,6 +1,14 @@
 import { StaffMember } from "../models/staff-member.model";
+import { mediaServices } from "./media.service";
 
 const createStaffMember = async (user, staffMember) => {
+	if (staffMember.photo) {
+		staffMember.photo = await mediaServices.saveProfilePicture(
+			staffMember.photo.data,
+			staffMember.photo.fileExtension
+		);
+	}
+
 	staffMember = {
 		userId: user.id,
 		firstName: staffMember.firstName,
