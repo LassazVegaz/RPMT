@@ -15,6 +15,10 @@ const validationSchema = Yup.object({
 		"Passwords must match"
 	),
 	phone: Yup.string().required("Phone is required"),
+	researchFieldIds: Yup.array().min(
+		1,
+		"At least one research field is required"
+	),
 });
 
 const initialValues = {
@@ -46,7 +50,7 @@ export const SignupPage = () => {
 	const form = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: () => {},
+		onSubmit: console.log,
 	});
 
 	return (

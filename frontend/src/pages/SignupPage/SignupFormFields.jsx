@@ -105,6 +105,11 @@ export const SignupFormFields = ({ form }) => {
 				setSelectedFieldIds={(values) =>
 					form.setFieldValue("researchFieldIds", values)
 				}
+				error={
+					Boolean(form.errors.researchFieldIds) &&
+					Boolean(form.touched.researchFieldIds)
+				}
+				errorMessage={form.errors.researchFieldIds}
 			/>
 
 			<FormControlLabel
