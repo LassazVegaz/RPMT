@@ -7,6 +7,11 @@ const superVisorsPopulateQueries = [
 		path: "staffMember",
 		populate: {
 			path: "user",
+			select: {
+				email: 1,
+				role: 1,
+				_id: 1,
+			},
 		},
 	},
 	"researchFields",

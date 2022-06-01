@@ -25,11 +25,14 @@ const createStudent = async (user, student) => {
 };
 
 const getStudents = async () => {
-	return Student.find().populate("user").exec();
+	return Student.find().populate("user", "_id email role").exec();
 };
 
 const getStudent = async (id) => {
-	const Students = await Student.findById(id).populate("user");
+	const Students = await Student.findById(id).populate(
+		"user",
+		"_id email role"
+	);
 	return Students.toJSON();
 };
 
