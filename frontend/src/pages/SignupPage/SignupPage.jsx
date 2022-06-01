@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useState } from "react";
+import { useEffect } from "react";
+import { GENDERS } from "../../constants/genders.constants";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -33,7 +35,7 @@ const initialValues = {
 	password: "",
 	confirmPassword: "",
 	phone: "",
-	gender: "male",
+	gender: GENDERS.MALE,
 	role: "co-supervisor",
 	researchFieldIds: [],
 	agree: false,
@@ -52,13 +54,31 @@ const UnderlinedText = styled(Typography)(({ theme }) => ({
 	},
 }));
 
+const buildDisplayName = (gender, firstName, lastName) => {
+	const firstPart =
+		firstName || lastName ? (gender === GENDERS.MALE ? "Mr." : "Mrs.") : "";
+	return `${firstPart} ${firstName} ${lastName}`;
+};
+
 export const SignupPage = () => {
 	const [avatar, setAvatar] = useState(null);
+	const [displayName, setDisplayName] = useState("");
+
 	const form = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit: console.log,
 	});
+
+	useEffect(() => {
+		setDisplayName(
+			buildDisplayName(
+				form.values.gender,
+				form.values.firstName,
+				form.values.lastName
+			)
+		);
+	}, [form.values.firstName, form.values.lastName, form.values.gender]);
 
 	const avatarSide = 180;
 
@@ -111,7 +131,7 @@ export const SignupPage = () => {
 				</label>
 
 				<UnderlinedText variant="h5" mb={8} textAlign="center">
-					Mr. John Doe
+					{displayName}
 				</UnderlinedText>
 
 				<SignupFormFields form={form} />
