@@ -20,13 +20,12 @@ const _schema = mongoose.Schema(
 			required: true,
 			enum: ["male", "female"],
 		},
-		photo: {
-			type: String,
-			required: true,
-		},
 		phone: {
 			type: String,
 			required: true,
+		},
+		photo: {
+			type: String,
 		},
 	},
 	{
