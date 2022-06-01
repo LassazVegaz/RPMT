@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -7,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import { useSelector } from "react-redux";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,31 +19,38 @@ const MenuProps = {
 	},
 };
 
-const names = [
-	"Oliver Hansen",
-	"Van Henry",
-	"April Tucker",
-	"Ralph Hubbard",
-	"Omar Alexander",
-	"Carlos Abbott",
-	"Miriam Wagner",
-	"Bradley Wilkerson",
-	"Virginia Andrews",
-	"Kelly Snyder",
-];
-
-const getStyles = (name, personName, theme) => {
+const getStyles = (resField, selectedFieldIds, theme) => {
 	return {
-		fontWeight:
-			personName.indexOf(name) === -1
-				? theme.typography.fontWeightRegular
-				: theme.typography.fontWeightMedium,
+		fontWeight: selectedFieldIds.includes(resField.id)
+			? theme.typography.fontWeightMedium
+			: theme.typography.fontWeightRegular,
 	};
 };
 
-export const ResearchFieldsSelector = () => {
+const SelectedValuesDisplay = ({ selectedFieldIds, researchFields }) => {
 	const theme = useTheme();
-	const [personName, setPersonName] = React.useState([]);
+	return (
+		<Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+			{selectedFieldIds.map((fieldId) => {
+				const field = researchFields.find((r) => r.id === fieldId);
+				return (
+					<Chip
+						key={fieldId}
+						label={field.name}
+						style={getStyles(field, selectedFieldIds, theme)}
+					/>
+				);
+			})}
+		</Box>
+	);
+};
+
+export const ResearchFieldsSelector = ({
+	selectedFieldIds,
+	setSelectedFieldIds,
+}) => {
+	const theme = useTheme();
+	const researchFields = useSelector((s) => s.researchFields);
 
 	const title = "Research Fields";
 
@@ -51,11 +58,21 @@ export const ResearchFieldsSelector = () => {
 		const {
 			target: { value },
 		} = event;
-		setPersonName(
+		setSelectedFieldIds(
 			// On autofill we get a stringified value.
 			typeof value === "string" ? value.split(",") : value
 		);
 	};
+
+	const menuItems = researchFields.map((resField) => (
+		<MenuItem
+			key={resField.id}
+			value={resField.id}
+			style={getStyles(resField, selectedFieldIds, theme)}
+		>
+			{resField.name}
+		</MenuItem>
+	));
 
 	return (
 		<FormControl>
@@ -63,27 +80,18 @@ export const ResearchFieldsSelector = () => {
 			<Select
 				labelId="demo-multiple-chip-label"
 				multiple
-				value={personName}
+				value={selectedFieldIds}
 				onChange={handleChange}
 				input={<OutlinedInput label={title} />}
 				renderValue={(selected) => (
-					<Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-						{selected.map((value) => (
-							<Chip key={value} label={value} />
-						))}
-					</Box>
+					<SelectedValuesDisplay
+						selectedFieldIds={selected}
+						researchFields={researchFields}
+					/>
 				)}
 				MenuProps={MenuProps}
 			>
-				{names.map((name) => (
-					<MenuItem
-						key={name}
-						value={name}
-						style={getStyles(name, personName, theme)}
-					>
-						{name}
-					</MenuItem>
-				))}
+				{menuItems}
 			</Select>
 		</FormControl>
 	);
