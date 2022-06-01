@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import cors from "cors";
 import { markingSchemasRouter } from "./routers/marking-schemas.router";
 import { dbService } from "./services/db.service";
 import { supervisorsRouter } from "./routers/supervisors.router";
@@ -11,6 +12,7 @@ import { projectsRouter } from "./routers/projects.router";
 import { groupsRouter } from "./routers/groups.router";
 import { submissionsRouter } from "./routers/submission.router";
 import { templatesRouter } from "./routers/template.router";
+import { usersRouter } from "./routers/users.router";
 
 dotenv.config();
 
@@ -20,7 +22,16 @@ const main = async () => {
 
 	// add middlewares
 	app.use(morgan("dev"));
-	app.use(bodyParser.json());
+	app.use(
+		cors({
+			origin: process.env.FRONT_END,
+		})
+	);
+	app.use(
+		bodyParser.json({
+			limit: "10mb",
+		})
+	);
 
 	// connect to DB
 	await dbService.connect();
@@ -34,6 +45,7 @@ const main = async () => {
 	app.use("/groups", groupsRouter);
 	app.use("/submissions", submissionsRouter);
 	app.use("/templates", templatesRouter);
+	app.use("/users", usersRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);

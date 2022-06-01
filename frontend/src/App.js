@@ -1,46 +1,37 @@
+import { Routes, Route } from "react-router-dom";
+
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
+import { PageLoader } from "./components/PageLoader/PageLoader";
+import { SignupPage } from "./pages/SignupPage/SignupPage";
+import { Notification } from "./components/Notification/Notification";
+import { useEffect } from "react";
+import { useInitFetching } from "./hooks/init-data-fetch.hook";
+import { SignInPage } from "./pages/SignInPage/SignInPage";
 
-import { Home } from "./pages/StudentHomePage/StudentHomePage";
-import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
-import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
-import { ViewSupervisorFeedbackPage } from "./pages/ViewSupervisorFeedbackPage/ViewSupervisorFeedbackPage";
-import { Requests } from "./pages/RequestsPage/RequestsPage";
-import { SubmitDocumentsPage } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
-import { DownloadTemplatePage } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
-import { AdminHomePage } from "./pages/AdminHomePage/AdminHomePage";
-import {AddPanelMemberPage} from "./pages/AddPanleMember/AddPanelMemberPage";
-import {CreateMarkingScheme} from "./pages/CreateMarkingScheme/CreateMarkingScheme";
-import {ViewProfilesPage} from "./pages/ViewProfilesPage/ViewProfilesPage";
-import { UploadDocumentPage } from "./pages/UploadDocumentPage/UploadDocumentPage";
-import { AllocatePanelMembersPage } from "./pages/AllocatePnaleMembersPage/AllocatePanelMembersPage";
-import { ViewAddedPanelMembers } from "./pages/ViewAddedPanelMembers/ViewAddedPanelMembers";
-import { GroupDetailsPage } from "./pages/GroupDetailsPage/GroupDetailsPage";
-import { CreateSubmissionTypePage } from "./pages/CreateSubmissionTypePage/CreateSubmissionTypePage";
 function App() {
-  return (
-    <>
-      <Header />
+	const { fetchInitData } = useInitFetching();
 
-      <Home />
-      <CreateGroups />
-      <Registertopic />
-      <ViewSupervisorFeedbackPage isCoSupervisor={true} />
-      <Requests />
-      <SubmitDocumentsPage />
-      <DownloadTemplatePage />
-      <AdminHomePage/>
-      <AddPanelMemberPage/>
-      <CreateMarkingScheme/>
-      <ViewProfilesPage/>
-      <UploadDocumentPage/>
-      <AllocatePanelMembersPage/>
-      <ViewAddedPanelMembers/>
-      <GroupDetailsPage/>
-      <CreateSubmissionTypePage/>
-      <Footer />
-    </>
-  );
+	useEffect(() => {
+		fetchInitData();
+	});
+
+	return (
+		<>
+			<Header />
+
+			<Routes>
+				<Route path="/" element={<SignupPage />} />
+				<Route path="/login" element={<SignInPage />} />
+			</Routes>
+
+			<Footer />
+
+			<PageLoader />
+
+			<Notification />
+		</>
+	);
 }
 
 export default App;

@@ -1,18 +1,11 @@
-import React from 'react';
+import React from "react";
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
-import { 
-    Container,
-    Typography,
-    Paper,
-    Box,
- } from "@mui/material";
-
+import { Container, Typography, Paper, Box } from "@mui/material";
 
 export const GroupDetailsPage = () => {
-    const tableHeaders = ["ID", "Name", "Email", "Membership"];
-  return (
-    <Container maxWidth="lg">
-        			<Typography
+	return (
+		<Container maxWidth="lg">
+			<Typography
 				variant="h4"
 				mb={10}
 				textAlign="center"
@@ -20,12 +13,12 @@ export const GroupDetailsPage = () => {
 			>
 				Student Research Group Details
 			</Typography>
-            <Paper
+			<Paper
 				elevation={8}
 				sx={{
 					py: 3,
 					mx: 20,
-                    mb: 5
+					mb: 5,
 				}}
 			>
 				<Box
@@ -51,11 +44,13 @@ export const GroupDetailsPage = () => {
 					>
 						Research Field :
 					</Typography>
-                    <StudentGroupView 	sx={{
-                        mt: 5,
-                        mb: 5
-					}}/>
-                    <Typography
+					<StudentGroupView
+						sx={{
+							mt: 5,
+							mb: 5,
+						}}
+					/>
+					<Typography
 						variant="h6"
 						textAlign="left"
 						fontFamily={"areal"}
@@ -68,7 +63,8 @@ export const GroupDetailsPage = () => {
 						fontFamily={"areal"}
 					>
 						Co-Supervisor :
-					</Typography><Typography
+					</Typography>
+					<Typography
 						variant="h6"
 						textAlign="left"
 						fontFamily={"areal"}
@@ -81,7 +77,8 @@ export const GroupDetailsPage = () => {
 						fontFamily={"areal"}
 					>
 						Panel Member 2 :
-					</Typography><Typography
+					</Typography>
+					<Typography
 						variant="h6"
 						textAlign="left"
 						fontFamily={"areal"}
@@ -95,8 +92,8 @@ export const GroupDetailsPage = () => {
 					>
 						Panel Member 4 :
 					</Typography>
-                    </Box>
-                    </Paper>
-    </Container>
-  )
-}
+				</Box>
+			</Paper>
+		</Container>
+	);
+};

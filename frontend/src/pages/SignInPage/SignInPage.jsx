@@ -6,8 +6,11 @@ import {
 	Box,
 	TextField,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const SignInPage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<Container
 			maxWidth="lg"
@@ -48,7 +51,11 @@ export const SignInPage = () => {
 						}}
 					>
 						<Button variant="contained">Sign In</Button>
-						<Button variant="outlined" color="secondary">
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={() => navigate("/")}
+						>
 							Sign Up
 						</Button>
 					</Box>

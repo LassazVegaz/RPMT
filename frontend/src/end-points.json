@@ -1,0 +1,12 @@
+{
+	"supervisors": {
+		"common": "supervisors"
+	},
+	"researchFields": {
+		"common": "research_fields"
+	},
+	"users": {
+		"common": "users",
+		"emailAvailable": "users/email_available"
+	}
+}
