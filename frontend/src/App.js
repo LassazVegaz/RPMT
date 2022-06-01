@@ -6,13 +6,13 @@ import { PageLoader } from "./components/PageLoader/PageLoader";
 import { SignupPage } from "./pages/SignupPage/SignupPage";
 import { Notification } from "./components/Notification/Notification";
 import { useEffect } from "react";
-import { useResearchFields } from "./hooks/research-fields.hook";
+import { useInitFetching } from "./hooks/init-data-fetch.hook";
 
 function App() {
-	const { fetchResearchFields } = useResearchFields();
+	const { fetchInitData } = useInitFetching();
 
 	useEffect(() => {
-		fetchResearchFields();
+		fetchInitData();
 	});
 
 	return (

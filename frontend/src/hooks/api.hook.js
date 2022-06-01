@@ -23,17 +23,19 @@ export const useApi = () => {
 			throwError = true,
 			showSuccessMessage = true,
 			showErrorMessage = true,
+			successMessage = "Successfull",
+			errorMessage = "Failed",
 		} = {}
 	) => {
 		try {
 			startLoading();
 			const response = await fn();
 			stopLoading();
-			if (showSuccessMessage) showNotification("Successful", "info");
+			if (showSuccessMessage) showNotification(successMessage, "info");
 			return response;
 		} catch (error) {
 			stopLoading();
-			if (showErrorMessage) showNotification("Failed", "error");
+			if (showErrorMessage) showNotification(errorMessage, "error");
 			if (throwError) throw error;
 		}
 	};
