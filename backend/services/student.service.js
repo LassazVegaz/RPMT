@@ -72,6 +72,13 @@ const assignGroup = async (studentId, groupId) => {
 	return getStudent(studentId);
 };
 
+const getStudentByUserId = async (userId) => {
+	const student = await Student.findOne({
+		userId,
+	}).populate("user", "_id email role");
+	return student;
+};
+
 export const studentService = {
 	createStudent,
 	getStudents,
@@ -79,4 +86,5 @@ export const studentService = {
 	deleteStudent,
 	updateStudent,
 	assignGroup,
+	getStudentByUserId,
 };
