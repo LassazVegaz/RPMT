@@ -6,6 +6,7 @@ import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import { GENDERS } from "../../constants/genders.constants";
+import { useApi } from "../../hooks/api.hook";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -39,7 +40,7 @@ const initialValues = {
 	role: "co-supervisor",
 	researchFieldIds: [],
 	agree: false,
-	photo: "",
+	photo: null,
 };
 
 const UnderlinedText = styled(Typography)(({ theme }) => ({
@@ -63,6 +64,7 @@ const buildDisplayName = (gender, firstName, lastName) => {
 export const SignupPage = () => {
 	const [avatar, setAvatar] = useState(null);
 	const [displayName, setDisplayName] = useState("");
+	const { startLoading, stopLoading } = useApi();
 
 	const form = useFormik({
 		initialValues,
@@ -84,7 +86,14 @@ export const SignupPage = () => {
 
 	const handlePhotoChange = (event) => {
 		if (event.target.files.length > 0) {
-			form.setFieldValue("photo", event.target.files[0]);
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				form.setFieldValue("photo", e.target.result);
+				stopLoading();
+			};
+			reader.readAsArrayBuffer(event.target.files[0]);
+			startLoading();
+
 			setAvatar(URL.createObjectURL(event.target.files[0]));
 		}
 	};
