@@ -1,4 +1,5 @@
 import { User } from "../models/user.model";
+import bcrypt from "bcrypt";
 
 const createUser = async (user) => {
 	user = {
@@ -7,12 +8,17 @@ const createUser = async (user) => {
 		role: user.role,
 	};
 
+	const salts = Number(process.env.SALT_ROUNDS);
+	user.password = await bcrypt.hash(user.password, salts);
+
 	const _user = new User(user);
 	await _user.save();
 	return _user.toJSON();
 };
 
 const changePassword = async (userId, password) => {
+	const salts = Number(process.env.SALT_ROUNDS);
+	password = await bcrypt.hash(password, salts);
 	await User.findByIdAndUpdate(userId, { password });
 };
 
