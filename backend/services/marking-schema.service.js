@@ -27,13 +27,13 @@ const createMarkingSchemaArea = async (area) => {
 
 const getMarkingSchemas = async () => {
 	const schemas = await MarkingSchema.find().populate("markingSchemaAreas");
-	return schemas.toJSON();
+	return schemas;
 	
 }
 
 const getMarkingSchema = async (id) => {
 	const schema = await MarkingSchema.findById(id).populate("markingSchemaAreas");
-	return schema.toJSON();
+	return schema;
 }
 
 
