@@ -9,7 +9,7 @@ _router.get("/email_available/:email", async (req, res) => {
 	try {
 		const email = req.params.email;
 		const available = await usersService.emailAvailable(email);
-		res.json({ available });
+		res.json(available);
 	} catch (error) {
 		res.status(500).json({ message: error.message, error });
 	}
