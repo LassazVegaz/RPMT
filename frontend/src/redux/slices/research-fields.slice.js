@@ -7,7 +7,7 @@ export const researchFieldsSlice = createSlice({
 	initialState,
 	reducers: {
 		setResearchFields: (state, action) => {
-			state = action.payload;
+			return action.payload;
 		},
 	},
 });
