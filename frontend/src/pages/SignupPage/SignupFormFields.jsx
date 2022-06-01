@@ -100,9 +100,17 @@ export const SignupFormFields = ({ form }) => {
 				</ToggleButton>
 			</ToggleButtonGroup>
 
-			<ResearchFieldsSelector />
+			<ResearchFieldsSelector
+				selectedFieldIds={form.values.researchFieldIds}
+				setSelectedFieldIds={(values) =>
+					form.setFieldValue("researchFieldIds", values)
+				}
+			/>
 
 			<FormControlLabel
+				value={form.values.agree}
+				name="agree"
+				onChange={form.handleChange}
 				label="I agree to the given terms and conditions"
 				control={<Checkbox />}
 			/>
@@ -115,7 +123,11 @@ export const SignupFormFields = ({ form }) => {
 					rowGap: 2,
 				}}
 			>
-				<Button variant="contained" type="submit">
+				<Button
+					variant="contained"
+					type="submit"
+					disabled={!form.values.agree}
+				>
 					Sign Up
 				</Button>
 				<Button variant="outlined" color="secondary">

@@ -26,6 +26,8 @@ const initialValues = {
 	phone: "",
 	gender: "male",
 	role: "co-supervisor",
+	researchFieldIds: [],
+	agree: false,
 };
 
 const UnderlinedText = styled(Typography)(({ theme }) => ({
