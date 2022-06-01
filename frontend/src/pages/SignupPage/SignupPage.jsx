@@ -2,6 +2,7 @@ import { Avatar, Container, Paper, Typography, styled } from "@mui/material";
 import { SignupFormFields } from "./SignupFormFields";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { USER_ROLES } from "../../constants/user-roles.constants";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -15,10 +16,13 @@ const validationSchema = Yup.object({
 		"Passwords must match"
 	),
 	phone: Yup.string().required("Phone is required"),
-	researchFieldIds: Yup.array().min(
-		1,
-		"At least one research field is required"
-	),
+	role: Yup.string().required("Role is required"),
+	researchFieldIds: Yup.array().when("role", {
+		is: (role) =>
+			role === USER_ROLES.CO_SUPERVISOR || role === USER_ROLES.SUPERVISOR,
+		then: Yup.array().min(1, "At least one research field is required"),
+		otherwise: Yup.array().notRequired(),
+	}),
 });
 
 const initialValues = {
