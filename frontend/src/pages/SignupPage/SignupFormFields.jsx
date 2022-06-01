@@ -10,8 +10,11 @@ import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMU
 import { ResearchFieldsSelector } from "../../components/ResearchFieldsSelector/ResearchFieldsSelector";
 import { GENDERS } from "../../constants/genders.constants";
 import { USER_ROLES } from "../../constants/user-roles.constants";
+import { useNavigate } from "react-router-dom";
 
 export const SignupFormFields = ({ form }) => {
+	const navigate = useNavigate();
+
 	const handleToggleButtonChange = (name) => (_, value) => {
 		if (value) form.setFieldValue(name, value);
 	};
@@ -144,7 +147,11 @@ export const SignupFormFields = ({ form }) => {
 				>
 					Sign Up
 				</Button>
-				<Button variant="outlined" color="secondary">
+				<Button
+					variant="outlined"
+					color="secondary"
+					onClick={() => navigate("/login")}
+				>
 					Sign In
 				</Button>
 			</Box>

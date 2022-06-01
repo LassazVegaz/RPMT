@@ -7,6 +7,7 @@ import { SignupPage } from "./pages/SignupPage/SignupPage";
 import { Notification } from "./components/Notification/Notification";
 import { useEffect } from "react";
 import { useInitFetching } from "./hooks/init-data-fetch.hook";
+import { SignInPage } from "./pages/SignInPage/SignInPage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -21,6 +22,7 @@ function App() {
 
 			<Routes>
 				<Route path="/" element={<SignupPage />} />
+				<Route path="/login" element={<SignInPage />} />
 			</Routes>
 
 			<Footer />
