@@ -7,6 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { useSelector } from "react-redux";
+import { FormHelperText } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,6 +49,8 @@ const SelectedValuesDisplay = ({ selectedFieldIds, researchFields }) => {
 export const ResearchFieldsSelector = ({
 	selectedFieldIds,
 	setSelectedFieldIds,
+	error = false,
+	errorMessage = null,
 }) => {
 	const theme = useTheme();
 	const researchFields = useSelector((s) => s.researchFields);
@@ -75,7 +78,7 @@ export const ResearchFieldsSelector = ({
 	));
 
 	return (
-		<FormControl>
+		<FormControl error={error}>
 			<InputLabel id="demo-multiple-chip-label">{title}</InputLabel>
 			<Select
 				labelId="demo-multiple-chip-label"
@@ -93,6 +96,9 @@ export const ResearchFieldsSelector = ({
 			>
 				{menuItems}
 			</Select>
+			{error && errorMessage && (
+				<FormHelperText>{errorMessage}</FormHelperText>
+			)}
 		</FormControl>
 	);
 };
