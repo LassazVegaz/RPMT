@@ -25,7 +25,11 @@ const main = async () => {
 			origin: process.env.FRONT_END,
 		})
 	);
-	app.use(bodyParser.json());
+	app.use(
+		bodyParser.json({
+			limit: "10mb",
+		})
+	);
 
 	// connect to DB
 	await dbService.connect();
