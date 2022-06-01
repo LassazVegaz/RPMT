@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { GENDERS } from "../../constants/genders.constants";
 import { useSupervisors } from "../../hooks/supervisor.hook";
+import { useUsers } from "../../hooks/users.hook";
+import { useApi } from "../../hooks/api.hook";
 
 const validationSchema = Yup.object({
 	firstName: Yup.string().required("First name is required"),
@@ -65,11 +67,18 @@ export const SignupPage = () => {
 	const [avatar, setAvatar] = useState(null);
 	const [displayName, setDisplayName] = useState("");
 	const { createSupervisor } = useSupervisors();
+	const { isEmailAvailable } = useUsers();
+	const { showNotification } = useApi();
 
 	const form = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit: async (values) => {
+			if (!(await isEmailAvailable(values.email))) {
+				showNotification("This email is already taken", "error");
+				return;
+			}
+
 			if (
 				values.role === USER_ROLES.SUPERVISOR ||
 				values.role === USER_ROLES.CO_SUPERVISOR
