@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import cors from "cors";
 import { markingSchemasRouter } from "./routers/marking-schemas.router";
 import { dbService } from "./services/db.service";
 import { supervisorsRouter } from "./routers/supervisors.router";
@@ -19,6 +20,11 @@ const main = async () => {
 
 	// add middlewares
 	app.use(morgan("dev"));
+	app.use(
+		cors({
+			origin: process.env.FRONT_END,
+		})
+	);
 	app.use(bodyParser.json());
 
 	// connect to DB
