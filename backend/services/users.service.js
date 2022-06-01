@@ -1,5 +1,6 @@
 import { User } from "../models/user.model";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const createUser = async (user) => {
 	user = {
@@ -31,9 +32,22 @@ const emailAvailable = async (email) => {
 	return !Boolean(user);
 };
 
+const validateUser = async (email, password) => {
+	const user = await User.findOne({ email });
+	if (!user) return false;
+	return await bcrypt.compare(password, user.password);
+};
+
+const generateToken = async (email) => {
+	const user = await User.findOne({ email });
+	return jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET);
+};
+
 export const usersService = {
 	createUser,
 	changePassword,
 	deleteUser,
 	emailAvailable,
+	validateUser,
+	generateToken,
 };
