@@ -9,8 +9,31 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  coSupervisorId: Yup.string().required("coSupervisor Id is required"),
+});
+
+const initialValues = {
+  coSupervisorId: "",
+};
 
 export const Requests = () => {
+  const navigate = useNavigate();
+  const form = useFormik({
+    validationSchema,
+    initialValues,
+    onSubmit: async (values) => {
+      await Requests({
+        coSupervisorId: values.coSupervisorId,
+      });
+      navigate("/requests");
+    },
+  });
+
   return (
     <Container
       maxWidth="lg"
@@ -30,6 +53,7 @@ export const Requests = () => {
         }}
       >
         <Box
+          onClick={form.handleSubmit}
           component="form"
           sx={{
             display: "flex",
@@ -52,7 +76,10 @@ export const Requests = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Supervisor"
+                label="supervisorId"
+                name="coSupervisorId"
+                value={form.values.coSupervisorId}
+                onChange={form.handleChange}
               >
                 <MenuItem value={10}>MR Silva</MenuItem>
                 <MenuItem value={20}>MS Perera</MenuItem>
