@@ -1,12 +1,14 @@
 import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
-const links = ["Profile", "Logout"];
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth.hook";
 
 export const HeaderProfilePic = () => {
 	const [anchorEle, setAnchorEle] = useState(null);
 	const auth = useSelector((s) => s.auth);
+	const { logout } = useAuth();
+	const navigate = useNavigate();
 
 	const handleMenuOpen = (e) => {
 		setAnchorEle(e.currentTarget);
@@ -14,6 +16,12 @@ export const HeaderProfilePic = () => {
 
 	const handleMenuClose = () => {
 		setAnchorEle(null);
+	};
+
+	const handleLogout = async () => {
+		handleMenuClose();
+		logout();
+		navigate("/login");
 	};
 
 	return auth ? (
@@ -41,11 +49,17 @@ export const HeaderProfilePic = () => {
 					horizontal: "right",
 				}}
 			>
-				{links.map((link) => (
-					<MenuItem key={link} onClick={handleMenuClose}>
-						<Typography>{link}</Typography>
-					</MenuItem>
-				))}
+				<MenuItem
+					onClick={() => {
+						handleMenuClose();
+						navigate("/profile");
+					}}
+				>
+					<Typography>Profile</Typography>
+				</MenuItem>
+				<MenuItem onClick={handleLogout}>
+					<Typography>Logout</Typography>
+				</MenuItem>
 			</Menu>
 		</>
 	) : null;
