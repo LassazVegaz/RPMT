@@ -17,13 +17,21 @@ const superVisorsPopulateQueries = [
 	"researchFields",
 ];
 
-const createSupervisor = async (staffMember) => {
-	const supervisor = new Supervisor({
+const createSupervisor = async (staffMember, supervisor) => {
+	const _supervisor = new Supervisor({
 		staffMemberId: staffMember.id,
+		researchFieldIds: supervisor.researchFieldIds,
 	});
-	await supervisor.save();
+	await _supervisor.save();
 
-	return getSupervisor(supervisor.id);
+	return getSupervisor(_supervisor.id);
+};
+
+const updateSupervisor = async (id, supervisor) => {
+	const _supervisor = await Supervisor.findById(id);
+	_supervisor.researchFieldIds = supervisor.researchFieldIds;
+	await _supervisor.save();
+	return getSupervisor(id);
 };
 
 const getSupervisor = async (id) => {
@@ -136,6 +144,7 @@ const getSupervisorByUserId = async (userId) => {
 
 export const supervisorsService = {
 	createSupervisor,
+	updateSupervisor,
 	getSupervisor,
 	getAllSupervisors,
 	assignSupervisorToResearchField,

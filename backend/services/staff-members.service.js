@@ -34,6 +34,12 @@ const updateStaffMember = async (id, staffMember) => {
 	if (staffMember.firstName) existingMember.firstName = staffMember.firstName;
 	if (staffMember.lastName) existingMember.lastName = staffMember.lastName;
 	if (staffMember.phone) existingMember.phone = staffMember.phone;
+	if (staffMember.photo) {
+		existingMember.photo = await mediaServices.saveProfilePicture(
+			staffMember.photo.data,
+			staffMember.photo.fileExtension
+		);
+	}
 
 	await existingMember.save();
 
