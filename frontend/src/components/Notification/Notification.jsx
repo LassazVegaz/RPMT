@@ -18,7 +18,8 @@ export const Notification = () => {
 		return () => {
 			if (timeout) clearTimeout(timeout);
 		};
-	});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return notification.message && notification.type ? (
 		<Alert
