@@ -8,23 +8,25 @@ export const Notification = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		let timeout = null;
 		if (notification.message) {
-			timeout = setTimeout(() => {
-				dispatch(notificationActions.hideNotification());
-			}, 3000);
-		}
+			const timeout = setTimeout(closeNotification, 3000);
 
-		return () => {
-			if (timeout) clearTimeout(timeout);
-		};
+			return () => {
+				if (timeout) clearTimeout(timeout);
+			};
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [notification.message]);
+
+	const closeNotification = () => {
+		if (notification.message)
+			dispatch(notificationActions.hideNotification());
+	};
 
 	return notification.message && notification.type ? (
 		<Alert
 			severity={notification.type}
-			onClose={() => {}}
+			onClose={closeNotification}
 			sx={{
 				position: "fixed",
 				right: 0,
