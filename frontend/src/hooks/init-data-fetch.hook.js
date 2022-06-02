@@ -28,6 +28,7 @@ export const useInitFetching = () => {
 				{
 					showSuccessMessage: false,
 					errorMessage: "Loading initial data failed",
+					pageLoaderdarkMode: true,
 				}
 			);
 

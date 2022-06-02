@@ -2,9 +2,11 @@ import { Box, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export const PageLoader = () => {
-	const loading = useSelector((s) => s.pageLoader.isLoading);
+	const { isLoading, darkMode } = useSelector((s) => s.pageLoader);
 
-	return loading ? (
+	const bgColor = darkMode ? "black" : "rgba(0,0,0,0.5)";
+
+	return isLoading ? (
 		<Box
 			sx={{
 				position: "fixed",
@@ -16,7 +18,7 @@ export const PageLoader = () => {
 				justifyContent: "center",
 				alignItems: "center",
 				zIndex: 1100,
-				backgroundColor: "rgba(0,0,0,0.5)",
+				backgroundColor: bgColor,
 			}}
 		>
 			<CircularProgress

@@ -11,6 +11,7 @@ import { useInitFetching } from "./hooks/init-data-fetch.hook";
 import { SignInPage } from "./pages/SignInPage/SignInPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import { USER_ROLES } from "./constants/user-roles.constants";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -32,11 +33,14 @@ function App() {
 						<Route path="/login" element={<SignInPage />} />
 					</>
 				)}
-				{auth && (
-					<>
-						<Route path="/" element={<ProfilePage />} />
-					</>
-				)}
+				{auth &&
+					(auth.role === USER_ROLES.SUPERVISOR ||
+						auth.role === USER_ROLES.CO_SUPERVISOR) && (
+						<>
+							<Route path="/profile" element={<ProfilePage />} />
+							<Route path="/" element={<div>Home</div>} />
+						</>
+					)}
 
 				<Route path="*" element={<NotFoundPage />} />
 			</Routes>

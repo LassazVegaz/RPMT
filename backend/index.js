@@ -34,6 +34,9 @@ const main = async () => {
 		})
 	);
 
+	// server static files
+	app.use(express.static("public"));
+
 	// connect to DB
 	await dbService.connect();
 

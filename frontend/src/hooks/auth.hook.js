@@ -7,6 +7,11 @@ export const useAuth = () => {
 	const { callApi } = useApi();
 	const dispatch = useDispatch();
 
+	const logout = () => {
+		authHelper.logout();
+		dispatch(authActions.setLoggedUser(null));
+	};
+
 	const login = async (email, password) => {
 		try {
 			await callApi(
@@ -28,5 +33,6 @@ export const useAuth = () => {
 
 	return {
 		login,
+		logout,
 	};
 };
