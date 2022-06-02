@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ProfileNameDisplay } from "../../components/ProfileNameDisplay/ProfileNameDisplay";
 import { ProfilePicture } from "../../components/ProfilePicture/ProfilePicture";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { ResearchFieldsSelector } from "../../components/ResearchFieldsSelector/ResearchFieldsSelector";
 
 const initialValues = {
 	firstName: "",
@@ -121,6 +122,18 @@ export const ProfilePage = () => {
 						name="phone"
 						label="Phone"
 						form={form}
+					/>
+
+					<ResearchFieldsSelector
+						selectedFieldIds={form.values.researchFieldIds}
+						setSelectedFieldIds={(ids) =>
+							form.setFieldValue("researchFieldIds", ids)
+						}
+						error={
+							Boolean(form.touched.researchFieldIds) &&
+							Boolean(form.errors.researchFieldIds)
+						}
+						errorMessage={form.errors.researchFieldIds}
 					/>
 
 					<TextField label="Email" value={staticData.email} />
