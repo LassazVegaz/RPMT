@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { useAuth } from "../../hooks/auth.hook";
+import { useApi } from "../../hooks/api.hook";
 
 const validationSchema = Yup.object({
 	email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -16,12 +18,15 @@ const initialValues = {
 
 export const SignInPage = () => {
 	const navigate = useNavigate();
+	const { login } = useAuth();
+	const { showNotification } = useApi();
 
 	const form = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: (values) => {
-			console.log(values);
+		onSubmit: async (values) => {
+			const res = await login(values.email, values.password);
+			if (!res) showNotification("Invalid email or password", "error");
 		},
 	});
 
