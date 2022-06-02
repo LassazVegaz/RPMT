@@ -27,6 +27,7 @@ export const SignInPage = () => {
 		onSubmit: async (values) => {
 			const res = await login(values.email, values.password);
 			if (!res) showNotification("Invalid email or password", "error");
+			else navigate("/");
 		},
 	});
 
