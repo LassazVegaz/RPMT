@@ -1,10 +1,9 @@
 import { Avatar, Container, Paper, Typography, styled } from "@mui/material";
-import { SignupFormFields } from "./SignupFormFields";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useState, useEffect } from "react";
+import { SignupFormFields } from "./SignupFormFields";
 import { USER_ROLES } from "../../constants/user-roles.constants";
-import { useState } from "react";
-import { useEffect } from "react";
 import { GENDERS } from "../../constants/genders.constants";
 import { useUsers } from "../../hooks/users.hook";
 import { useApi } from "../../hooks/api.hook";

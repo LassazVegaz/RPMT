@@ -1,7 +1,10 @@
+import { useDispatch } from "react-redux";
+
 import { useApi } from "./api.hook";
 import { researchFieldsHelpers } from "../helpers/research-fields.helper";
-import { useDispatch } from "react-redux";
 import { researchFieldsActions } from "../redux/slices/research-fields.slice";
+import { authHelper } from "../helpers/auth.helper";
+import { authActions } from "../redux/slices/auth.slice";
 
 export const useInitFetching = () => {
 	const { callApi } = useApi();
@@ -16,6 +19,11 @@ export const useInitFetching = () => {
 					dispatch(
 						researchFieldsActions.setResearchFields(researchFields)
 					);
+
+					// check login
+					const user = await authHelper.getLoggedInUser();
+					if (user) dispatch(authActions.setLoggedUser(user));
+					else dispatch(authActions.removeLoggedUser());
 				},
 				{
 					showSuccessMessage: false,

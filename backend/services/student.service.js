@@ -25,11 +25,14 @@ const createStudent = async (user, student) => {
 };
 
 const getStudents = async () => {
-	return Student.find().populate("user").exec();
+	return Student.find().populate("user", "_id email role").exec();
 };
 
 const getStudent = async (id) => {
-	const Students = await Student.findById(id).populate("user");
+	const Students = await Student.findById(id).populate(
+		"user",
+		"_id email role"
+	);
 	return Students.toJSON();
 };
 
@@ -69,6 +72,13 @@ const assignGroup = async (studentId, groupId) => {
 	return getStudent(studentId);
 };
 
+const getStudentByUserId = async (userId) => {
+	const student = await Student.findOne({
+		userId,
+	}).populate("user", "_id email role");
+	return student?.toJSON();
+};
+
 export const studentService = {
 	createStudent,
 	getStudents,
@@ -76,4 +86,5 @@ export const studentService = {
 	deleteStudent,
 	updateStudent,
 	assignGroup,
+	getStudentByUserId,
 };

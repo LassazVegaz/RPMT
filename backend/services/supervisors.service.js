@@ -7,6 +7,11 @@ const superVisorsPopulateQueries = [
 		path: "staffMember",
 		populate: {
 			path: "user",
+			select: {
+				email: 1,
+				role: 1,
+				_id: 1,
+			},
 		},
 	},
 	"researchFields",
@@ -119,6 +124,16 @@ const rejectProject = async (projectId) => {
 		await project.save();
 };
 
+const getSupervisorByUserId = async (userId) => {
+	const supervisor = await Supervisor.find()
+		.populate(superVisorsPopulateQueries[0])
+		.populate(superVisorsPopulateQueries[1])
+		.findOne({
+			"staffMember.userId": userId,
+		});
+	return supervisor?.toJSON();
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	getSupervisor,
@@ -129,4 +144,5 @@ export const supervisorsService = {
 	getProjects,
 	acceptProject,
 	rejectProject,
+	getSupervisorByUserId,
 };

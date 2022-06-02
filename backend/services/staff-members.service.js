@@ -49,7 +49,18 @@ const updatePhoto = async (id, photo) => {
 };
 
 const getStaffMember = async (id) => {
-	const staffMember = await StaffMember.findById(id).populate("user");
+	const staffMember = await StaffMember.findById(id).populate(
+		"user",
+		"_id email role"
+	);
+	return staffMember.toJSON();
+};
+
+const getStaffMemberByUserId = async (userId) => {
+	const staffMember = await StaffMember.findOne({ userId }).populate(
+		"user",
+		"_id email role"
+	);
 	return staffMember.toJSON();
 };
 
@@ -59,4 +70,5 @@ export const staffMembersService = {
 	getStaffMember,
 	updateStaffMember,
 	updatePhoto,
+	getStaffMemberByUserId,
 };
