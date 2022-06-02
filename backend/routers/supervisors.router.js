@@ -109,7 +109,10 @@ _router.delete("/:id/research-fields/:researchFieldId", async (req, res) => {
 // update a supervisor
 _router.put("/:id", async (req, res) => {
 	try {
-		let supervisor = await supervisorsService.getSupervisor(req.params.id);
+		let supervisor = await supervisorsService.updateSupervisor(
+			req.params.id,
+			req.body
+		);
 		await staffMembersService.updateStaffMember(
 			supervisor.staffMemberId,
 			req.body
