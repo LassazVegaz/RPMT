@@ -3,6 +3,8 @@ import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { useGroups } from "../../hooks/groups.hook";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -21,13 +23,25 @@ const initialValues = {
 };
 
 export const CreateGroups = () => {
+  const navigate = useNavigate();
+  const { createGroup } = useGroups();
   const form = useFormik({
     validationSchema,
     initialValues,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      await createGroup({
+        name: values.name,
+        students: [
+          values.leader,
+          values.member02,
+          values.member03,
+          values.member04,
+        ],
+      });
+      navigate("/register-topic");
     },
   });
+
   return (
     <Container
       maxWidth="lg"

@@ -15,5 +15,8 @@
 	"auth": {
 		"loggedUser": "auth",
 		"login": "auth/login"
+	},
+	"groups":{
+		"common":"groups"
 	}
 }
