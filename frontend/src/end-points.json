@@ -18,5 +18,9 @@
 	},
 	"groups":{
 		"common":"groups"
+	},
+	"projects":{
+		"common":"projects"
 	}
+
 }

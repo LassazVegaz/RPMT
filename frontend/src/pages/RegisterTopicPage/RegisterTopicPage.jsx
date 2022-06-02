@@ -9,17 +9,18 @@ import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMU
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useTopic } from "../../hooks/register-topic.hook";
+import { useSelector } from "react-redux";
 
 const validationSchema = Yup.object({
-  research_feild: Yup.string().required("Research Feild is required"),
+  researchFieldId: Yup.string().required("Research Feild is required"),
   topic: Yup.string().required("Topic is required"),
-  supervisor: Yup.string().required("Supervisor is required"),
+  supervisorId: Yup.string().required("supervisorId is required"),
 });
 
 const initialValues = {
-  research_feild: "",
+  researchFieldId: "",
   topic: "",
-  supervisor: "",
+  supervisorId: "",
 };
 
 export const Registertopic = () => {
@@ -30,13 +31,15 @@ export const Registertopic = () => {
     initialValues,
     onSubmit: async (values) => {
       await registerTopic({
-        research_feild: values.research_feild,
+        researchFieldId: values.researchFieldId,
         topic: values.topic,
-        supervisor: values.supervisor,
+        supervisorId: values.supervisorId,
       });
       navigate("/requests");
     },
   });
+
+  const researchFields = useSelector((s) => s.researchFields);
 
   return (
     <Container
@@ -80,21 +83,13 @@ export const Registertopic = () => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Research Feild"
+                name="researchFieldId"
+                value={form.values.researchFieldId}
+                onChange={form.handleChange}
               >
-                <MenuItem value={10}>
-                  {" "}
-                  Safety and security of software development
-                </MenuItem>
-                <MenuItem value={20}>Defect prevention techniques</MenuItem>
-                <MenuItem value={30}>
-                  Fault tolerance methods could be devised
-                </MenuItem>
-                <MenuItem value={40}>
-                  Faults containments specially once the products are launched
-                  in the market
-                </MenuItem>
-                <MenuItem value={50}>Data mining semantic-web-mining</MenuItem>
-                <MenuItem value={60}>Testing-software</MenuItem>
+                {researchFields.map((resField) => (
+                  <MenuItem value={resField.id}>{resField.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -110,16 +105,21 @@ export const Registertopic = () => {
           ></FormikMUITextField>
 
           <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-            Choose Supervisor :
+            Choose supervisor :
           </Typography>
 
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Supervisor</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                supervisorId
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Supervisor"
+                label="supervisorId"
+                name="supervisorId"
+                value={form.values.supervisorId}
+                onChange={form.handleChange}
               >
                 <MenuItem value={10}>MR Silva</MenuItem>
                 <MenuItem value={20}>MS Perera</MenuItem>
