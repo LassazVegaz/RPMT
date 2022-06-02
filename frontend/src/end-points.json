@@ -11,5 +11,9 @@
 	},
 	"students": {
 		"common": "students"
+	},
+	"auth": {
+		"loggedUser": "auth",
+		"login": "auth/login"
 	}
 }
