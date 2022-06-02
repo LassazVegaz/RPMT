@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
+import * as Yup from "yup";
 import { ProfileNameDisplay } from "../../components/ProfileNameDisplay/ProfileNameDisplay";
 import { ProfilePicture } from "../../components/ProfilePicture/ProfilePicture";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
@@ -23,6 +24,16 @@ const initialValues = {
 	photo: null,
 };
 
+const validationSchema = Yup.object({
+	firstName: Yup.string().required("First name is required"),
+	lastName: Yup.string().required("Last name is required"),
+	phone: Yup.string().required("Phone is required"),
+	researchFieldIds: Yup.array().min(
+		1,
+		"At least one research field is required"
+	),
+});
+
 export const ProfilePage = () => {
 	const auth = useSelector((s) => s.auth);
 	const { updateSupervisor } = useSupervisors();
@@ -35,6 +46,7 @@ export const ProfilePage = () => {
 
 	const form = useFormik({
 		initialValues,
+		validationSchema,
 		onSubmit: async (values) => {
 			await updateSupervisor(auth.id, values);
 		},
