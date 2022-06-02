@@ -9,7 +9,7 @@ const __dirname = dirname(__fileName);
 
 const getProfilePicturesURL = (fileName) => {
 	const serverAddress = ip.address();
-	return `${serverAddress}:${process.env.PORT}/images/profile_pics/${fileName}`;
+	return `http://${serverAddress}:${process.env.PORT}/images/profile_pics/${fileName}`;
 };
 
 const getProfilePictureFolder = () =>

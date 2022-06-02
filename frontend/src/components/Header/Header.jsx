@@ -48,6 +48,8 @@ const BottomNav = () => {
 
 // top navigation part
 const TopNav = () => {
+	const auth = useSelector((s) => s.auth);
+
 	return (
 		<Container maxWidth="xl">
 			<Toolbar
@@ -60,7 +62,7 @@ const TopNav = () => {
 					<Typography ml={3}>Name</Typography>
 				</Box>
 
-				<HeaderProfilePic />
+				{auth && <HeaderProfilePic />}
 			</Toolbar>
 		</Container>
 	);

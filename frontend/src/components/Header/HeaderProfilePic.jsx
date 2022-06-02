@@ -10,6 +10,8 @@ export const HeaderProfilePic = () => {
 	const { logout } = useAuth();
 	const navigate = useNavigate();
 
+	const photoUrl = auth?.staffMember?.photoUrl ?? auth?.photoUrl ?? "";
+
 	const handleMenuOpen = (e) => {
 		setAnchorEle(e.currentTarget);
 	};
@@ -32,7 +34,7 @@ export const HeaderProfilePic = () => {
 				aria-haspopup="true"
 				onClick={handleMenuOpen}
 			>
-				<Avatar></Avatar>
+				<Avatar alt="jesus" src={photoUrl} />
 			</IconButton>
 
 			<Menu
