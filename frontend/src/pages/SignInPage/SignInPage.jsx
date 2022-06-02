@@ -1,15 +1,29 @@
-import {
-	Button,
-	Container,
-	Paper,
-	Typography,
-	Box,
-	TextField,
-} from "@mui/material";
+import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+
+const validationSchema = Yup.object({
+	email: Yup.string().email("Email is invalid").required("Email is required"),
+	password: Yup.string().required("Password is required"),
+});
+
+const initialValues = {
+	email: "",
+	password: "",
+};
 
 export const SignInPage = () => {
 	const navigate = useNavigate();
+
+	const form = useFormik({
+		initialValues,
+		validationSchema,
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
 
 	return (
 		<Container
@@ -30,6 +44,7 @@ export const SignInPage = () => {
 				</Typography>
 
 				<Box
+					onSubmit={form.handleSubmit}
 					component="form"
 					sx={{
 						display: "flex",
@@ -38,8 +53,18 @@ export const SignInPage = () => {
 						rowGap: 4,
 					}}
 				>
-					<TextField label="Email" />
-					<TextField label="Password" type="password" />
+					<FormikMUITextField
+						name="email"
+						label="Email"
+						type="email"
+						form={form}
+					/>
+					<FormikMUITextField
+						name="password"
+						label="Password"
+						type="password"
+						form={form}
+					/>
 
 					<Box
 						sx={{
@@ -50,7 +75,9 @@ export const SignInPage = () => {
 							rowGap: 2,
 						}}
 					>
-						<Button variant="contained">Sign In</Button>
+						<Button type="submit" variant="contained">
+							Sign In
+						</Button>
 						<Button
 							variant="outlined"
 							color="secondary"
