@@ -26,7 +26,22 @@ export const useSupervisors = () => {
 		}
 	};
 
+	const getProjects = async (id, status = "all") => {
+		try {
+			return await callApi(
+				async () => await supervisorHelpers.getProjects(id, status),
+				{
+					errorMessage: "Error fetching projects",
+					showSuccessMessage: false,
+				}
+			);
+		} catch (error) {
+			return [];
+		}
+	};
+
 	return {
 		updateSupervisor,
+		getProjects,
 	};
 };
