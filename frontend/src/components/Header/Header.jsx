@@ -1,6 +1,5 @@
 import {
 	AppBar,
-	Avatar,
 	Box,
 	Button,
 	Container,
@@ -10,6 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import logo from "../../resources/logo.svg";
 import { headerLinks } from "./header-links";
+import { HeaderProfilePic } from "./HeaderProfilePic";
 
 // navigation bar has two parts
 
@@ -48,8 +48,6 @@ const BottomNav = () => {
 
 // top navigation part
 const TopNav = () => {
-	const auth = useSelector((s) => s.auth);
-
 	return (
 		<Container maxWidth="xl">
 			<Toolbar
@@ -62,7 +60,7 @@ const TopNav = () => {
 					<Typography ml={3}>Name</Typography>
 				</Box>
 
-				{auth && <Avatar></Avatar>}
+				<HeaderProfilePic />
 			</Toolbar>
 		</Container>
 	);
