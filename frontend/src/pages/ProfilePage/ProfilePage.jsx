@@ -13,6 +13,7 @@ import { ProfileNameDisplay } from "../../components/ProfileNameDisplay/ProfileN
 import { ProfilePicture } from "../../components/ProfilePicture/ProfilePicture";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
 import { ResearchFieldsSelector } from "../../components/ResearchFieldsSelector/ResearchFieldsSelector";
+import { useSupervisors } from "../../hooks/supervisors.hook";
 
 const initialValues = {
 	firstName: "",
@@ -24,6 +25,7 @@ const initialValues = {
 
 export const ProfilePage = () => {
 	const auth = useSelector((s) => s.auth);
+	const { updateSupervisor } = useSupervisors();
 	const [staticData, setStaticData] = useState({
 		email: "",
 		gender: "",
@@ -33,7 +35,9 @@ export const ProfilePage = () => {
 
 	const form = useFormik({
 		initialValues,
-		onSubmit: console.log,
+		onSubmit: async (values) => {
+			await updateSupervisor(auth.id, values);
+		},
 	});
 
 	useEffect(() => {

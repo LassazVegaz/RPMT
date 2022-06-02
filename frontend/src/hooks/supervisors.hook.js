@@ -8,13 +8,18 @@ export const useSupervisors = () => {
 	const { callApi } = useApi();
 	const dispatch = useDispatch();
 
-	const updateSupervisor = async (supervisor) => {
+	const updateSupervisor = async (id, supervisor) => {
 		try {
-			await callApi(async () => {
-				await supervisorHelpers.updateSupervisor(supervisor);
-				const user = await authHelper.getLoggedInUser();
-				dispatch(authActions.setLoggedUser(user));
-			});
+			await callApi(
+				async () => {
+					await supervisorHelpers.updateSupervisor(id, supervisor);
+					const user = await authHelper.getLoggedInUser();
+					dispatch(authActions.setLoggedUser(user));
+				},
+				{
+					successMessage: "Supervisor updated successfully",
+				}
+			);
 			return true;
 		} catch (error) {
 			return false;
