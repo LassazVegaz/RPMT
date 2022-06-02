@@ -15,7 +15,14 @@ const updateSupervisor = async (id, supervisor) => {
 	return response.data;
 };
 
+const getProjects = async (id, status = "all") => {
+	const url = endpoints.supervisors.projects.replace("id", id);
+	const res = await axiosApp.get(url, { params: { status } });
+	return res.data;
+};
+
 export const supervisorHelpers = {
 	createSupervisor,
 	updateSupervisor,
+	getProjects,
 };

@@ -1,6 +1,7 @@
 {
 	"supervisors": {
-		"common": "supervisors"
+		"common": "supervisors",
+		"projects": "supervisors/{id}/projects"
 	},
 	"researchFields": {
 		"common": "research_fields"
