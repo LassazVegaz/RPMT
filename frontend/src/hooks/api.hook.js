@@ -9,8 +9,8 @@ export const useApi = () => {
 		dispatch(notificationActions.showNotification({ message, type }));
 	};
 
-	const startLoading = () => {
-		dispatch(pageLoaderActions.startLoading());
+	const startLoading = (darkMode = false) => {
+		dispatch(pageLoaderActions.startLoading({ darkMode }));
 	};
 
 	const stopLoading = () => {
@@ -25,10 +25,11 @@ export const useApi = () => {
 			showErrorMessage = true,
 			successMessage = "Successfull",
 			errorMessage = "Failed",
+			pageLoaderdarkMode = false,
 		} = {}
 	) => {
 		try {
-			startLoading();
+			startLoading(pageLoaderdarkMode);
 			const response = await fn();
 			stopLoading();
 			if (showSuccessMessage) showNotification(successMessage, "info");

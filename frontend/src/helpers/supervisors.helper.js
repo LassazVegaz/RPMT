@@ -14,7 +14,14 @@ const getAllSupervisors = async () => {
 	return response.data;
 };
 
+const updateSupervisor = async (id, supervisor) => {
+	const url = `${endpoints.supervisors.common}/${id}`;
+	const response = await axiosApp.put(url, supervisor);
+	return response.data;
+};
+
 export const supervisorHelpers = {
 	createSupervisor,
 	getAllSupervisors,
+	updateSupervisor,
 };

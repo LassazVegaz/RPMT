@@ -2,12 +2,15 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mkdirp from "mkdirp";
+import ip from "ip";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = dirname(__fileName);
 
-const getProfilePicturesURL = (fileName) =>
-	`${process.env.APP_URL}/public/images/profile_pics/${fileName}`;
+const getProfilePicturesURL = (fileName) => {
+	const serverAddress = ip.address();
+	return `http://${serverAddress}:${process.env.PORT}/images/profile_pics/${fileName}`;
+};
 
 const getProfilePictureFolder = () =>
 	path.join(__dirname, "../", "public", "images", "profile_pics");

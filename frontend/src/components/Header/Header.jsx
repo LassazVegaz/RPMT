@@ -1,22 +1,27 @@
 import {
 	AppBar,
-	Avatar,
 	Box,
 	Button,
 	Container,
 	Toolbar,
 	Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import logo from "../../resources/logo.svg";
-
-// links to to be used in nav
-const links = ["Home", "About Us", "Contact Us"];
+import { headerLinks } from "./header-links";
+import { HeaderProfilePic } from "./HeaderProfilePic";
 
 // navigation bar has two parts
 
 // bottom navigation part
 const BottomNav = () => {
-	return (
+	const auth = useSelector((s) => s.auth);
+
+	let links = auth
+		? headerLinks.filter((l) => l.roles.includes(auth.role))
+		: [];
+
+	return auth ? (
 		<Container
 			maxWidth="xl"
 			sx={{
@@ -25,24 +30,26 @@ const BottomNav = () => {
 		>
 			<Toolbar>
 				<Box display="flex" width="100%" justifyContent="flex-end">
-					{links.map((link, i) => (
+					{links.map((link) => (
 						<Button
 							sx={{
 								color: "black",
 							}}
-							key={i}
+							key={link.link}
 						>
-							{link}
+							{link.name}
 						</Button>
 					))}
 				</Box>
 			</Toolbar>
 		</Container>
-	);
+	) : null;
 };
 
 // top navigation part
 const TopNav = () => {
+	const auth = useSelector((s) => s.auth);
+
 	return (
 		<Container maxWidth="xl">
 			<Toolbar
@@ -55,13 +62,15 @@ const TopNav = () => {
 					<Typography ml={3}>Name</Typography>
 				</Box>
 
-				<Avatar></Avatar>
+				{auth && <HeaderProfilePic />}
 			</Toolbar>
 		</Container>
 	);
 };
 
 export const Header = () => {
+	const auth = useSelector((s) => s.auth);
+
 	return (
 		<>
 			<AppBar>
@@ -70,7 +79,7 @@ export const Header = () => {
 				<BottomNav />
 			</AppBar>
 
-			<Toolbar />
+			{auth && <Toolbar />}
 			<Toolbar />
 		</>
 	);

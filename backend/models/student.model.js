@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mediaServices } from "../services/media.service";
 
 const _schema = mongoose.Schema(
 	{
@@ -51,6 +52,10 @@ _schema.virtual("group", {
 	localField: "groupId",
 	foreignField: "_id",
 	justOne: true,
+});
+
+_schema.virtual("photoUrl").get(function () {
+	return this.photo ? mediaServices.getProfilePicturesURL(this.photo) : null;
 });
 
 export const Student = mongoose.model("Student", _schema);
