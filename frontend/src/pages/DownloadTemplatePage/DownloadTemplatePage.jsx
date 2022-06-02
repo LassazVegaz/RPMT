@@ -30,7 +30,7 @@ const rows = [
   "Conference Template",
 ];
 
-export const DownloadTemplatePage = () => {
+export const DownloadTemplate = () => {
   return (
     <Container
       maxWidth="lg"

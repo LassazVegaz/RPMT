@@ -11,43 +11,58 @@ import { useInitFetching } from "./hooks/init-data-fetch.hook";
 import { SignInPage } from "./pages/SignInPage/SignInPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import { USER_ROLES } from "./constants/user-roles.constants";
+
+import { StudentHomePage } from "./pages/StudentHomePage/StudentHomePage";
+import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
+import { ViewSupervisorFeedback } from "./pages/ViewSupervisorFeedbackPage/ViewSupervisorFeedbackPage";
+import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
+import { Requests } from "./pages/RequestsPage/RequestsPage";
+import { SubmitDocuments } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
+import { DownloadTemplate } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
 
 function App() {
-	const { fetchInitData } = useInitFetching();
-	const auth = useSelector((s) => s.auth);
+  const { fetchInitData } = useInitFetching();
+  const auth = useSelector((s) => s.auth);
 
-	useEffect(() => {
-		fetchInitData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+  useEffect(() => {
+    fetchInitData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	return (
-		<>
-			<Header />
+  return (
+    <>
+      <Header />
 
-			<Routes>
-				{!auth && (
-					<>
-						<Route path="/" element={<SignupPage />} />
-						<Route path="/login" element={<SignInPage />} />
-					</>
-				)}
-				{auth && (
-					<>
-						<Route path="/" element={<ProfilePage />} />
-					</>
-				)}
+      <Routes>
+        {!auth && (
+          <>
+            <Route path="/" element={<SignupPage />} />
+            <Route path="/login" element={<SignInPage />} />
+          </>
+        )}
+        {auth && auth.role === USER_ROLES.STUDENT && (
+          <>
+            <Route path="/" element={<StudentHomePage />} />
+            <Route path="/create-group" element={<CreateGroups />} />
+            <Route path="/view-feedback" element={<ViewSupervisorFeedback />} />
+            <Route path="/register-topic" element={<Registertopic />} />
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/submit-documents" element={<SubmitDocuments />} />
+            <Route path="/download-templates" element={<DownloadTemplate />} />
+          </>
+        )}
 
-				<Route path="*" element={<NotFoundPage />} />
-			</Routes>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
 
-			<Footer />
+      <Footer />
 
-			<PageLoader />
+      <PageLoader />
 
-			<Notification />
-		</>
-	);
+      <Notification />
+    </>
+  );
 }
 
 export default App;

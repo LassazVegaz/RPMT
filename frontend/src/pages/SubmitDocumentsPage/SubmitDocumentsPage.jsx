@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { FileUpload } from "../../components/FileUpload/FileUpload";
 
-export const SubmitDocumentsPage = () => {
+export const SubmitDocuments = () => {
   return (
     <Container
       maxWidth="lg"
