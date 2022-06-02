@@ -12,6 +12,7 @@ import { SignInPage } from "./pages/SignInPage/SignInPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { USER_ROLES } from "./constants/user-roles.constants";
+import { TopicsListPage } from "./pages/TopicsListPage/TopicsListPage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -37,6 +38,10 @@ function App() {
 					(auth.role === USER_ROLES.SUPERVISOR ||
 						auth.role === USER_ROLES.CO_SUPERVISOR) && (
 						<>
+							<Route
+								path="/topics"
+								element={<TopicsListPage />}
+							/>
 							<Route path="/profile" element={<ProfilePage />} />
 							<Route path="/" element={<div>Home</div>} />
 						</>
