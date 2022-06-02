@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Paper, TextField, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	Container,
+	Paper,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { ProfileNameDisplay } from "../../components/ProfileNameDisplay/ProfileNameDisplay";
@@ -141,6 +148,26 @@ export const ProfilePage = () => {
 					<TextField label="Gender" value={staticData.gender} />
 
 					<TextField label="Role" value={staticData.role} />
+
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "flex-end",
+							columnGap: 5,
+							mt: 3,
+						}}
+					>
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={resetForm}
+						>
+							Reset
+						</Button>
+						<Button variant="contained" type="submit">
+							Save
+						</Button>
+					</Box>
 				</Box>
 			</Paper>
 		</Container>
