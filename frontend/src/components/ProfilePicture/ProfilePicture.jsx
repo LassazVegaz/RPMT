@@ -1,12 +1,27 @@
 import { Avatar } from "@mui/material";
 
 export const ProfilePicture = ({
-	controlName,
 	onChange,
-	imageSrc,
+	imageUrl,
 	sideLength = 180,
 	sx = {},
 }) => {
+	const handlePhotoChange = (event) => {
+		if (event.target.files.length > 0) {
+			const reader = new FileReader();
+			const fileExtension = event.target.files[0].name.split(".").pop();
+
+			reader.onload = (e) => {
+				const photo = {};
+				photo.data = e.target.result;
+				photo.fileExtension = fileExtension;
+				photo.url = URL.createObjectURL(event.target.files[0]);
+				onChange(photo);
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		}
+	};
+
 	return (
 		<>
 			<input
@@ -15,8 +30,7 @@ export const ProfilePicture = ({
 				multiple
 				type="file"
 				hidden
-				onChange={onChange}
-				name={controlName}
+				onChange={handlePhotoChange}
 			/>
 			<label htmlFor="profile-picture-uploader">
 				<Avatar
@@ -26,7 +40,7 @@ export const ProfilePicture = ({
 						cursor: "pointer",
 						...sx,
 					}}
-					src={imageSrc}
+					src={imageUrl}
 				/>
 			</label>
 		</>

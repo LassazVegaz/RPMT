@@ -29,6 +29,7 @@ export const ProfilePage = () => {
 		gender: "",
 		role: "",
 	});
+	const [photoUrl, setPhotoUrl] = useState(null);
 
 	const form = useFormik({
 		initialValues,
@@ -59,8 +60,9 @@ export const ProfilePage = () => {
 			lastName: auth.staffMember?.lastName ?? auth.lastName,
 			phone: auth.staffMember?.phone ?? auth.phone,
 			researchFieldIds: auth.researchFieldIds,
-			photo: auth.staffMember?.photo ?? auth.photo,
+			photo: null,
 		});
+		setPhotoUrl(auth.photoUrl ?? auth.staffMember?.photoUrl);
 	};
 
 	return (
@@ -81,8 +83,12 @@ export const ProfilePage = () => {
 
 				<ProfilePicture
 					controlName="photo"
-					imageSrc=""
-					onChange={() => {}}
+					imageUrl={photoUrl}
+					onChange={(data) => {
+						const { url, ...formData } = data;
+						setPhotoUrl(url);
+						form.setFieldValue("photo", formData);
+					}}
 					sx={{
 						mx: "auto",
 						mt: 8,
