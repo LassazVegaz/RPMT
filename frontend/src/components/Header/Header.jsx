@@ -48,6 +48,8 @@ const BottomNav = () => {
 
 // top navigation part
 const TopNav = () => {
+	const auth = useSelector((s) => s.auth);
+
 	return (
 		<Container maxWidth="xl">
 			<Toolbar
@@ -60,13 +62,15 @@ const TopNav = () => {
 					<Typography ml={3}>Name</Typography>
 				</Box>
 
-				<Avatar></Avatar>
+				{auth && <Avatar></Avatar>}
 			</Toolbar>
 		</Container>
 	);
 };
 
 export const Header = () => {
+	const auth = useSelector((s) => s.auth);
+
 	return (
 		<>
 			<AppBar>
@@ -75,7 +79,7 @@ export const Header = () => {
 				<BottomNav />
 			</AppBar>
 
-			<Toolbar />
+			{auth && <Toolbar />}
 			<Toolbar />
 		</>
 	);
