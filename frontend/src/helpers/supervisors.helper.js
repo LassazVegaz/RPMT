@@ -9,6 +9,15 @@ const createSupervisor = async (supervisor) => {
 	return response.data;
 };
 
+const updateSupervisor = async (supervisor) => {
+	const response = await axiosApp.put(
+		endpoints.supervisors.common,
+		supervisor
+	);
+	return response.data;
+};
+
 export const supervisorHelpers = {
 	createSupervisor,
+	updateSupervisor,
 };
