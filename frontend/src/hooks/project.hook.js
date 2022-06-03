@@ -1,6 +1,7 @@
 import { useApi } from "./api.hook";
 import { supervisorsHelpers } from "../helpers/project.helper";
 import { SUBMISSION_TYPES } from "../constants/submission-types";
+import { submissionsHelper } from "../helpers/submissions.helper";
 
 export const useProject = () => {
 	const { callApi } = useApi();
@@ -39,7 +40,7 @@ export const useProject = () => {
 		try {
 			return await callApi(
 				async () => {
-					return supervisorsHelpers.createSubmission(submission);
+					return submissionsHelper.createSubmission(submission);
 				},
 				{
 					errorMessage: "Error creating submission",

@@ -1,33 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { FileUpload } from "../../components/FileUpload/FileUpload";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { useSubmissions } from "../../hooks/submit-document.hook";
 import { useNavigate } from "react-router-dom";
-
-const validationSchema = Yup.object({
-	name: Yup.string().required("Name is required"),
-});
-
-const initialValues = {
-	name: "",
-};
+import { useProject } from "../../hooks/project.hook";
 
 export const SubmitDocuments = () => {
 	const navigate = useNavigate();
-	const { createSumission } = useSubmissions();
-	const form = useFormik({
-		validationSchema,
-		initialValues,
-		onSubmit: async (values) => {
-			console.log(values);
-			await createSumission({
-				name: values.name,
-			});
-			navigate("/download-templates");
-		},
-	});
+	const { createTopicDocSubmission } = useProject();
+	const [document, setDocument] = useState(null);
+
+	const handleSubmit = async () => {
+		await createTopicDocSubmission({ document });
+		navigate("/download-templates");
+	};
 
 	return (
 		<Container
@@ -53,8 +38,6 @@ export const SubmitDocuments = () => {
 				}}
 			>
 				<Box
-					onSubmit={form.handleSubmit}
-					component="form"
 					sx={{
 						display: "flex",
 						flexDirection: "column",
@@ -62,7 +45,7 @@ export const SubmitDocuments = () => {
 						rowGap: 4,
 					}}
 				>
-					<FileUpload />
+					<FileUpload document={document} onChange={setDocument} />
 
 					<Box
 						sx={{
@@ -73,7 +56,11 @@ export const SubmitDocuments = () => {
 							rowGap: 2,
 						}}
 					>
-						<Button variant="contained" type="submit">
+						<Button
+							variant="contained"
+							onClick={handleSubmit}
+							disabled={!Boolean(document)}
+						>
 							Submit
 						</Button>
 					</Box>
