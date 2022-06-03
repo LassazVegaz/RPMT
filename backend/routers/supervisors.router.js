@@ -141,7 +141,7 @@ _router.get("/:id/projects", async (req, res) => {
 
 // POST /:id/projects/:projectId/accept
 // accept a project
-_router.post("/:id/projects/:projectId/accept", async (req, res) => {
+_router.patch("/:id/projects/:projectId/accept", async (req, res) => {
 	try {
 		await supervisorsService.acceptProject(req.params.projectId);
 		res.status(200).send();
@@ -152,7 +152,7 @@ _router.post("/:id/projects/:projectId/accept", async (req, res) => {
 
 // POST /:id/projects/:projectId/reject
 // reject a project
-_router.post("/:id/projects/:projectId/reject", async (req, res) => {
+_router.patch("/:id/projects/:projectId/reject", async (req, res) => {
 	try {
 		await supervisorsService.rejectProject(req.params.projectId);
 		res.status(200).send();
