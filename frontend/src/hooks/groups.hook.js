@@ -14,7 +14,25 @@ export const useGroups = () => {
 			return false;
 		}
 	};
+
+	const getGroup = async (id) => {
+		try {
+			return await callApi(
+				async () => {
+					await groupsHelper.getGroup(id);
+				},
+				{
+					errorMessage: "Error fetching group",
+					showSuccessMessage: false,
+				}
+			);
+		} catch (error) {
+			return null;
+		}
+	};
+
 	return {
 		createGroup,
+		getGroup,
 	};
 };
