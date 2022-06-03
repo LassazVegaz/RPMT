@@ -82,7 +82,7 @@ function App() {
 								element={<TopicViewPage />}
 							/>
 							<Route
-								path="/submissions/:submissionId"
+								path="/submissions/:id"
 								element={<SubmissionViewPage />}
 							/>
 							<Route path="/profile" element={<ProfilePage />} />

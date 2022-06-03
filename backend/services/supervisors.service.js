@@ -148,9 +148,12 @@ const getSupervisorByUserId = async (userId) => {
 };
 
 const getSubmission = async (submissionId) => {
-	let submission = await Submission.findById(submissionId).populate(
-		"project"
-	);
+	let submission = await Submission.findById(submissionId).populate({
+		path: "project",
+		populate: {
+			path: "group",
+		},
+	});
 	const markingSchema = await MarkingSchema.findOne({
 		name: submission.submissionTypeName,
 	}).populate("markingSchemaAreas");

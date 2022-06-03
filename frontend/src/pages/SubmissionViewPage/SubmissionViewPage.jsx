@@ -1,6 +1,12 @@
 import { Container, Typography, Box, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { MarkingSchemeView } from "../../components/MarkingSchemeView/MarkingSchemeView";
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
+import { USER_ROLES } from "../../constants/user-roles.constants";
+import { useSupervisors } from "../../hooks/supervisors.hook";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
 const CenterAlignedButton = ({ text, sx }) => {
 	return (
@@ -24,7 +30,33 @@ const CenterAlignedButton = ({ text, sx }) => {
 };
 
 export const SubmissionViewPage = () => {
-	return (
+	const urlParams = useParams();
+	const [submission, setSubmission] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const auth = useSelector((s) => s.auth);
+	const { getSubmission } = useSupervisors();
+
+	useEffect(() => {
+		if (urlParams.id) loadData();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [urlParams]);
+
+	const isSupervisor = auth.role === USER_ROLES.SUPERVISOR;
+
+	const loadData = async () => {
+		setIsLoading(true);
+
+		const submission = await getSubmission(urlParams.id);
+		submission.marked = submission.marks && submission.marks.length > 0;
+
+		setSubmission(submission);
+		setIsLoading(false);
+	};
+
+	return !isLoading && !submission ? (
+		<NotFoundPage desc="Submission not found" />
+	) : isLoading ? null : (
 		<Container
 			maxWidth="lg"
 			sx={{
@@ -32,7 +64,7 @@ export const SubmissionViewPage = () => {
 			}}
 		>
 			<Typography variant="h3" mb={5}>
-				Research Topic
+				{submission.project.topic}
 			</Typography>
 
 			<Box
@@ -47,7 +79,7 @@ export const SubmissionViewPage = () => {
 			</Box>
 
 			<Box mb={5}>
-				<StudentGroupView />
+				<StudentGroupView id={submission.project.group.id} />
 			</Box>
 
 			<CenterAlignedButton
@@ -65,12 +97,14 @@ export const SubmissionViewPage = () => {
 				<MarkingSchemeView />
 			</Box>
 
-			<CenterAlignedButton
-				text="FINISH"
-				sx={{
-					mb: 10,
-				}}
-			/>
+			{isSupervisor && !submission.marked && (
+				<CenterAlignedButton
+					text="FINISH"
+					sx={{
+						mb: 10,
+					}}
+				/>
+			)}
 		</Container>
 	);
 };
