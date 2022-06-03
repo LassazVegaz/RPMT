@@ -79,6 +79,11 @@ const getStudentByUserId = async (userId) => {
 	return student?.toJSON();
 };
 
+const getProjectId = async (studentId) => {
+	const student = await Student.findById(studentId).populate("group");
+	return student?.group?.projectId;
+};
+
 export const studentService = {
 	createStudent,
 	getStudents,
@@ -87,4 +92,5 @@ export const studentService = {
 	updateStudent,
 	assignGroup,
 	getStudentByUserId,
+	getProjectId,
 };

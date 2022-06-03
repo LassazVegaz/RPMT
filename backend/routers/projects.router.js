@@ -2,6 +2,8 @@ import express from "express";
 import { auth } from "../middleware/auth.middleware";
 import { groupsService } from "../services/group.service";
 import { projectsService } from "../services/projects.service";
+import { studentService } from "../services/student.service";
+import { submissionsService } from "../services/submissions.service";
 
 const _router = express.Router();
 
@@ -68,6 +70,23 @@ _router.patch("/:id/supervisors", async (req, res) => {
 			coSupervisorId: req.body.coSupervisorId,
 		});
 		res.send(project);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+// POST /submissions
+// add a submission to a project
+_router.post("/submissions", auth(), async (req, res) => {
+	try {
+		const projectId = await studentService.getProjectId(req.user.id);
+
+		const submission = await submissionsService.createSumission({
+			...req.body,
+			projectId,
+		});
+
+		res.json(submission);
 	} catch (error) {
 		res.status(500).send(error);
 	}
