@@ -102,7 +102,9 @@ const _getProjects = async (supervisorId, status) => {
 				"coSupervisorId.status": status,
 			},
 		],
-	}).populate("group");
+	})
+		.populate("group")
+		.populate("submissions");
 };
 
 const getProjects = async (supervisorId, status = "all") => {
