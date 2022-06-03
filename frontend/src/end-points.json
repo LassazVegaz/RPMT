@@ -24,7 +24,8 @@
 	},
 	"projects": {
 		"common": "projects",
-		"supervisor": "projects/{id}/supervisors"
+		"supervisor": "projects/{id}/supervisors",
+		"submissions": "projects/submissions"
 	},
 	"submissions": {
 		"common": "submissions"

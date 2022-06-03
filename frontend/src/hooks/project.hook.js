@@ -1,5 +1,6 @@
 import { useApi } from "./api.hook";
 import { supervisorsHelpers } from "../helpers/project.helper";
+import { SUBMISSION_TYPES } from "../constants/submission-types";
 
 export const useProject = () => {
 	const { callApi } = useApi();
@@ -34,8 +35,30 @@ export const useProject = () => {
 		}
 	};
 
+	const createSubmission = async (submission) => {
+		try {
+			return await callApi(
+				async () => {
+					return supervisorsHelpers.createSubmission(submission);
+				},
+				{
+					errorMessage: "Error creating submission",
+				}
+			);
+		} catch (error) {
+			return null;
+		}
+	};
+
+	const createTopicDocSubmission = async (submission) =>
+		createSubmission({
+			...submission,
+			submissionTypeName: SUBMISSION_TYPES.TOPIC_DOCUMENT,
+		});
+
 	return {
 		assignSupervisor,
 		getProject,
+		createTopicDocSubmission,
 	};
 };
