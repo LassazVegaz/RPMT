@@ -20,9 +20,15 @@ export const useProject = () => {
 
 	const getProject = async (id) => {
 		try {
-			return await callApi(async () => {
-				return supervisorsHelpers.getProject(id);
-			});
+			return await callApi(
+				async () => {
+					return supervisorsHelpers.getProject(id);
+				},
+				{
+					errorMessage: "Error fetching project",
+					showSuccessMessage: false,
+				}
+			);
 		} catch (error) {
 			return null;
 		}

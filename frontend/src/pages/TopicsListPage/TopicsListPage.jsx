@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
 	Avatar,
 	Container,
@@ -11,7 +13,6 @@ import {
 } from "@mui/material";
 import { useSupervisors } from "../../hooks/supervisors.hook";
 import { SUPERVISOR_STATUS } from "../../constants/project-supervisor-status.constant";
-import { useSelector } from "react-redux";
 import { Topic } from "@mui/icons-material";
 
 export const TopicsListPage = () => {
@@ -19,6 +20,7 @@ export const TopicsListPage = () => {
 	const [projects, setProjects] = useState([]);
 	const { getProjects } = useSupervisors();
 	const auth = useSelector((s) => s.auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		loadProjects();
@@ -57,7 +59,10 @@ export const TopicsListPage = () => {
 			>
 				<List>
 					{projects.map((project) => (
-						<ListItemButton key={project.id}>
+						<ListItemButton
+							key={project.id}
+							onClick={() => navigate("/topics/" + project.id)}
+						>
 							<ListItemAvatar>
 								<Avatar>
 									<Topic />
