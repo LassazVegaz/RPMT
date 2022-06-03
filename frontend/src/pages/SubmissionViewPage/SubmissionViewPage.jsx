@@ -8,7 +8,7 @@ import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useSupervisors } from "../../hooks/supervisors.hook";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
-const CenterAlignedButton = ({ text, sx }) => {
+const CenterAlignedButton = ({ text, sx, onClick }) => {
 	return (
 		<Box
 			sx={{
@@ -22,6 +22,7 @@ const CenterAlignedButton = ({ text, sx }) => {
 				sx={{
 					width: 250,
 				}}
+				onClick={onClick}
 			>
 				{text}
 			</Button>
@@ -35,7 +36,7 @@ export const SubmissionViewPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [areas, setAreas] = useState([]);
 	const auth = useSelector((s) => s.auth);
-	const { getSubmission } = useSupervisors();
+	const { getSubmission, submitMarks } = useSupervisors();
 
 	useEffect(() => {
 		if (urlParams.id) loadData();
@@ -55,6 +56,17 @@ export const SubmissionViewPage = () => {
 
 		setSubmission(submission);
 		setIsLoading(false);
+	};
+
+	const handleFinish = async () => {
+		const _marks = areas.map((area) => {
+			return {
+				area: area.id,
+				givenMarks: area.marks,
+			};
+		});
+		await submitMarks(submission.id, _marks);
+		loadData();
 	};
 
 	const buildAreas = (submission) => {
@@ -142,6 +154,7 @@ export const SubmissionViewPage = () => {
 					sx={{
 						mb: 10,
 					}}
+					onClick={handleFinish}
 				/>
 			)}
 		</Container>

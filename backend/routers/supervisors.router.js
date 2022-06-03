@@ -178,7 +178,7 @@ _router.get("/:id/submissions/:submissionId", async (req, res) => {
 // give marks to a submission
 _router.post("/:id/submissions/:submissionId", async (req, res) => {
 	try {
-		const submission = await supervisorsService.giveMarks(
+		const submission = await supervisorsService.submitMarks(
 			req.params.submissionId,
 			req.body
 		);
