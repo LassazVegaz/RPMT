@@ -11,9 +11,7 @@ const assignSupervisor = async (projectId, coSupervisorId) => {
 };
 
 const getProject = async (id) => {
-	const response = await axiosApp.get(
-		endpoints.projects.get.replace("{id}", id)
-	);
+	const response = await axiosApp.get(`${endpoints.projects.common}/${id}`);
 	return response.data;
 };
 

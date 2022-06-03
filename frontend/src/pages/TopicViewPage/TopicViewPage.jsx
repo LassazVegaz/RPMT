@@ -1,10 +1,34 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
+import { useProject } from "../../hooks/project.hook";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
 export const TopicViewPage = () => {
+	const { getProject } = useProject();
+	const urlParams = useParams();
+	const [project, setProject] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		if (urlParams.id) loadData();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [urlParams]);
+
+	const loadData = async () => {
+		setIsLoading(true);
+		const project = await getProject(urlParams.id);
+		setProject(project);
+		setIsLoading(false);
+	};
+
 	const buttonWidth = 250;
 
-	return (
+	return !isLoading && !project ? (
+		<NotFoundPage desc="Project not found" />
+	) : isLoading ? null : (
 		<Container
 			maxWidth="lg"
 			sx={{
