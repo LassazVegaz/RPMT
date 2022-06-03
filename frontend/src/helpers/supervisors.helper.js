@@ -39,6 +39,12 @@ const getSubmission = async (submissionId) => {
 	return res.data;
 };
 
+const submitMarks = async (submissionId, marks) => {
+	const url = `${endpoints.supervisors.submissions}/${submissionId}`;
+	const res = await axiosApp.post(url, marks);
+	return res.data;
+};
+
 export const supervisorHelpers = {
 	createSupervisor,
 	getAllSupervisors,
@@ -46,4 +52,5 @@ export const supervisorHelpers = {
 	getProjects,
 	responseProject,
 	getSubmission,
+	submitMarks,
 };

@@ -101,6 +101,22 @@ export const useSupervisors = () => {
 		}
 	};
 
+	const submitMarks = async (submissionId, marks) => {
+		try {
+			await callApi(
+				async () => {
+					await supervisorHelpers.submitMarks(submissionId, marks);
+				},
+				{
+					successMessage: "Marks submitted successfully",
+				}
+			);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	};
+
 	return {
 		getAllSupervisors,
 		updateSupervisor,
@@ -108,5 +124,6 @@ export const useSupervisors = () => {
 		rejectProject,
 		acceptProject,
 		getSubmission,
+		submitMarks,
 	};
 };
