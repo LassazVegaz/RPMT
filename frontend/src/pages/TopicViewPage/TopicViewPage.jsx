@@ -8,6 +8,7 @@ import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useSupervisors } from "../../hooks/supervisors.hook";
 import { SUPERVISOR_STATUS } from "../../constants/project-supervisor-status.constant";
+import { SUBMISSION_TYPES } from "../../constants/submission-types";
 
 export const TopicViewPage = () => {
 	const { getProject } = useProject();
@@ -31,6 +32,14 @@ export const TopicViewPage = () => {
 		project.accepted = isSupervisor
 			? project.supervisorId.status === SUPERVISOR_STATUS.accepted
 			: null;
+
+		project.topicSubmission =
+			project.submissions &&
+			project.accepted &&
+			project.submissions.find(
+				(sub) =>
+					sub.submissionTypeName === SUBMISSION_TYPES.TOPIC_DOCUMENT
+			);
 
 		setProject(project);
 		setIsLoading(false);
