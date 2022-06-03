@@ -164,6 +164,14 @@ const getSubmission = async (submissionId) => {
 	return submission;
 };
 
+const submitMarks = async (submissionId, marks) => {
+	const submission = await Submission.findById(submissionId);
+	submission.marks = marks;
+	await submission.save();
+
+	return getSubmission(submissionId);
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	updateSupervisor,
@@ -177,4 +185,5 @@ export const supervisorsService = {
 	rejectProject,
 	getSupervisorByUserId,
 	getSubmission,
+	submitMarks,
 };
