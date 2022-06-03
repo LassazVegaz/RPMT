@@ -7,7 +7,8 @@ export const useTopic = () => {
   const registerTopic = async (topic) => {
     try {
       await callApi(async () => {
-        await registerTopicHelper.registerTopic(topic);
+        const project = await registerTopicHelper.registerTopic(topic);
+        localStorage.setItem("projectId", project.id);
       });
       return true;
     } catch (error) {

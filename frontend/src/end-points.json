@@ -20,7 +20,8 @@
 		"common":"groups"
 	},
 	"projects":{
-		"common":"projects"
+		"common":"projects",
+		"supervisor":"projects/{id}/supervisors"
 	}
 
 }
