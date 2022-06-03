@@ -3,6 +3,7 @@ import { supervisorHelpers } from "../helpers/supervisors.helper";
 import { useDispatch } from "react-redux";
 import { authHelper } from "../helpers/auth.helper";
 import { authActions } from "../redux/slices/auth.slice";
+import { SUPERVISOR_RESPONSE } from "../constants/supervisor-response";
 
 export const useSupervisors = () => {
 	const { callApi } = useApi();
@@ -56,9 +57,41 @@ export const useSupervisors = () => {
 		}
 	};
 
+	const responseProject = async (id, projectId, response) => {
+		const successMessage =
+			"Project was " +
+			(response === SUPERVISOR_RESPONSE.ACCEPT ? "accepted" : "rejected");
+
+		try {
+			await callApi(
+				async () => {
+					await supervisorHelpers.responseProject(
+						id,
+						projectId,
+						response
+					);
+				},
+				{
+					successMessage,
+				}
+			);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	};
+
+	const rejectProject = (id, projectId) =>
+		responseProject(id, projectId, SUPERVISOR_RESPONSE.REJECT);
+
+	const acceptProject = (id, projectId) =>
+		responseProject(id, projectId, SUPERVISOR_RESPONSE.ACCEPT);
+
 	return {
 		getAllSupervisors,
 		updateSupervisor,
 		getProjects,
+		rejectProject,
+		acceptProject,
 	};
 };

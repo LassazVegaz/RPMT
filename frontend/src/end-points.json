@@ -1,7 +1,8 @@
 {
 	"supervisors": {
 		"common": "supervisors",
-		"projects": "supervisors/{id}/projects"
+		"projects": "supervisors/{id}/projects",
+		"responseProjects": "supervisors/{id}/projects/{projectId}"
 	},
 	"researchFields": {
 		"common": "research_fields"
@@ -17,12 +18,11 @@
 		"loggedUser": "auth",
 		"login": "auth/login"
 	},
-	"groups":{
-		"common":"groups"
+	"groups": {
+		"common": "groups"
 	},
-	"projects":{
-		"common":"projects",
-		"supervisor":"projects/{id}/supervisors"
+	"projects": {
+		"common": "projects",
+		"supervisor": "projects/{id}/supervisors"
 	}
-
 }
