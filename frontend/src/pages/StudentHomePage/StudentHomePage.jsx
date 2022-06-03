@@ -1,5 +1,7 @@
 import { Container, ButtonBase, styled, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const images = [
   {
@@ -108,76 +110,106 @@ const ImageMarked = styled("span")(({ theme }) => ({
 
 export const StudentHomePage = () => {
   const navigate = useNavigate();
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        minWidth: 300,
-        width: "100%",
-        mt: 10,
-      }}
-    >
-      <Container
+    <Box>
+      <Typography
+        variant="h1"
+        textAlign="center"
+        fontFamily={"area"}
+        sx={{ color: "#C70039 ", mb: 50, mt: 20 }}
+      >
+        I AM STUDENT
+        <Box
+          sx={{
+            my: 3,
+            px: 80,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="success">
+              View Student portal
+            </Button>
+          </Stack>
+        </Box>
+      </Typography>
+
+      <Typography variant="h3" textAlign="center" fontFamily="Congenial Black">
+        Student Portal
+      </Typography>
+
+      <Box
         sx={{
           display: "flex",
-          flexWrap: "inherit",
-          rowGap: 5,
-          columnGap: 5,
-          mb: 6,
+          flexWrap: "wrap",
+          minWidth: 300,
+          width: "100%",
+          mt: 10,
         }}
       >
-        {images.map(
-          (
-            image //1 st raw
-          ) => (
-            <ImageButton
-              focusRipple
-              key={image.title}
-              style={{
-                width: image.width,
-              }}
-              onClick={() => navigate(image.link)}
-            >
-              <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-              <ImageBackdrop className="MuiImageBackdrop-root" /> <br />
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    //button styles
-                    position: "relative",
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  }}
-                >
-                  {image.title}
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    position: "relative",
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  }}
-                >
-                  {image.title}
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-            </ImageButton>
-          )
-        )}
-      </Container>
+        <Container
+          sx={{
+            display: "flex",
+            flexWrap: "inherit",
+            rowGap: 5,
+            columnGap: 5,
+            mb: 20,
+          }}
+        >
+          {images.map(
+            (
+              image //1 st raw
+            ) => (
+              <ImageButton
+                focusRipple
+                key={image.title}
+                style={{
+                  width: image.width,
+                }}
+                onClick={() => navigate(image.link)}
+              >
+                <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+                <ImageBackdrop className="MuiImageBackdrop-root" /> <br />
+                <Image>
+                  <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    sx={{
+                      //button styles
+                      position: "relative",
+                      p: 4,
+                      pt: 2,
+                      pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                    }}
+                  >
+                    {image.title}
+                    <ImageMarked className="MuiImageMarked-root" />
+                  </Typography>
+                </Image>
+                <Image>
+                  <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    sx={{
+                      position: "relative",
+                      p: 4,
+                      pt: 2,
+                      pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                    }}
+                  >
+                    {image.title}
+                    <ImageMarked className="MuiImageMarked-root" />
+                  </Typography>
+                </Image>
+              </ImageButton>
+            )
+          )}
+        </Container>
+      </Box>
     </Box>
   );
 };
