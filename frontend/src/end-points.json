@@ -25,5 +25,8 @@
 	"projects": {
 		"common": "projects",
 		"supervisor": "projects/{id}/supervisors"
+	},
+	"submissions": {
+		"common": "submissions"
 	}
 }
