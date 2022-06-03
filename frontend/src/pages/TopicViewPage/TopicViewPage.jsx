@@ -130,7 +130,7 @@ export const TopicViewPage = () => {
 						}}
 						onClick={() =>
 							navigate(
-								`/topics/${project.id}/submissions/${project.topicSubmission.id}`
+								`/submissions/${project.topicSubmission.id}`
 							)
 						}
 					>
