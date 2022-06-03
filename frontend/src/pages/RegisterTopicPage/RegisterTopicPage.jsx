@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useTopic } from "../../hooks/register-topic.hook";
 import { useSelector } from "react-redux";
+import { useSupervisors } from "../../hooks/supervisors.hook";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object({
 	researchFieldId: Yup.string().required("Research Feild is required"),
@@ -26,6 +28,14 @@ const initialValues = {
 export const Registertopic = () => {
 	const navigate = useNavigate();
 	const { registerTopic } = useTopic();
+	const { getAllSupervisors } = useSupervisors();
+	const [supervisors, setSupervisors] = useState([]);
+
+	useEffect(() => {
+		loadData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const form = useFormik({
 		validationSchema,
 		initialValues,
@@ -38,6 +48,13 @@ export const Registertopic = () => {
 			navigate("/requests");
 		},
 	});
+
+	const loadData = async () => {
+		const _supervisors = await getAllSupervisors({
+			supervisorsOnly: true,
+		});
+		setSupervisors(_supervisors);
+	};
 
 	const researchFields = useSelector((s) => s.researchFields);
 
@@ -143,12 +160,14 @@ export const Registertopic = () => {
 								value={form.values.supervisorId}
 								onChange={form.handleChange}
 							>
-								<MenuItem value={10}>MR Silva</MenuItem>
-								<MenuItem value={20}>MS Perera</MenuItem>
-								<MenuItem value={30}>
-									MS Dilani Fonseka
-								</MenuItem>
-								<MenuItem value={40}>MR Rudrigu</MenuItem>
+								{supervisors.map((supervisor) => (
+									<MenuItem
+										key={supervisor.id}
+										value={supervisor.id}
+									>
+										{supervisor.staffMember.user.email}
+									</MenuItem>
+								))}
 							</Select>
 						</FormControl>
 					</Box>

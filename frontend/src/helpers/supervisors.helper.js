@@ -9,8 +9,16 @@ const createSupervisor = async (supervisor) => {
 	return response.data;
 };
 
-const getAllSupervisors = async () => {
-	const response = await axiosApp.get(endpoints.supervisors.common);
+const getAllSupervisors = async ({
+	supervisorsOnly = false,
+	coSupervisorsOnly = false,
+}) => {
+	const response = await axiosApp.get(endpoints.supervisors.common, {
+		params: {
+			supervisorsOnly,
+			coSupervisorsOnly,
+		},
+	});
 	return response.data;
 };
 
