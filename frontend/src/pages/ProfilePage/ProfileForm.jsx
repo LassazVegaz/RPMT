@@ -105,7 +105,7 @@ export const ProfileForm = () => {
 			<ProfileNameDisplay
 				firstName={form.values.firstName}
 				lastName={form.values.lastName}
-				gender={form.values.gender}
+				gender={staticData.gender.toLowerCase()}
 				sx={{
 					mt: 4,
 				}}

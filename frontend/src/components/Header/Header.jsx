@@ -7,6 +7,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import logo from "../../resources/logo.svg";
 import { headerLinks } from "./header-links";
 import { HeaderProfilePic } from "./HeaderProfilePic";
@@ -16,6 +17,7 @@ import { HeaderProfilePic } from "./HeaderProfilePic";
 // bottom navigation part
 const BottomNav = () => {
 	const auth = useSelector((s) => s.auth);
+	const navigate = useNavigate();
 
 	let links = auth
 		? headerLinks.filter((l) => l.roles.includes(auth.role))
@@ -36,6 +38,7 @@ const BottomNav = () => {
 								color: "black",
 							}}
 							key={link.link}
+							onClick={() => navigate(link.link)}
 						>
 							{link.name}
 						</Button>

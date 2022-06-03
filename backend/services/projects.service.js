@@ -39,7 +39,7 @@ const assignSupervisors = async ({
 		project.supervisorId = { id: supervisorId, status: "pending" };
 	}
 	if (coSupervisorId || coSupervisorId === null) {
-		project.coSupervisorId = { id: coSupervisorId, status: "pending" };
+		project.coSupervisorId = { id: coSupervisorId, status: "accepted" };
 	}
 
 	await project.save();

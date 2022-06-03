@@ -1,5 +1,7 @@
 import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
+import { MarkingSchema } from "../models/marking-schema.model";
 import { Project } from "../models/project.model";
+import { Submission } from "../models/submission.model";
 import { Supervisor } from "../models/supervisor.model";
 
 const superVisorsPopulateQueries = [
@@ -102,7 +104,9 @@ const _getProjects = async (supervisorId, status) => {
 				"coSupervisorId.status": status,
 			},
 		],
-	});
+	})
+		.populate("group")
+		.populate("submissions");
 };
 
 const getProjects = async (supervisorId, status = "all") => {
@@ -136,10 +140,36 @@ const getSupervisorByUserId = async (userId) => {
 	const supervisor = await Supervisor.find()
 		.populate(superVisorsPopulateQueries[0])
 		.populate(superVisorsPopulateQueries[1])
-		.findOne({
-			"staffMember.userId": userId,
-		});
-	return supervisor?.toJSON();
+		.find()
+		.exec();
+	return supervisor
+		.filter((s) => s.staffMember.user.id === userId)[0]
+		.toJSON();
+};
+
+const getSubmission = async (submissionId) => {
+	let submission = await Submission.findById(submissionId).populate({
+		path: "project",
+		populate: {
+			path: "group",
+		},
+	});
+	const markingSchema = await MarkingSchema.findOne({
+		name: submission.submissionTypeName,
+	}).populate("markingSchemaAreas");
+
+	submission = submission.toJSON();
+	submission.markingSchema = markingSchema.toJSON();
+
+	return submission;
+};
+
+const submitMarks = async (submissionId, marks) => {
+	const submission = await Submission.findById(submissionId);
+	submission.marks = marks;
+	await submission.save();
+
+	return getSubmission(submissionId);
 };
 
 export const supervisorsService = {
@@ -154,4 +184,6 @@ export const supervisorsService = {
 	acceptProject,
 	rejectProject,
 	getSupervisorByUserId,
+	getSubmission,
+	submitMarks,
 };

@@ -6,10 +6,18 @@ import ip from "ip";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = dirname(__fileName);
+const serverAddress = ip.address();
+
+const getPublicFileURL = (subFolder, fileName) => {
+	return `http://${serverAddress}:${process.env.PORT}/${subFolder}/${fileName}`;
+};
 
 const getProfilePicturesURL = (fileName) => {
-	const serverAddress = ip.address();
-	return `http://${serverAddress}:${process.env.PORT}/images/profile_pics/${fileName}`;
+	return getPublicFileURL("images/profile_pics", fileName);
+};
+
+const getSubmissionsURL = (fileName) => {
+	return getPublicFileURL("submissions", fileName);
 };
 
 const getProfilePictureFolder = () =>
@@ -31,4 +39,5 @@ export const mediaServices = {
 	saveProfilePicture,
 	getProfilePicturesURL,
 	getProfilePictureFolder,
+	getSubmissionsURL,
 };

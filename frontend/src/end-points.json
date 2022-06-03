@@ -1,6 +1,9 @@
 {
 	"supervisors": {
-		"common": "supervisors"
+		"common": "supervisors",
+		"projects": "supervisors/{id}/projects",
+		"responseProjects": "supervisors/{id}/projects/{projectId}",
+		"submissions": "supervisors/{id}/submissions"
 	},
 	"researchFields": {
 		"common": "research_fields"
@@ -15,5 +18,12 @@
 	"auth": {
 		"loggedUser": "auth",
 		"login": "auth/login"
+	},
+	"groups": {
+		"common": "groups"
+	},
+	"projects": {
+		"common": "projects",
+		"supervisor": "projects/{id}/supervisors"
 	}
 }

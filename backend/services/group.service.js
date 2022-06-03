@@ -13,10 +13,26 @@ const createGroup = async (group) => {
 };
 
 const getGroup = (id) => {
-	return Group.findById(id).populate("project").populate("students");
+	return Group.findById(id)
+		.populate("project")
+		.populate({
+			path: "students",
+			populate: {
+				path: "user",
+				select: {
+					email: 1,
+					_id: 1,
+				},
+			},
+		});
+};
+
+const getGroups = () => {
+	return Group.find().populate("project").populate("students");
 };
 
 export const groupsService = {
 	createGroup,
 	getGroup,
+	getGroups,
 };

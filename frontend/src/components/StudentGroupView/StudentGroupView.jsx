@@ -7,24 +7,40 @@ import {
 	TableHead,
 	TableRow,
 } from "@mui/material";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useGroups } from "../../hooks/groups.hook";
 import { StyledTableCell } from "../StyledTableCell/StyledTableCell";
 
-const StudentRow = () => {
-	const values = ["IT101", "Oshadhi", "oshadhi@oshadhi.com", "Leader"];
-
+const StudentRow = ({ student, membership }) => {
 	return (
 		<TableRow hover>
-			{values.map((value, index) => (
-				<TableCell align="center" key={index}>
-					{value}
-				</TableCell>
-			))}
+			<TableCell align="center">{student.id}</TableCell>
+			<TableCell align="center">
+				{student.firstName} {student.lastName}
+			</TableCell>
+			<TableCell align="center">{student.user.email}</TableCell>
+			<TableCell align="center">{membership}</TableCell>
 		</TableRow>
 	);
 };
 
-export const StudentGroupView = () => {
-	const tableHeaders = ["ID", "Name", "Email", "Membership"];
+const tableHeaders = ["ID", "Name", "Email", "Membership"];
+
+export const StudentGroupView = ({ id }) => {
+	const { getGroup } = useGroups();
+	const [students, setStudents] = useState([]);
+
+	useEffect(() => {
+		if (id) loadStudents();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id]);
+
+	const loadStudents = async () => {
+		const group = await getGroup(id);
+		setStudents(group.students);
+	};
 
 	return (
 		<TableContainer component={Paper}>
@@ -43,9 +59,13 @@ export const StudentGroupView = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					<StudentRow />
-					<StudentRow />
-					<StudentRow />
+					{students.map((student, i) => (
+						<StudentRow
+							student={student}
+							key={i}
+							membership={i === 0 ? "Leader" : "Member"}
+						/>
+					))}
 				</TableBody>
 			</Table>
 		</TableContainer>

@@ -1,4 +1,5 @@
 import express from "express";
+import { auth } from "../middleware/auth.middleware";
 import { staffMembersService } from "../services/staff-members.service";
 import { supervisorsService } from "../services/supervisors.service";
 import { usersService } from "../services/users.service";
@@ -9,7 +10,6 @@ const _router = express.Router();
 // Create a supervisor
 _router.post("/", async (req, res) => {
 	try {
-		req.body.role = req.body.supervisor ? "supervisor" : "co-supervisor";
 		const user = await usersService.createUser(req.body);
 		const staffMember = await staffMembersService.createStaffMember(
 			user,
@@ -127,7 +127,7 @@ _router.put("/:id", async (req, res) => {
 
 // GET /:id/projects
 // get all projects supervised by a supervisor
-_router.get("/:id/projects", async (req, res) => {
+_router.get("/:id/projects", auth(), async (req, res) => {
 	try {
 		const projects = await supervisorsService.getProjects(
 			req.params.id,
@@ -141,7 +141,7 @@ _router.get("/:id/projects", async (req, res) => {
 
 // POST /:id/projects/:projectId/accept
 // accept a project
-_router.post("/:id/projects/:projectId/accept", async (req, res) => {
+_router.patch("/:id/projects/:projectId/accept", async (req, res) => {
 	try {
 		await supervisorsService.acceptProject(req.params.projectId);
 		res.status(200).send();
@@ -152,10 +152,37 @@ _router.post("/:id/projects/:projectId/accept", async (req, res) => {
 
 // POST /:id/projects/:projectId/reject
 // reject a project
-_router.post("/:id/projects/:projectId/reject", async (req, res) => {
+_router.patch("/:id/projects/:projectId/reject", async (req, res) => {
 	try {
 		await supervisorsService.rejectProject(req.params.projectId);
 		res.status(200).send();
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
+// GET /:id/submissions/:submissionId
+// get a submission
+_router.get("/:id/submissions/:submissionId", async (req, res) => {
+	try {
+		const submission = await supervisorsService.getSubmission(
+			req.params.submissionId
+		);
+		res.json(submission);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
+// POST /:id/submissions/:submissionId
+// give marks to a submission
+_router.post("/:id/submissions/:submissionId", async (req, res) => {
+	try {
+		const submission = await supervisorsService.submitMarks(
+			req.params.submissionId,
+			req.body
+		);
+		res.status(200).json(submission);
 	} catch (error) {
 		res.status(500).json({ message: error.message, error });
 	}

@@ -4,8 +4,8 @@ const _schema = mongoose.Schema(
 	{
 		name: { type: String, required: true },
 		allocatedMarks: { type: Number, required: true },
-		markingSchemaId: {
-			type: mongoose.Schema.Types.ObjectId,
+		markingSchemaName: {
+			type: String,
 			required: true,
 		},
 	},
@@ -18,8 +18,8 @@ const _schema = mongoose.Schema(
 
 _schema.virtual("markingSchema", {
 	ref: "MarkingSchema",
-	localField: "markingSchemaId",
-	foreignField: "_id",
+	localField: "markingSchemaName",
+	foreignField: "name",
 	justOne: true,
 });
 

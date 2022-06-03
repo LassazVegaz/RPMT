@@ -1,6 +1,6 @@
 import { Container, Typography } from "@mui/material";
 
-export const NotFoundPage = () => {
+export const NotFoundPage = ({ desc = "Page not found" }) => {
 	return (
 		<Container
 			maxWidth="lg"
@@ -9,13 +9,13 @@ export const NotFoundPage = () => {
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "center",
-				height: "67vh",
+				height: "67.5vh",
 			}}
 		>
 			<Typography variant="h1" fontWeight="900">
 				404
 			</Typography>
-			<Typography>Page not found</Typography>
+			<Typography>{desc}</Typography>
 		</Container>
 	);
 };
