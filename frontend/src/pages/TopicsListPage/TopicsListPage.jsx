@@ -12,9 +12,10 @@ import {
 import { useSupervisors } from "../../hooks/supervisors.hook";
 import { SUPERVISOR_STATUS } from "../../constants/project-supervisor-status.constant";
 import { useSelector } from "react-redux";
+import { Topic } from "@mui/icons-material";
 
 export const TopicsListPage = () => {
-	const [tabIndex, setTabIndex] = useState(0);
+	const [tabIndex, setTabIndex] = useState(SUPERVISOR_STATUS.pending);
 	const [projects, setProjects] = useState([]);
 	const { getProjects } = useSupervisors();
 	const auth = useSelector((s) => s.auth);
@@ -22,14 +23,10 @@ export const TopicsListPage = () => {
 	useEffect(() => {
 		loadProjects();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [tabIndex]);
 
 	const loadProjects = async () => {
-		const status =
-			tabIndex === 0
-				? SUPERVISOR_STATUS.pending
-				: SUPERVISOR_STATUS.accepted;
-		const _projects = await getProjects(auth.id, status);
+		const _projects = await getProjects(auth.id, tabIndex);
 		setProjects(_projects);
 	};
 
@@ -37,49 +34,34 @@ export const TopicsListPage = () => {
 		<>
 			<Tabs
 				value={tabIndex}
-				onChange={(e, i) => {
-					setTabIndex(i);
-					loadProjects();
+				onChange={(_e, status) => {
+					setTabIndex(status);
 				}}
 				variant="fullWidth"
 			>
-				<Tab label="Incoming Topics" value={0} />
-				<Tab label="Accepted Topics" value={1} />
+				<Tab
+					label="Incoming Topics"
+					value={SUPERVISOR_STATUS.pending}
+				/>
+				<Tab
+					label="Accepted Topics"
+					value={SUPERVISOR_STATUS.accepted}
+				/>
 			</Tabs>
 
-			<Container maxWidth="lg">
+			<Container
+				maxWidth="lg"
+				sx={{
+					minHeight: "60.6vh",
+				}}
+			>
 				<List>
-					<ListItemButton>
-						<ListItemAvatar>
-							<Avatar />
-						</ListItemAvatar>
-						<ListItemText
-							primary="Topic Name"
-							secondary="Group Name"
-						/>
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemAvatar>
-							<Avatar />
-						</ListItemAvatar>
-						<ListItemText
-							primary="Topic Name"
-							secondary="Group Name"
-						/>
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemAvatar>
-							<Avatar />
-						</ListItemAvatar>
-						<ListItemText
-							primary="Topic Name"
-							secondary="Group Name"
-						/>
-					</ListItemButton>
 					{projects.map((project) => (
 						<ListItemButton key={project.id}>
 							<ListItemAvatar>
-								<Avatar />
+								<Avatar>
+									<Topic />
+								</Avatar>
 							</ListItemAvatar>
 							<ListItemText
 								primary={project.topic}
