@@ -10,18 +10,16 @@ import {
 } from "@mui/material";
 import { StyledTableCell } from "../StyledTableCell/StyledTableCell";
 
-const SchemaRow = () => {
-	const values = ["Marking schema area", "50"];
+const SchemaRow = ({ area, onChange, editable }) => {
+	const _allocatedMarks = Number(area.allocatedMarks);
 
 	return (
 		<TableRow hover>
-			{values.map((value, index) => (
-				<TableCell key={index} align={index === 0 ? "left" : "center"}>
-					{value}
-				</TableCell>
-			))}
+			<TableCell align="left">{area.name}</TableCell>
+			<TableCell align="center">{area.allocatedMarks}</TableCell>
 			<TableCell align="center">
 				<TextField
+					value={area.marks}
 					size="small"
 					variant="standard"
 					sx={{
@@ -29,13 +27,19 @@ const SchemaRow = () => {
 							textAlign: "center",
 						},
 					}}
+					onChange={(e) => {
+						if (!editable) return;
+						const val = Number(e.target.value);
+						if (val <= _allocatedMarks && val >= 0)
+							onChange(e.target.value);
+					}}
 				/>
 			</TableCell>
 		</TableRow>
 	);
 };
 
-export const MarkingSchemeView = () => {
+export const MarkingSchemeView = ({ areas, editable, onChange }) => {
 	const headers = ["Area", "Allocated Marks", "Marks Given"];
 
 	return (
@@ -60,9 +64,14 @@ export const MarkingSchemeView = () => {
 				</TableHead>
 
 				<TableBody>
-					<SchemaRow />
-					<SchemaRow />
-					<SchemaRow />
+					{areas.map((area, index) => (
+						<SchemaRow
+							area={area}
+							key={area.id}
+							editable={editable}
+							onChange={(marks) => onChange(index, marks)}
+						/>
+					))}
 				</TableBody>
 			</Table>
 		</TableContainer>
