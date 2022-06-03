@@ -29,9 +29,8 @@ export const TopicViewPage = () => {
 		setIsLoading(true);
 		const project = await getProject(urlParams.id);
 
-		project.accepted = isSupervisor
-			? project.supervisorId.status === SUPERVISOR_STATUS.accepted
-			: null;
+		project.accepted =
+			project.supervisorId?.status === SUPERVISOR_STATUS.accepted;
 
 		project.topicSubmission =
 			project.submissions &&
@@ -121,6 +120,17 @@ export const TopicViewPage = () => {
 						}}
 					>
 						REJECT
+					</Button>
+				)}
+				{project.accepted && project.topicSubmission && (
+					<Button
+						variant="contained"
+						sx={{
+							width: buttonWidth,
+						}}
+						onClick={() => {}}
+					>
+						VIEW SUBMISSION
 					</Button>
 				)}
 			</Box>
