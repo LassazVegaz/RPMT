@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mediaServices } from "../services/media.service";
 
 const _schema = mongoose.Schema(
 	{
@@ -48,6 +49,12 @@ _schema.virtual("submissionType", {
 	localField: "submissionTypeName",
 	foreignField: "name",
 	justOne: true,
+});
+
+_schema.virtual("documentUrl").get(function () {
+	return this.document
+		? mediaServices.getSubmissionsURL(this.document)
+		: null;
 });
 
 export const Submission = mongoose.model("Submission", _schema);
