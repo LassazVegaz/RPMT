@@ -20,7 +20,6 @@ const _schema = mongoose.Schema(
 		},
 		topic: {
 			type: String,
-			required: true,
 		},
 		researchFieldId: {
 			type: mongoose.Schema.Types.ObjectId,
