@@ -20,6 +20,7 @@ import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
 import { Requests } from "./pages/RequestsPage/RequestsPage";
 import { SubmitDocuments } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
 import { DownloadTemplate } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
+import { TopicViewPage } from "./pages/TopicViewPage/TopicViewPage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -74,6 +75,10 @@ function App() {
 							<Route
 								path="/topics"
 								element={<TopicsListPage />}
+							/>
+							<Route
+								path="/topics/:id"
+								element={<TopicViewPage />}
 							/>
 							<Route path="/profile" element={<ProfilePage />} />
 							<Route path="/" element={<div>Home</div>} />
