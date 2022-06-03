@@ -18,8 +18,8 @@ const _schema = mongoose.Schema(
 
 _schema.virtual("markingSchema", {
 	ref: "MarkingSchema",
-	localField: "markingSchemaId",
-	foreignField: "_id",
+	localField: "markingSchemaName",
+	foreignField: "name",
 	justOne: true,
 });
 

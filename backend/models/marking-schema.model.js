@@ -13,8 +13,8 @@ const _schema = mongoose.Schema(
 
 _schema.virtual("markingSchemaAreas", {
 	ref: "MarkingSchemaArea",
-	localField: "_id",
-	foreignField: "markingSchemaId",
+	localField: "name",
+	foreignField: "markingSchemaName",
 });
 
 export const MarkingSchema = mongoose.model("MarkingSchema", _schema);
