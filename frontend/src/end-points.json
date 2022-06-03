@@ -2,7 +2,8 @@
 	"supervisors": {
 		"common": "supervisors",
 		"projects": "supervisors/{id}/projects",
-		"responseProjects": "supervisors/{id}/projects/{projectId}"
+		"responseProjects": "supervisors/{id}/projects/{projectId}",
+		"submissions": "supervisors/{id}/submissions"
 	},
 	"researchFields": {
 		"common": "research_fields"

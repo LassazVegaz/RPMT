@@ -87,11 +87,26 @@ export const useSupervisors = () => {
 	const acceptProject = (id, projectId) =>
 		responseProject(id, projectId, SUPERVISOR_RESPONSE.ACCEPT);
 
+	const getSubmission = async (submissionId) => {
+		try {
+			return await callApi(
+				async () => await supervisorHelpers.getSubmission(submissionId),
+				{
+					errorMessage: "Error fetching submission",
+					showSuccessMessage: false,
+				}
+			);
+		} catch (error) {
+			return null;
+		}
+	};
+
 	return {
 		getAllSupervisors,
 		updateSupervisor,
 		getProjects,
 		rejectProject,
 		acceptProject,
+		getSubmission,
 	};
 };

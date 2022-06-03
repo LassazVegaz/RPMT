@@ -33,10 +33,17 @@ const responseProject = async (id, projectId, response) => {
 	await axiosApp.patch(url);
 };
 
+const getSubmission = async (submissionId) => {
+	const url = `${endpoints.supervisors.submissions}/${submissionId}`;
+	const res = await axiosApp.get(url);
+	return res.data;
+};
+
 export const supervisorHelpers = {
 	createSupervisor,
 	getAllSupervisors,
 	updateSupervisor,
 	getProjects,
 	responseProject,
+	getSubmission,
 };
