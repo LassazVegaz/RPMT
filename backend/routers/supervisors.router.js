@@ -1,4 +1,5 @@
 import express from "express";
+import { auth } from "../middleware/auth.middleware";
 import { staffMembersService } from "../services/staff-members.service";
 import { supervisorsService } from "../services/supervisors.service";
 import { usersService } from "../services/users.service";
@@ -9,7 +10,6 @@ const _router = express.Router();
 // Create a supervisor
 _router.post("/", async (req, res) => {
 	try {
-		req.body.role = req.body.supervisor ? "supervisor" : "co-supervisor";
 		const user = await usersService.createUser(req.body);
 		const staffMember = await staffMembersService.createStaffMember(
 			user,
@@ -127,7 +127,7 @@ _router.put("/:id", async (req, res) => {
 
 // GET /:id/projects
 // get all projects supervised by a supervisor
-_router.get("/:id/projects", async (req, res) => {
+_router.get("/:id/projects", auth(), async (req, res) => {
 	try {
 		const projects = await supervisorsService.getProjects(
 			req.params.id,
