@@ -136,10 +136,11 @@ const getSupervisorByUserId = async (userId) => {
 	const supervisor = await Supervisor.find()
 		.populate(superVisorsPopulateQueries[0])
 		.populate(superVisorsPopulateQueries[1])
-		.findOne({
-			"staffMember.userId": userId,
-		});
-	return supervisor?.toJSON();
+		.find()
+		.exec();
+	return supervisor
+		.filter((s) => s.staffMember.user.id === userId)[0]
+		.toJSON();
 };
 
 export const supervisorsService = {
