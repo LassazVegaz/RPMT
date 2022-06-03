@@ -111,7 +111,13 @@ export const SubmissionViewPage = () => {
 				}}
 			>
 				<Typography>Submitted date: 03/03/2022</Typography>
-				<Button variant="outlined">Download Submission</Button>
+				<Button
+					variant="outlined"
+					href={submission.documentUrl}
+					target="_blank"
+				>
+					Download Submission
+				</Button>
 			</Box>
 
 			<Box mb={5}>
