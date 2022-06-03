@@ -8,6 +8,14 @@ const _router = express.Router();
 _router.post("/", async (req, res) => {
 	try {
 		const project = await projectsService.createProject(req.body);
+
+		if (req.body.supervisorId || req.body.coSupervisorId)
+			await projectsService.assignSupervisors({
+				projectId: project.id,
+				supervisorId: req.body.supervisorId,
+				coSupervisorId: req.body.coSupervisorId,
+			});
+
 		res.json(project);
 	} catch (error) {
 		res.status(500).json({ message: error.message, error });
