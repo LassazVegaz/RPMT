@@ -1,15 +1,19 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
 import { useProject } from "../../hooks/project.hook";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
+import { USER_ROLES } from "../../constants/user-roles.constants";
+import { SUPERVISOR_RESPONSE } from "../../constants/supervisor-response";
 
 export const TopicViewPage = () => {
 	const { getProject } = useProject();
 	const urlParams = useParams();
 	const [project, setProject] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const auth = useSelector((s) => s.auth);
 
 	useEffect(() => {
 		if (urlParams.id) loadData();
@@ -20,11 +24,17 @@ export const TopicViewPage = () => {
 	const loadData = async () => {
 		setIsLoading(true);
 		const project = await getProject(urlParams.id);
+
+		project.accepted = isSupervisor
+			? project.supervisorId.status === SUPERVISOR_RESPONSE.ACCEPT
+			: null;
+
 		setProject(project);
 		setIsLoading(false);
 	};
 
 	const buttonWidth = 250;
+	const isSupervisor = auth.role === USER_ROLES.SUPERVISOR;
 
 	return !isLoading && !project ? (
 		<NotFoundPage desc="Project not found" />
@@ -36,7 +46,7 @@ export const TopicViewPage = () => {
 			}}
 		>
 			<Typography variant="h3" mb={5}>
-				Research Topic
+				{project.topic}
 			</Typography>
 
 			<Box
@@ -47,7 +57,9 @@ export const TopicViewPage = () => {
 				}}
 			>
 				<Typography>Submitted date: 03/03/2022</Typography>
-				<Typography>Accepted date: 17/03/2022</Typography>
+				{isSupervisor && project.accepted && (
+					<Typography>Accepted date: 17/03/2022</Typography>
+				)}
 			</Box>
 
 			<Box>
@@ -58,17 +70,19 @@ export const TopicViewPage = () => {
 				sx={{
 					mt: 10,
 					display: "flex",
-					justifyContent: "space-between",
+					justifyContent: "space-evenly",
 				}}
 			>
-				<Button
-					variant="contained"
-					sx={{
-						width: buttonWidth,
-					}}
-				>
-					ACCEPT
-				</Button>
+				{isSupervisor && !project.accepted && (
+					<Button
+						variant="contained"
+						sx={{
+							width: buttonWidth,
+						}}
+					>
+						ACCEPT
+					</Button>
+				)}
 				<Button
 					variant="contained"
 					sx={{
@@ -77,15 +91,17 @@ export const TopicViewPage = () => {
 				>
 					CHAT WITH TEAM
 				</Button>
-				<Button
-					variant="contained"
-					color="secondary"
-					sx={{
-						width: buttonWidth,
-					}}
-				>
-					REJECT
-				</Button>
+				{isSupervisor && !project.accepted && (
+					<Button
+						variant="contained"
+						color="secondary"
+						sx={{
+							width: buttonWidth,
+						}}
+					>
+						REJECT
+					</Button>
+				)}
 			</Box>
 		</Container>
 	);
