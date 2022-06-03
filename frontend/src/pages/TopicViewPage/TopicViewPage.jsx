@@ -128,7 +128,11 @@ export const TopicViewPage = () => {
 						sx={{
 							width: buttonWidth,
 						}}
-						onClick={() => {}}
+						onClick={() =>
+							navigate(
+								`/topics/${project.id}/submissions/${project.topicSubmission.id}`
+							)
+						}
 					>
 						VIEW SUBMISSION
 					</Button>

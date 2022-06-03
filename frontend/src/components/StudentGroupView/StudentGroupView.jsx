@@ -32,7 +32,7 @@ export const StudentGroupView = ({ id }) => {
 	const [students, setStudents] = useState([]);
 
 	useEffect(() => {
-		loadStudents();
+		if (id) loadStudents();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
