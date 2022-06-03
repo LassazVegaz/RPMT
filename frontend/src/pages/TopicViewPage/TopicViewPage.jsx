@@ -1,16 +1,19 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { StudentGroupView } from "../../components/StudentGroupView/StudentGroupView";
 import { useProject } from "../../hooks/project.hook";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 import { USER_ROLES } from "../../constants/user-roles.constants";
-import { SUPERVISOR_RESPONSE } from "../../constants/supervisor-response";
+import { useSupervisors } from "../../hooks/supervisors.hook";
+import { SUPERVISOR_STATUS } from "../../constants/project-supervisor-status.constant";
 
 export const TopicViewPage = () => {
 	const { getProject } = useProject();
+	const { acceptProject, rejectProject } = useSupervisors();
 	const urlParams = useParams();
+	const navigate = useNavigate();
 	const [project, setProject] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 	const auth = useSelector((s) => s.auth);
@@ -26,7 +29,7 @@ export const TopicViewPage = () => {
 		const project = await getProject(urlParams.id);
 
 		project.accepted = isSupervisor
-			? project.supervisorId.status === SUPERVISOR_RESPONSE.ACCEPT
+			? project.supervisorId.status === SUPERVISOR_STATUS.accepted
 			: null;
 
 		setProject(project);
@@ -79,6 +82,10 @@ export const TopicViewPage = () => {
 						sx={{
 							width: buttonWidth,
 						}}
+						onClick={async () => {
+							await acceptProject(auth.id, project.id);
+							loadData();
+						}}
 					>
 						ACCEPT
 					</Button>
@@ -97,6 +104,11 @@ export const TopicViewPage = () => {
 						color="secondary"
 						sx={{
 							width: buttonWidth,
+						}}
+						onClick={async () => {
+							await rejectProject(auth.id, project.id);
+							await loadData();
+							navigate("/topics");
 						}}
 					>
 						REJECT
