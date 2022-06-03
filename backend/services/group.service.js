@@ -31,8 +31,16 @@ const getGroups = () => {
 	return Group.find().populate("project").populate("students");
 };
 
+const addProjectToGroup = async (groupId, projectId) => {
+	const group = await Group.findById(groupId);
+	group.projectId = projectId;
+	await group.save();
+	return group;
+};
+
 export const groupsService = {
 	createGroup,
 	getGroup,
 	getGroups,
+	addProjectToGroup,
 };

@@ -1,11 +1,13 @@
 import express from "express";
+import { auth } from "../middleware/auth.middleware";
+import { groupsService } from "../services/group.service";
 import { projectsService } from "../services/projects.service";
 
 const _router = express.Router();
 
 // POST /
 // Create a project
-_router.post("/", async (req, res) => {
+_router.post("/", auth(), async (req, res) => {
 	try {
 		const project = await projectsService.createProject(req.body);
 
@@ -15,6 +17,8 @@ _router.post("/", async (req, res) => {
 				supervisorId: req.body.supervisorId,
 				coSupervisorId: req.body.coSupervisorId,
 			});
+
+		await groupsService.addProjectToGroup(req.user.groupId, project.id);
 
 		res.json(project);
 	} catch (error) {
