@@ -161,4 +161,17 @@ _router.patch("/:id/projects/:projectId/reject", async (req, res) => {
 	}
 });
 
+// GET /:id/submissions/:submissionId
+// get a submission
+_router.get("/:id/submissions/:submissionId", async (req, res) => {
+	try {
+		const submission = await supervisorsService.getSubmission(
+			req.params.submissionId
+		);
+		res.json(submission);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
 export const supervisorsRouter = _router;

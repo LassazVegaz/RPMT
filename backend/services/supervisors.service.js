@@ -1,5 +1,7 @@
 import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
+import { MarkingSchema } from "../models/marking-schema.model";
 import { Project } from "../models/project.model";
+import { Submission } from "../models/submission.model";
 import { Supervisor } from "../models/supervisor.model";
 
 const superVisorsPopulateQueries = [
@@ -145,6 +147,20 @@ const getSupervisorByUserId = async (userId) => {
 		.toJSON();
 };
 
+const getSubmission = async (submissionId) => {
+	let submission = await Submission.findById(submissionId).populate(
+		"project"
+	);
+	const markingSchema = await MarkingSchema.findOne({
+		name: submission.submissionTypeName,
+	}).populate("markingSchemaAreas");
+
+	submission = submission.toJSON();
+	submission.markingSchema = markingSchema.toJSON();
+
+	return submission;
+};
+
 export const supervisorsService = {
 	createSupervisor,
 	updateSupervisor,
@@ -157,4 +173,5 @@ export const supervisorsService = {
 	acceptProject,
 	rejectProject,
 	getSupervisorByUserId,
+	getSubmission,
 };
