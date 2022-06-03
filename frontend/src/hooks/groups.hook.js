@@ -19,7 +19,7 @@ export const useGroups = () => {
 		try {
 			return await callApi(
 				async () => {
-					await groupsHelper.getGroup(id);
+					return await groupsHelper.getGroup(id);
 				},
 				{
 					errorMessage: "Error fetching group",
