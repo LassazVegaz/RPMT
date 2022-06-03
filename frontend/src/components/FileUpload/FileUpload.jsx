@@ -1,9 +1,8 @@
 import { Typography, IconButton, Box } from "@mui/material";
 import { Upload as UploadIcon, Close as CloseIcon } from "@mui/icons-material";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
-export const FileUpload = ({ onChange }) => {
-	const [photo, setPhoto] = useState(null);
+export const FileUpload = ({ document, onChange }) => {
 	const fileInputRef = useRef(null);
 
 	const handlePhotoChange = (event) => {
@@ -12,14 +11,13 @@ export const FileUpload = ({ onChange }) => {
 			const fileExtension = event.target.files[0].name.split(".").pop();
 
 			reader.onload = (e) => {
-				const photo = {
+				const _document = {
 					data: e.target.result,
 					fileExtension,
 					fileName: event.target.files[0].name,
 				};
 
-				setPhoto(photo);
-				onChange(photo);
+				onChange(_document);
 			};
 			reader.readAsDataURL(event.target.files[0]);
 		}
@@ -33,19 +31,19 @@ export const FileUpload = ({ onChange }) => {
 			mt={5}
 			flexDirection="column"
 		>
-			{photo?.fileName && (
+			{document?.fileName && (
 				<Box display="flex" justifyContent="center" alignItems="center">
-					<Typography variant="body1">{photo.fileName}</Typography>
-					<IconButton onClick={() => setPhoto(null)}>
+					<Typography variant="body1">{document.fileName}</Typography>
+					<IconButton onClick={() => onChange(null)}>
 						<CloseIcon />
 					</IconButton>
 				</Box>
 			)}
 
-			{!Boolean(photo) && (
+			{!Boolean(document) && (
 				<>
 					<input
-						accept="image/*"
+						accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 						id="document-uploader"
 						type="file"
 						hidden
