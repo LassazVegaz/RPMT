@@ -27,9 +27,9 @@ const getProjects = async (id, status = "all") => {
 };
 
 const responseProject = async (id, projectId, response) => {
-	const url = `${endpoints.supervisors.projects
+	const url = `${endpoints.supervisors.responseProjects
 		.replace("{id}", id)
-		.replace("projectId", projectId)}/${response}`;
+		.replace("{projectId}", projectId)}/${response}`;
 	await axiosApp.patch(url);
 };
 
