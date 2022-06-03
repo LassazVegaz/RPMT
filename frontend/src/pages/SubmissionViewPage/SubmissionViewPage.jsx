@@ -33,6 +33,7 @@ export const SubmissionViewPage = () => {
 	const urlParams = useParams();
 	const [submission, setSubmission] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [areas, setAreas] = useState([]);
 	const auth = useSelector((s) => s.auth);
 	const { getSubmission } = useSupervisors();
 
@@ -50,8 +51,31 @@ export const SubmissionViewPage = () => {
 		const submission = await getSubmission(urlParams.id);
 		submission.marked = submission.marks && submission.marks.length > 0;
 
+		buildAreas(submission);
+
 		setSubmission(submission);
 		setIsLoading(false);
+	};
+
+	const buildAreas = (submission) => {
+		const areas = [];
+		const _areas = submission.markingSchema.markingSchemaAreas;
+
+		_areas.forEach((area) => {
+			const _area = {
+				...area,
+				marks: submission.marked
+					? submission.marks.find((mark) => mark.area === area.id)
+							.givenMarks
+					: 0,
+			};
+			_area.name =
+				_area.name.charAt(0).toUpperCase() + _area.name.slice(1);
+
+			areas.push(_area);
+		});
+
+		setAreas(areas);
 	};
 
 	return !isLoading && !submission ? (
@@ -90,11 +114,26 @@ export const SubmissionViewPage = () => {
 			/>
 
 			<Typography variant="h5" mb={5}>
-				Allocate Marks
+				Marks Sheet
 			</Typography>
 
 			<Box mb={5}>
-				<MarkingSchemeView />
+				<MarkingSchemeView
+					areas={areas}
+					editable={!submission.marked}
+					onChange={(i, marks) => {
+						const _areas = areas.map((area, index) => {
+							if (index === i) {
+								return {
+									...area,
+									marks: marks,
+								};
+							}
+							return area;
+						});
+						setAreas(_areas);
+					}}
+				/>
 			</Box>
 
 			{isSupervisor && !submission.marked && (
