@@ -23,7 +23,6 @@ const _schema = mongoose.Schema(
 		},
 		photo: {
 			type: String,
-			required: true,
 		},
 		phone: {
 			type: String,

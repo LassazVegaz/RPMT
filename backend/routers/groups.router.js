@@ -17,7 +17,7 @@ _router.post("/", async (req, res) => {
 
 		res.send(group);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).send({ message: error.message, error });
 	}
 });
 
@@ -29,6 +29,17 @@ _router.get("/:id", async (req, res) => {
 		res.send(group);
 	} catch (error) {
 		res.status(500).send(error);
+	}
+});
+
+// GET /
+// get all groups
+_router.get("/", async (req, res) => {
+	try {
+		const groups = await groupsService.getGroups();
+		res.send(groups);
+	} catch (error) {
+		res.status(500).send({ message: error.message, error });
 	}
 });
 

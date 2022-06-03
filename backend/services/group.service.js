@@ -16,7 +16,12 @@ const getGroup = (id) => {
 	return Group.findById(id).populate("project").populate("students");
 };
 
+const getGroups = () => {
+	return Group.find().populate("project").populate("students");
+};
+
 export const groupsService = {
 	createGroup,
 	getGroup,
+	getGroups,
 };
