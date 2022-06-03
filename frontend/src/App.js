@@ -13,6 +13,13 @@ import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { USER_ROLES } from "./constants/user-roles.constants";
 import { TopicsListPage } from "./pages/TopicsListPage/TopicsListPage";
+import { StudentHomePage } from "./pages/StudentHomePage/StudentHomePage";
+import { CreateGroups } from "./pages/CreateGroupPage/CreateGroupPage";
+import { ViewSupervisorFeedback } from "./pages/ViewSupervisorFeedbackPage/ViewSupervisorFeedbackPage";
+import { Registertopic } from "./pages/RegisterTopicPage/RegisterTopicPage";
+import { Requests } from "./pages/RequestsPage/RequestsPage";
+import { SubmitDocuments } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage";
+import { DownloadTemplate } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -26,7 +33,6 @@ function App() {
 	return (
 		<>
 			<Header />
-
 			<Routes>
 				{!auth && (
 					<>
@@ -34,6 +40,33 @@ function App() {
 						<Route path="/login" element={<SignInPage />} />
 					</>
 				)}
+				{auth && auth.role === USER_ROLES.STUDENT && (
+					<>
+						<Route path="/" element={<StudentHomePage />} />
+						<Route
+							path="/create-group"
+							element={<CreateGroups />}
+						/>
+						<Route
+							path="/view-feedback"
+							element={<ViewSupervisorFeedback />}
+						/>
+						<Route
+							path="/register-topic"
+							element={<Registertopic />}
+						/>
+						<Route path="/requests" element={<Requests />} />
+						<Route
+							path="/submit-documents"
+							element={<SubmitDocuments />}
+						/>
+						<Route
+							path="/download-templates"
+							element={<DownloadTemplate />}
+						/>
+					</>
+				)}
+
 				{auth &&
 					(auth.role === USER_ROLES.SUPERVISOR ||
 						auth.role === USER_ROLES.CO_SUPERVISOR) && (

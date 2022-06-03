@@ -9,8 +9,46 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { useSupervisors } from "../../hooks/supervisors.hook";
+import { useState, useEffect } from "react";
+import { useProject } from "../../hooks/project.hook";
+
+const validationSchema = Yup.object({
+  coSupervisorId: Yup.string().required("coSupervisor Id is required"),
+});
+
+const initialValues = {
+  coSupervisorId: "",
+};
 
 export const Requests = () => {
+  const navigate = useNavigate();
+  const { getAllSupervisors } = useSupervisors();
+  const { assignSupervisor } = useProject();
+  const [supervisors, setSupervisors] = useState([]);
+
+  const form = useFormik({
+    validationSchema,
+    initialValues,
+    onSubmit: async (values) => {
+      await assignSupervisor(
+        localStorage.getItem("projectId"),
+        values.coSupervisorId
+      );
+      navigate("/submit-documents");
+    },
+  });
+
+  useEffect(() => {
+    getAllSupervisors().then((res) => {
+      setSupervisors(res);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Container
       maxWidth="lg"
@@ -30,6 +68,7 @@ export const Requests = () => {
         }}
       >
         <Box
+          onClick={form.handleSubmit}
           component="form"
           sx={{
             display: "flex",
@@ -52,12 +91,17 @@ export const Requests = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Supervisor"
+                label="supervisorId"
+                name="coSupervisorId"
+                value={form.values.coSupervisorId}
+                onChange={form.handleChange}
               >
-                <MenuItem value={10}>MR Silva</MenuItem>
-                <MenuItem value={20}>MS Perera</MenuItem>
-                <MenuItem value={30}>MS Dilani Fonseka</MenuItem>
-                <MenuItem value={40}>MR Rudrigu</MenuItem>
+                {supervisors.map((supervisor) => (
+                  <MenuItem value={supervisor.id}>
+                    {supervisor.staffMember.firstName}{" "}
+                    {supervisor.staffMember.lastName}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <br />
@@ -73,7 +117,9 @@ export const Requests = () => {
               rowGap: 2,
             }}
           >
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
           </Box>
         </Box>
       </Paper>

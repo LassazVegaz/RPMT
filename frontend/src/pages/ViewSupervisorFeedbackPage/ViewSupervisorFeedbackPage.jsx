@@ -28,7 +28,7 @@ const SchemaRow = () => {
   );
 };
 
-export const ViewSupervisorFeedbackPage = ({ isCoSupervisor = false }) => {
+export const ViewSupervisorFeedback = ({ isCoSupervisor = false }) => {
   const headers = ["GroupID", "Topic", "Supervisor", "Feedback"];
   if (isCoSupervisor) headers[2] = "Co-Supervisor";
   return (

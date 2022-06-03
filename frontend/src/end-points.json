@@ -16,5 +16,13 @@
 	"auth": {
 		"loggedUser": "auth",
 		"login": "auth/login"
+	},
+	"groups":{
+		"common":"groups"
+	},
+	"projects":{
+		"common":"projects",
+		"supervisor":"projects/{id}/supervisors"
 	}
+
 }
