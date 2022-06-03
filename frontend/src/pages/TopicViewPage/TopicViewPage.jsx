@@ -51,7 +51,7 @@ export const TopicViewPage = () => {
 			</Box>
 
 			<Box>
-				<StudentGroupView />
+				<StudentGroupView id={project.group.id} />
 			</Box>
 
 			<Box
