@@ -40,11 +40,7 @@ const _schema = mongoose.Schema(
 			id: mongoose.Schema.Types.ObjectId,
 			status: {
 				type: String,
-				enum: [
-					SUPERVISOR_STATUS.pending,
-					SUPERVISOR_STATUS.accepted,
-					SUPERVISOR_STATUS.rejected,
-				],
+				enum: [SUPERVISOR_STATUS.accepted],
 			},
 		},
 	},
