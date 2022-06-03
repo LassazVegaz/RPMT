@@ -1,15 +1,35 @@
 import React from "react";
-import {
-  Button,
-  Container,
-  Paper,
-  Typography,
-  Box,
-  TextField,
-} from "@mui/material";
+import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { FileUpload } from "../../components/FileUpload/FileUpload";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
+import { useSubmissions } from "../../hooks/submit-document.hook";
+import { useNavigate } from "react-router-dom";
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+});
+
+const initialValues = {
+  name: "",
+};
 
 export const SubmitDocuments = () => {
+  const navigate = useNavigate();
+  const { createSumission } = useSubmissions();
+  const form = useFormik({
+    validationSchema,
+    initialValues,
+    onSubmit: async (values) => {
+      console.log(values);
+      await createSumission({
+        name: values.name,
+      });
+      navigate("/download-templates");
+    },
+  });
+
   return (
     <Container
       maxWidth="lg"
@@ -29,6 +49,7 @@ export const SubmitDocuments = () => {
         }}
       >
         <Box
+          onSubmit={form.handleSubmit}
           component="form"
           sx={{
             display: "flex",
@@ -43,7 +64,11 @@ export const SubmitDocuments = () => {
             Submission Type :
           </Typography>
 
-          <TextField></TextField>
+          <FormikMUITextField
+            name="name"
+            label="Enter Submission Type"
+            form={form}
+          />
 
           <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
             Submit the document :
@@ -60,7 +85,9 @@ export const SubmitDocuments = () => {
               rowGap: 2,
             }}
           >
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
           </Box>
         </Box>
       </Paper>
