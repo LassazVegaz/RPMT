@@ -11,8 +11,8 @@ const _schema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
-		submissionTypeId: {
-			type: mongoose.Schema.Types.ObjectId,
+		submissionTypeName: {
+			type: String,
 			required: true,
 		},
 		marks: [
@@ -45,8 +45,8 @@ _schema.virtual("project", {
 
 _schema.virtual("submissionType", {
 	ref: "SubmissionType",
-	localField: "submissionTypeId",
-	foreignField: "_id",
+	localField: "submissionTypeName",
+	foreignField: "name",
 	justOne: true,
 });
 
