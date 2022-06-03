@@ -114,7 +114,7 @@ export const StudentHomePage = () => {
   return (
     <Box>
       <Typography
-        variant="h1"
+        variant="h2"
         textAlign="center"
         fontFamily={"area"}
         sx={{ color: "#C70039 ", mb: 50, mt: 20 }}
