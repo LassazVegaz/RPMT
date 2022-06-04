@@ -121,7 +121,7 @@ export const PanelMemberGroupPage = () => {
 					<Box mb={5}>
 						<MarkingSchemeView
 							areas={areas}
-							editable={group.presentation.marked}
+							editable={!group.presentation.marked}
 							onChange={(i, marks) => {
 								const _areas = areas.map((area, index) => {
 									if (index === i) {

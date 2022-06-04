@@ -31,6 +31,7 @@
 		"groups": "panel_members/groups"
 	},
 	"submissions": {
-		"common": "submissions"
+		"common": "submissions",
+		"marks": "submissions/{id}/marks"
 	}
 }

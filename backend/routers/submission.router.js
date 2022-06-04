@@ -42,7 +42,7 @@ _router.get("/:id", async (req, res) => {
 _router.post("/:id/marks", async (req, res) => {
 	try {
 		const submission = await submissionsService.submitMarks(
-			req.params.submissionId,
+			req.params.id,
 			req.body
 		);
 		res.status(200).json(submission);

@@ -8,7 +8,7 @@ const getSubmission = async (submissionId) => {
 };
 
 const submitMarks = async (submissionId, marks) => {
-	const url = `${endpoints.submissions.common}/${submissionId}`;
+	const url = endpoints.submissions.marks.replace("{id}", submissionId);
 	const res = await axiosApp.post(url, marks);
 	return res.data;
 };
