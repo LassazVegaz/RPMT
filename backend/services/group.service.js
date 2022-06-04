@@ -31,6 +31,14 @@ const getGroups = () => {
 	return Group.find().populate("project").populate("students");
 };
 
+const assignPanelMember = async (groupId, panelMemberId) => {
+	const group = await Group.findById(groupId);
+	group.panelMemberId = panelMemberId;
+	await group.save();
+
+	return getGroup(groupId);
+};
+
 export const groupsService = {
 	createGroup,
 	getGroup,
