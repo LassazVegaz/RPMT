@@ -1,8 +1,6 @@
 import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
 import { submissionsService } from "./submissions.service";
-import { MarkingSchema } from "../models/marking-schema.model";
 import { Project } from "../models/project.model";
-import { Submission } from "../models/submission.model";
 import { Supervisor } from "../models/supervisor.model";
 
 const superVisorsPopulateQueries = [
