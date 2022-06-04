@@ -13,7 +13,8 @@
 		"emailAvailable": "users/email_available"
 	},
 	"students": {
-		"common": "students"
+		"common": "students",
+		"supervisorFeedback": "students/feedback"
 	},
 	"auth": {
 		"loggedUser": "auth",
