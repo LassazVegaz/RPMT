@@ -1,7 +1,7 @@
-import { Group } from '../models/group.model';
+import { Group } from "../models/group.model";
 import { Student } from "../models/student.model";
 import { mediaServices } from "./media.service";
-import { supervisorsService } from './supervisors.service';
+import { supervisorsService } from "./supervisors.service";
 
 const createStudent = async (user, student) => {
 	if (student.photo) {
@@ -88,13 +88,13 @@ const getProjectId = async (studentId) => {
 
 const getSupervisorFeedback = async () => {
 	const groups = await Group.find().populate("project").exec();
+	const _groups = [];
 
-	const _groups = groups.map((group) => {
+	for (const group of groups) {
 		const _group = group.toJSON();
 		const res = {
 			id: _group.id,
-		}
-		_group.project = _group.project.toJSON();
+		};
 
 		if (_group.project) {
 			res.topic = _group.project.topic;
@@ -103,15 +103,18 @@ const getSupervisorFeedback = async () => {
 		}
 
 		if (_group.project?.supervisorId?.id) {
-			const sup = await supervisorsService.getSupervisor(_group.project.supervisorId.id)
-			res.supervisor = `${sup.staffMember.firstName} ${sup.staffMember.lastName}`
+			const sup = await supervisorsService.getSupervisor(
+				_group.project.supervisorId.id
+			);
+			res.supervisor = `${sup.staffMember.firstName} ${sup.staffMember.lastName}`;
 			res.status = _group.project.supervisorId.status;
 		} else {
 			res.supervisor = null;
+			res.status = null;
 		}
 
-		return res;
-	})
+		_groups.push(res);
+	}
 
 	return _groups;
 };
