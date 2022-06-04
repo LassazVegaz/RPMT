@@ -14,7 +14,12 @@ const createGroup = async (group) => {
 
 const getGroup = (id) => {
 	return Group.findById(id)
-		.populate("project")
+		.populate({
+			path: "project",
+			populate: {
+				path: "submissions",
+			},
+		})
 		.populate({
 			path: "students",
 			populate: {
