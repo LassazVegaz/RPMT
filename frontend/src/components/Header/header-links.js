@@ -18,8 +18,17 @@ export const headerLinks = [
 		roles: [USER_ROLES.SUPERVISOR, USER_ROLES.CO_SUPERVISOR],
 	},
 	{
+		name: "Groups",
+		link: "/groups",
+		roles: [USER_ROLES.PANEL_MEMBER],
+	},
+	{
 		name: "Document Submssions",
 		link: "/document-submissions",
-		roles: [USER_ROLES.SUPERVISOR, USER_ROLES.CO_SUPERVISOR],
+		roles: [
+			USER_ROLES.SUPERVISOR,
+			USER_ROLES.CO_SUPERVISOR,
+			USER_ROLES.PANEL_MEMBER,
+		],
 	},
 ];
