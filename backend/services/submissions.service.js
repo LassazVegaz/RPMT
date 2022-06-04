@@ -21,6 +21,9 @@ const getSubmission = async (submissionId) => {
 			path: "group",
 		},
 	});
+
+	if (!submission) return null;
+
 	const markingSchema = await MarkingSchema.findOne({
 		name: submission.submissionTypeName,
 	}).populate("markingSchemaAreas");

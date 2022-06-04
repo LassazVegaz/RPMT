@@ -29,7 +29,7 @@ _router.get("/", async (req, res) => {
 _router.get("/:id", async (req, res) => {
 	try {
 		const submission = await submissionsService.getSubmission(
-			req.params.submissionId
+			req.params.id
 		);
 		res.json(submission);
 	} catch (error) {
