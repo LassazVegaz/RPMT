@@ -5,17 +5,6 @@ const getAssignedGroups = async (id) => {
 	return groups;
 };
 
-const getAssignedGroup = async (id) => {
-	const group = await Group.findById(id).populate({
-		path: "project",
-		populate: {
-			path: "submissions",
-		},
-	});
-	return group;
-};
-
 export const panelMemberServices = {
 	getAssignedGroups,
-	getAssignedGroup,
 };

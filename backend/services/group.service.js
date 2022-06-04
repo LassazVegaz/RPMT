@@ -43,4 +43,5 @@ export const groupsService = {
 	createGroup,
 	getGroup,
 	getGroups,
+	assignPanelMember,
 };

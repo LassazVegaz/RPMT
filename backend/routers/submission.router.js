@@ -24,4 +24,31 @@ _router.get("/", async (req, res) => {
 	}
 });
 
+// GET /:id
+// get a submission
+_router.get("/:id", async (req, res) => {
+	try {
+		const submission = await submissionsService.getSubmission(
+			req.params.submissionId
+		);
+		res.json(submission);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
+// POST /:id/marks
+// give marks to a submission
+_router.post("/:id/marks", async (req, res) => {
+	try {
+		const submission = await submissionsService.submitMarks(
+			req.params.submissionId,
+			req.body
+		);
+		res.status(200).json(submission);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
 export const submissionsRouter = _router;
