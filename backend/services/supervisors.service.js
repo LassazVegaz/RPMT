@@ -1,4 +1,5 @@
 import { SUPERVISOR_STATUS } from "../constants/project-supervisor-status.constant";
+import { submissionsService } from "./submissions.service";
 import { MarkingSchema } from "../models/marking-schema.model";
 import { Project } from "../models/project.model";
 import { Submission } from "../models/submission.model";
@@ -148,28 +149,11 @@ const getSupervisorByUserId = async (userId) => {
 };
 
 const getSubmission = async (submissionId) => {
-	let submission = await Submission.findById(submissionId).populate({
-		path: "project",
-		populate: {
-			path: "group",
-		},
-	});
-	const markingSchema = await MarkingSchema.findOne({
-		name: submission.submissionTypeName,
-	}).populate("markingSchemaAreas");
-
-	submission = submission.toJSON();
-	submission.markingSchema = markingSchema.toJSON();
-
-	return submission;
+	return await submissionsService.getSubmission(submissionId);
 };
 
 const submitMarks = async (submissionId, marks) => {
-	const submission = await Submission.findById(submissionId);
-	submission.marks = marks;
-	await submission.save();
-
-	return getSubmission(submissionId);
+	return await submissionsService.submitMarks(submissionId, marks);
 };
 
 export const supervisorsService = {

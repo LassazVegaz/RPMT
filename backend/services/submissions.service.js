@@ -1,3 +1,4 @@
+import { MarkingSchema } from "../models/marking-schema.model";
 import { Submission } from "../models/submission.model";
 
 const createSumission = async (submission) => {
@@ -13,10 +14,19 @@ const createSumission = async (submission) => {
 	return getSubmission(_submission.id);
 };
 
-const getSubmission = async (id) => {
-	const submission = await Submission.findById(id)
-		.populate("submissionType")
-		.populate("project");
+const getSubmission = async (submissionId) => {
+	let submission = await Submission.findById(submissionId).populate({
+		path: "project",
+		populate: {
+			path: "group",
+		},
+	});
+	const markingSchema = await MarkingSchema.findOne({
+		name: submission.submissionTypeName,
+	}).populate("markingSchemaAreas");
+
+	submission = submission.toJSON();
+	submission.markingSchema = markingSchema.toJSON();
 
 	return submission;
 };
@@ -29,7 +39,17 @@ const getSubmissions = async () => {
 	return submissions;
 };
 
+const submitMarks = async (submissionId, marks) => {
+	const submission = await Submission.findById(submissionId);
+	submission.marks = marks;
+	await submission.save();
+
+	return getSubmission(submissionId);
+};
+
 export const submissionsService = {
 	createSumission,
 	getSubmissions,
+	getSubmission,
+	submitMarks,
 };
