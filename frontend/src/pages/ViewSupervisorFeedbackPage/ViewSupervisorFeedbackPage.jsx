@@ -38,6 +38,7 @@ const SchemaRow = ({ group }) => {
 
 export const ViewSupervisorFeedback = () => {
 	const [groups, setGroups] = useState([]);
+	const [searchResults, setSearchResults] = useState([]);
 	const { getSupervisorFeedback } = useStudents();
 
 	useEffect(() => {
@@ -45,9 +46,27 @@ export const ViewSupervisorFeedback = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	useEffect(() => {
+		searchGroups("");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [groups]);
+
 	const loadData = async () => {
 		const data = await getSupervisorFeedback();
 		setGroups(data);
+	};
+
+	const searchGroups = (text) => {
+		const textLower = text.toLowerCase();
+		const results = textLower
+			? groups.filter((group) => {
+					return (
+						group.topic?.toLowerCase().includes(textLower) ||
+						group.id.toLowerCase().includes(textLower)
+					);
+			  })
+			: groups;
+		setSearchResults(results);
 	};
 
 	const headers = ["GroupID", "Topic", "Supervisor", "Feedback"];
@@ -91,6 +110,7 @@ export const ViewSupervisorFeedback = () => {
 					sx={{ ml: 1, flex: 1 }}
 					placeholder="Search "
 					inputProps={{ "aria-label": "search google maps" }}
+					onChange={(e) => searchGroups(e.target.value)}
 				/>
 			</Paper>
 
@@ -111,7 +131,7 @@ export const ViewSupervisorFeedback = () => {
 					</TableHead>
 
 					<TableBody>
-						{groups.map((group) => (
+						{searchResults.map((group) => (
 							<SchemaRow group={group} key={group.id} />
 						))}
 					</TableBody>
