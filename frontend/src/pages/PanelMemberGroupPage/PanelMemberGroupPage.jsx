@@ -31,7 +31,7 @@ const buildAreas = (submission) => {
 export const PanelMemberGroupPage = () => {
 	const urlParams = useParams();
 	const { getGroup } = useGroups();
-	const { getSubmission } = useSubmissions();
+	const { getSubmission, submitMarks } = useSubmissions();
 	const [group, setGroup] = useState(null);
 	const [areas, setAreas] = useState([]);
 
@@ -39,6 +39,17 @@ export const PanelMemberGroupPage = () => {
 		loadData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const handleFinish = async () => {
+		const _marks = areas.map((area) => {
+			return {
+				area: area.id,
+				givenMarks: area.marks,
+			};
+		});
+		await submitMarks(group.presentation.id, _marks);
+		loadData();
+	};
 
 	const loadData = async () => {
 		const group = await getGroup(urlParams.id);
@@ -53,10 +64,12 @@ export const PanelMemberGroupPage = () => {
 
 			if (presentation) {
 				const submission = await getSubmission(presentation.id);
-				submission.marked =
-					submission.marks && submission.marks.length > 0;
-				group.presentation = submission;
-				setAreas(buildAreas(submission));
+				if (submission) {
+					submission.marked =
+						submission.marks && submission.marks.length > 0;
+					group.presentation = submission;
+					setAreas(buildAreas(submission));
+				}
 			}
 		}
 
@@ -130,7 +143,7 @@ export const PanelMemberGroupPage = () => {
 							sx={{
 								mb: 10,
 							}}
-							onClick={null}
+							onClick={handleFinish}
 						/>
 					)}
 				</>

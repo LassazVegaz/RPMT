@@ -11,8 +11,8 @@ export const useSubmissions = () => {
 					return await submissionsHelper.getSubmission(submissionId);
 				},
 				{
-					errorMessage: "Error fetching submissions",
 					showSuccessMessage: false,
+					showErrorMessage: false,
 				}
 			);
 		} catch (error) {
@@ -20,7 +20,24 @@ export const useSubmissions = () => {
 		}
 	};
 
+	const submitMarks = async (submissionId, marks) => {
+		try {
+			await callApi(
+				async () => {
+					await submissionsHelper.submitMarks(submissionId, marks);
+				},
+				{
+					successMessage: "Marks submitted successfully",
+				}
+			);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	};
+
 	return {
 		getSubmission,
+		submitMarks,
 	};
 };
