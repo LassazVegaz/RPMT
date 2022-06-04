@@ -8,11 +8,13 @@ import {
 	Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { usePanelMembers } from "../../hooks/panel-member.hook";
 
 export const PanelMemberGroupsPage = () => {
 	const { getAssignedGroups } = usePanelMembers();
 	const [groups, setGroups] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		loadData();
@@ -40,7 +42,10 @@ export const PanelMemberGroupsPage = () => {
 				}}
 			>
 				{groups.map((g) => (
-					<ListItemButton key={g.id}>
+					<ListItemButton
+						key={g.id}
+						onClick={() => navigate(`/groups/${g.id}`)}
+					>
 						<ListItemAvatar>
 							<Group />
 						</ListItemAvatar>
