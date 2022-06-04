@@ -6,6 +6,12 @@ const createStudent = async (student) => {
 	return res.data;
 };
 
+const getSupervisorFeedback = async () => {
+	const res = await axiosApp.get(endpoints.students.supervisorFeedback);
+	return res.data;
+};
+
 export const studentsHelper = {
 	createStudent,
+	getSupervisorFeedback,
 };

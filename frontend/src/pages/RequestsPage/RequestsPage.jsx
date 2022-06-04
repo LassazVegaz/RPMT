@@ -43,7 +43,9 @@ export const Requests = () => {
   });
 
   useEffect(() => {
-    getAllSupervisors().then((res) => {
+    getAllSupervisors({
+      coSupervisorsOnly: true,
+    }).then((res) => {
       setSupervisors(res);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,10 +55,10 @@ export const Requests = () => {
     <Container
       maxWidth="lg"
       sx={{
-        my: 10,
+        my: 5,
       }}
     >
-      <Typography variant="h4" mb={10} textAlign="center" fontFamily={"areal"}>
+      <Typography variant="h4" mb={5} textAlign="center" fontFamily={"areal"}>
         Request Co- Supervisor
       </Typography>
 
@@ -97,7 +99,7 @@ export const Requests = () => {
                 onChange={form.handleChange}
               >
                 {supervisors.map((supervisor) => (
-                  <MenuItem value={supervisor.id}>
+                  <MenuItem value={supervisor.id} key={supervisor.id}>
                     {supervisor.staffMember.firstName}{" "}
                     {supervisor.staffMember.lastName}
                   </MenuItem>

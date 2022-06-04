@@ -31,4 +31,34 @@ export const headerLinks = [
 			USER_ROLES.PANEL_MEMBER,
 		],
 	},
+	{
+		name: "Create Groups",
+		link: "/create-group",
+		roles: [USER_ROLES.STUDENT],
+	},
+	{
+		name: "View Feedback",
+		link: "/view-feedback",
+		roles: [USER_ROLES.STUDENT],
+	},
+	{
+		name: "Register Topic",
+		link: "/register-topic",
+		roles: [USER_ROLES.STUDENT],
+	},
+	{
+		name: "Requests",
+		link: "/requests",
+		roles: [USER_ROLES.STUDENT],
+	},
+	{
+		name: "Submit Documents",
+		link: "/submit-documents",
+		roles: [USER_ROLES.STUDENT],
+	},
+	{
+		name: "Download Templates",
+		link: "/download-templates",
+		roles: [USER_ROLES.STUDENT],
+	},
 ];

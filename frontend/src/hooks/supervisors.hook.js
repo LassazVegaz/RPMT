@@ -5,11 +5,17 @@ import { SUPERVISOR_RESPONSE } from "../constants/supervisor-response";
 export const useSupervisors = () => {
 	const { callApi } = useApi();
 
-	const getAllSupervisors = async () => {
+	const getAllSupervisors = async ({
+		supervisorsOnly = false,
+		coSupervisorsOnly = false,
+	}) => {
 		try {
 			return await callApi(
 				async () => {
-					return supervisorHelpers.getAllSupervisors();
+					return supervisorHelpers.getAllSupervisors({
+						supervisorsOnly,
+						coSupervisorsOnly,
+					});
 				},
 				{
 					showSuccessMessage: false,

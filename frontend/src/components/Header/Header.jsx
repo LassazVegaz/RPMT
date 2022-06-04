@@ -62,7 +62,7 @@ const TopNav = () => {
 			>
 				<Box display="flex" alignItems="center">
 					<Box component="img" src={logo} width={40} />
-					<Typography ml={3}>Name</Typography>
+					<Typography ml={3}>Research Project Management</Typography>
 				</Box>
 
 				{auth && <HeaderProfilePic />}

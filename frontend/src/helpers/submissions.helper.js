@@ -13,7 +13,13 @@ const submitMarks = async (submissionId, marks) => {
 	return res.data;
 };
 
+const createSubmission = async (submission) => {
+	const res = await axiosApp.post(endpoints.projects.submissions, submission);
+	return res.data;
+};
+
 export const submissionsHelper = {
 	getSubmission,
 	submitMarks,
+	createSubmission,
 };

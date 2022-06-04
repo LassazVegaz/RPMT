@@ -23,15 +23,29 @@ const getSubmissionsURL = (fileName) => {
 const getProfilePictureFolder = () =>
 	path.join(__dirname, "../", "public", "images", "profile_pics");
 
-const saveProfilePicture = async (base64, fileExt) => {
+const getSubmissionsFolder = () =>
+	path.join(__dirname, "../", "public", "submissions");
+
+const saveBase64ToFile = async (base64, fileExt, folder) => {
 	const fileName = `${Date.now()}.${fileExt}`;
-	const folder = getProfilePictureFolder();
 	const filePath = path.join(folder, fileName);
-	const base64Data = base64.replace(/^data:image\/(.*);base64,/, "");
+	const base64Data = base64.replace(/^data:(.*);base64,/, "");
 
 	await mkdirp(folder);
 	fs.writeFileSync(filePath, base64Data, "base64");
 
+	return fileName;
+};
+
+const saveProfilePicture = async (base64, fileExt) => {
+	const folder = getProfilePictureFolder();
+	const fileName = await saveBase64ToFile(base64, fileExt, folder);
+	return fileName;
+};
+
+const saveSubmission = async (base64, fileExt) => {
+	const folder = getSubmissionsFolder();
+	const fileName = await saveBase64ToFile(base64, fileExt, folder);
 	return fileName;
 };
 
@@ -40,4 +54,5 @@ export const mediaServices = {
 	getProfilePicturesURL,
 	getProfilePictureFolder,
 	getSubmissionsURL,
+	saveSubmission,
 };

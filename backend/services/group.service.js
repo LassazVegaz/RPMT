@@ -44,9 +44,17 @@ const assignPanelMember = async (groupId, panelMemberId) => {
 	return getGroup(groupId);
 };
 
+const addProjectToGroup = async (groupId, projectId) => {
+	const group = await Group.findById(groupId);
+	group.projectId = projectId;
+	await group.save();
+	return group;
+};
+
 export const groupsService = {
 	createGroup,
 	getGroup,
 	getGroups,
 	assignPanelMember,
+	addProjectToGroup,
 };

@@ -1,15 +1,19 @@
-import React from "react";
-import {
-  Button,
-  Container,
-  Paper,
-  Typography,
-  Box,
-  TextField,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { FileUpload } from "../../components/FileUpload/FileUpload";
+import { useNavigate } from "react-router-dom";
+import { useProject } from "../../hooks/project.hook";
 
 export const SubmitDocuments = () => {
+  const navigate = useNavigate();
+  const { createTopicDocSubmission } = useProject();
+  const [document, setDocument] = useState(null);
+
+  const handleSubmit = async () => {
+    await createTopicDocSubmission({ document });
+    navigate("/download-templates");
+  };
+
   return (
     <Container
       maxWidth="lg"
@@ -18,7 +22,7 @@ export const SubmitDocuments = () => {
       }}
     >
       <Typography variant="h4" mb={10} textAlign="center" fontFamily={"areal"}>
-        Submit the Document ..
+        Submit the Topic Document
       </Typography>
 
       <Paper
@@ -29,7 +33,6 @@ export const SubmitDocuments = () => {
         }}
       >
         <Box
-          component="form"
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -37,19 +40,7 @@ export const SubmitDocuments = () => {
             rowGap: 4,
           }}
         >
-          <br />
-
-          <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-            Submission Type :
-          </Typography>
-
-          <TextField></TextField>
-
-          <Typography variant="h6" textAlign="left" fontFamily={"areal"}>
-            Submit the document :
-          </Typography>
-
-          <FileUpload />
+          <FileUpload document={document} onChange={setDocument} />
 
           <Box
             sx={{
@@ -60,7 +51,13 @@ export const SubmitDocuments = () => {
               rowGap: 2,
             }}
           >
-            <Button variant="contained">Submit</Button>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={!Boolean(document)}
+            >
+              Submit
+            </Button>
           </Box>
         </Box>
       </Paper>

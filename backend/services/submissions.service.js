@@ -1,11 +1,19 @@
 import { MarkingSchema } from "../models/marking-schema.model";
 import { Submission } from "../models/submission.model";
+import { mediaServices } from "./media.service";
 
 const createSumission = async (submission) => {
+	if (submission.document) {
+		submission.document = await mediaServices.saveSubmission(
+			submission.document.data,
+			submission.document.fileExtension
+		);
+	}
+
 	submission = {
 		document: submission.document,
 		projectId: submission.projectId,
-		submissionTypeId: submission.submissionTypeId,
+		submissionTypeName: submission.submissionTypeName,
 	};
 
 	const _submission = new Submission(submission);

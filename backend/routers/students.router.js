@@ -56,4 +56,15 @@ _router.delete("/:id", async (req, res) => {
 	}
 });
 
+// GET /feedback
+// get all students' feedback
+_router.get("/feedback", async (req, res) => {
+	try {
+		const feedback = await studentService.getSupervisorFeedback();
+		res.json(feedback);
+	} catch (error) {
+		res.status(500).json({ message: error.message, error });
+	}
+});
+
 export const studentsRouter = _router;
