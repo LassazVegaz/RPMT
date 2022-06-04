@@ -22,6 +22,7 @@ import { SubmitDocuments } from "./pages/SubmitDocumentsPage/SubmitDocumentsPage
 import { DownloadTemplate } from "./pages/DownloadTemplatePage/DownloadTemplatePage";
 import { TopicViewPage } from "./pages/TopicViewPage/TopicViewPage";
 import { SubmissionViewPage } from "./pages/SubmissionViewPage/SubmissionViewPage";
+import { HomePage } from "./pages/HomePage/HomePage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -86,7 +87,7 @@ function App() {
 								element={<SubmissionViewPage />}
 							/>
 							<Route path="/profile" element={<ProfilePage />} />
-							<Route path="/" element={<div>Home</div>} />
+							<Route path="/" element={<HomePage />} />
 						</>
 					)}
 
