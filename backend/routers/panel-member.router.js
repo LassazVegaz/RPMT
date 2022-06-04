@@ -4,7 +4,7 @@ import { panelMemberServices } from "../services/panel-member.service";
 import { usersService } from "../services/users.service";
 import { staffMembersService } from "../services/staff-members.service";
 
-const _rouuter = express.Router();
+const _router = express.Router();
 
 // POST /
 // Create a panel member
@@ -39,7 +39,7 @@ _router.put("/", auth(), async (req, res) => {
 
 // GET /groups
 // get assigned groups
-_rouuter.get("/groups", auth(), async (req, res) => {
+_router.get("/groups", auth(), async (req, res) => {
 	try {
 		const groups = await panelMemberServices.getAssignedGroups(req.user.id);
 		res.status(200).json(groups);
@@ -48,4 +48,4 @@ _rouuter.get("/groups", auth(), async (req, res) => {
 	}
 });
 
-export const panelMemberRouter = _rouuter;
+export const panelMemberRouter = _router;
