@@ -1,5 +1,7 @@
+import { Group } from '../models/group.model';
 import { Student } from "../models/student.model";
 import { mediaServices } from "./media.service";
+import { supervisorsService } from './supervisors.service';
 
 const createStudent = async (user, student) => {
 	if (student.photo) {
@@ -84,6 +86,36 @@ const getProjectId = async (studentId) => {
 	return student?.group?.projectId;
 };
 
+const getSupervisorFeedback = async () => {
+	const groups = await Group.find().populate("project").exec();
+
+	const _groups = groups.map((group) => {
+		const _group = group.toJSON();
+		const res = {
+			id: _group.id,
+		}
+		_group.project = _group.project.toJSON();
+
+		if (_group.project) {
+			res.topic = _group.project.topic;
+		} else {
+			res.topic = null;
+		}
+
+		if (_group.project?.supervisorId?.id) {
+			const sup = await supervisorsService.getSupervisor(_group.project.supervisorId.id)
+			res.supervisor = `${sup.staffMember.firstName} ${sup.staffMember.lastName}`
+			res.status = _group.project.supervisorId.status;
+		} else {
+			res.supervisor = null;
+		}
+
+		return res;
+	})
+
+	return _groups;
+};
+
 export const studentService = {
 	createStudent,
 	getStudents,
@@ -93,4 +125,5 @@ export const studentService = {
 	assignGroup,
 	getStudentByUserId,
 	getProjectId,
+	getSupervisorFeedback,
 };
