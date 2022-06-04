@@ -14,6 +14,7 @@ import { submissionsRouter } from "./routers/submission.router";
 import { templatesRouter } from "./routers/template.router";
 import { usersRouter } from "./routers/users.router";
 import { authRouter } from "./routers/auth.router";
+import { panelMemberRouter } from "./routers/panel-member.router";
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ const main = async () => {
 	app.use("/templates", templatesRouter);
 	app.use("/users", usersRouter);
 	app.use("/auth", authRouter);
+	app.use("/panel_members", panelMemberRouter);
 
 	app.listen(port, () => {
 		console.log(`Server started on port ${port}`);

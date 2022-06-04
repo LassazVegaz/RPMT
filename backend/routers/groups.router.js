@@ -43,4 +43,18 @@ _router.get("/", async (req, res) => {
 	}
 });
 
+// PATCH /:id/assign_panel_member/:panelMemberId
+// assign panel member to group
+_router.patch("/:id/assign_panel_member/:panelMemberId", async (req, res) => {
+	try {
+		const group = await groupsService.assignPanelMember(
+			req.params.id,
+			req.params.panelMemberId
+		);
+		res.send(group);
+	} catch (error) {
+		res.status(500).send({ message: error.message, error });
+	}
+});
+
 export const groupsRouter = _router;

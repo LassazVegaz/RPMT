@@ -69,4 +69,11 @@ export const homeLinks = [
 			ROLES.SUPERVISOR,
 		],
 	},
+	{
+		url: "/groups.jpg",
+		title: "View Groups",
+		width: "30%",
+		link: "/groups",
+		roles: [ROLES.PANEL_MEMBER],
+	},
 ];

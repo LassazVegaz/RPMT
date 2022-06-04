@@ -25,5 +25,13 @@
 	"projects": {
 		"common": "projects",
 		"supervisor": "projects/{id}/supervisors"
+	},
+	"panelMembers": {
+		"common": "panel_members",
+		"groups": "panel_members/groups"
+	},
+	"submissions": {
+		"common": "submissions",
+		"marks": "submissions/{id}/marks"
 	}
 }

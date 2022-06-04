@@ -14,7 +14,12 @@ const createGroup = async (group) => {
 
 const getGroup = (id) => {
 	return Group.findById(id)
-		.populate("project")
+		.populate({
+			path: "project",
+			populate: {
+				path: "submissions",
+			},
+		})
 		.populate({
 			path: "students",
 			populate: {
@@ -31,8 +36,17 @@ const getGroups = () => {
 	return Group.find().populate("project").populate("students");
 };
 
+const assignPanelMember = async (groupId, panelMemberId) => {
+	const group = await Group.findById(groupId);
+	group.panelMemberId = panelMemberId;
+	await group.save();
+
+	return getGroup(groupId);
+};
+
 export const groupsService = {
 	createGroup,
 	getGroup,
 	getGroups,
+	assignPanelMember,
 };

@@ -1,8 +1,16 @@
 import { Box, Button, TextField } from "@mui/material";
+import { useSelector } from "react-redux";
 import { FormikMUITextField } from "../../components/FormikMUITextField/FormikMUITextField";
 import { ResearchFieldsSelector } from "../../components/ResearchFieldsSelector/ResearchFieldsSelector";
+import { USER_ROLES } from "../../constants/user-roles.constants";
 
 export const ProfilePageFormFields = ({ form, staticData, onReset }) => {
+	const auth = useSelector((s) => s.auth);
+
+	const isSupervisorType =
+		auth.role === USER_ROLES.CO_SUPERVISOR ||
+		auth.role === USER_ROLES.SUPERVISOR;
+
 	return (
 		<Box
 			sx={{
@@ -33,17 +41,19 @@ export const ProfilePageFormFields = ({ form, staticData, onReset }) => {
 
 			<FormikMUITextField name="phone" label="Phone" form={form} />
 
-			<ResearchFieldsSelector
-				selectedFieldIds={form.values.researchFieldIds}
-				setSelectedFieldIds={(ids) =>
-					form.setFieldValue("researchFieldIds", ids)
-				}
-				error={
-					Boolean(form.touched.researchFieldIds) &&
-					Boolean(form.errors.researchFieldIds)
-				}
-				errorMessage={form.errors.researchFieldIds}
-			/>
+			{isSupervisorType && (
+				<ResearchFieldsSelector
+					selectedFieldIds={form.values.researchFieldIds}
+					setSelectedFieldIds={(ids) =>
+						form.setFieldValue("researchFieldIds", ids)
+					}
+					error={
+						Boolean(form.touched.researchFieldIds) &&
+						Boolean(form.errors.researchFieldIds)
+					}
+					errorMessage={form.errors.researchFieldIds}
+				/>
+			)}
 
 			<TextField label="Email" value={staticData.email} />
 

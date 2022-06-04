@@ -23,6 +23,8 @@ import { DownloadTemplate } from "./pages/DownloadTemplatePage/DownloadTemplateP
 import { TopicViewPage } from "./pages/TopicViewPage/TopicViewPage";
 import { SubmissionViewPage } from "./pages/SubmissionViewPage/SubmissionViewPage";
 import { HomePage } from "./pages/HomePage/HomePage";
+import { PanelMemberGroupPage } from "./pages/PanelMemberGroupPage/PanelMemberGroupPage";
+import { PanelMemberGroupsPage } from "./pages/PanelMemberGroupsPage/PanelMemberGroupsPage";
 
 function App() {
 	const { fetchInitData } = useInitFetching();
@@ -43,6 +45,14 @@ function App() {
 						<Route path="/login" element={<SignInPage />} />
 					</>
 				)}
+
+				{auth && (
+					<>
+						<Route path="/profile" element={<ProfilePage />} />
+						<Route path="/" element={<HomePage />} />
+					</>
+				)}
+
 				{auth && auth.role === USER_ROLES.STUDENT && (
 					<>
 						<Route path="/" element={<StudentHomePage />} />
@@ -86,10 +96,25 @@ function App() {
 								path="/submissions/:id"
 								element={<SubmissionViewPage />}
 							/>
-							<Route path="/profile" element={<ProfilePage />} />
-							<Route path="/" element={<HomePage />} />
 						</>
 					)}
+
+				{auth && auth.role === USER_ROLES.PANEL_MEMBER && (
+					<>
+						<Route
+							path="/groups"
+							element={<PanelMemberGroupsPage />}
+						/>
+						<Route
+							path="/groups/:id"
+							element={<PanelMemberGroupPage />}
+						/>
+						<Route
+							path="/submissions/:id"
+							element={<SubmissionViewPage />}
+						/>
+					</>
+				)}
 
 				<Route path="*" element={<NotFoundPage />} />
 			</Routes>

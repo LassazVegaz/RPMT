@@ -8,7 +8,7 @@ import { USER_ROLES } from "../../constants/user-roles.constants";
 import { useSupervisors } from "../../hooks/supervisors.hook";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
-const CenterAlignedButton = ({ text, sx, onClick }) => {
+export const CenterAlignedButton = ({ text, sx, onClick }) => {
 	return (
 		<Box
 			sx={{
